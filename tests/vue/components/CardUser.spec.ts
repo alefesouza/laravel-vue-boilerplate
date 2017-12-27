@@ -35,8 +35,8 @@ describe('CardUser.vue', () => {
       },
     });
 
-    expect(wrapper.find('h4.card-title').text()).toEqual(user.name);
-    expect(wrapper.findAll('.crud-delete')).toHaveLength(0);
+    expect(wrapper.find('.card-user h4').text()).toEqual(user.name);
+    expect(wrapper.findAll('.text-danger')).toHaveLength(0);
   });
 
   it('should have delete button disabled', () => {
@@ -49,7 +49,7 @@ describe('CardUser.vue', () => {
       },
     });
 
-    expect(wrapper.find('h4.card-title').text()).toEqual(user.name);
-    expect(wrapper.findAll('.crud-delete')).toHaveLength(1);
+    expect(wrapper.find('.card-user h4').text()).toEqual(user.name);
+    expect(wrapper.findAll('.text-danger')).toHaveLength(1);
   });
 });

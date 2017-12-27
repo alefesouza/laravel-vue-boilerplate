@@ -9,7 +9,7 @@ export default class DashboardItem extends Vue {
 </script>
 
 <template lang="pug">
-router-link.col-12.col-md-6.col-sm-12.col-lg-3.card-home(:to='item.link')
+b-col.card-home(:to='item.link', tag='b-link', cols=12, md=6, sm=12, lg=3)
   b-card.mb-3
     i.fa.text-primary.icon(:class='item.icon', aria-hidden='true')
     .card-text
@@ -30,6 +30,14 @@ router-link.col-12.col-md-6.col-sm-12.col-lg-3.card-home(:to='item.link')
     .card-body {
       display: flex;
       align-items: flex-end;
+      .icon {
+        font-size: 30px;
+        font-size: 45px;
+        position: absolute;
+        right: 0;
+        top: 0px;
+        margin: 30px;
+      }
       .manage {
         text-transform: uppercase;
         font-weight: 400;
@@ -37,14 +45,6 @@ router-link.col-12.col-md-6.col-sm-12.col-lg-3.card-home(:to='item.link')
         font-size: 12px;
         display: block;
       }
-    }
-    .icon {
-      font-size: 30px;
-      font-size: 45px;
-      position: absolute;
-      right: 0;
-      top: 0px;
-      margin: 30px;
     }
   }
 }

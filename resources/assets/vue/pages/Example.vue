@@ -24,25 +24,27 @@ export default class Home extends Vue {
 
   mounted() {
     this.setMenu([{
-        text: 'Example 1',
-        key: 1,
-        handler(evt) {
-          evt.preventDefault();
-          dialog('Example 1 clicked', false);
-        }
+      text: 'Example 1',
+      key: 1,
+      handler(evt) {
+        evt.preventDefault();
+
+        dialog('Example 1 clicked', false);
+      }
     }, {
-        text: 'Example 2',
-        key: 2,
-        handler(evt) {
-          evt.preventDefault();
-          dialog('Example 2 clicked', false);
-        }
+      text: 'Example 2',
+      key: 2,
+      handler(evt) {
+        evt.preventDefault();
+
+        dialog('Example 2 clicked', false);
+      }
     }]);
   }
 }
 </script>
 
 <template lang="pug">
-main.container
+b-container(tag='main')
   h1 Example
 </template>

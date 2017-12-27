@@ -6,7 +6,7 @@
 </head>
 <body>
     <div id="app">
-        @lang('strings.loading')
+        <div id="vue-loading">@lang('strings.loading')...</div>
     </div>
 
     @component('components.scripts')

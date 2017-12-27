@@ -60,8 +60,8 @@ describe('Users.vue', () => {
 
     setTimeout(() => {
       expect(wrapper.findAll('.card-user')).toHaveLength(mockUsers.length);
-      expect(wrapper.findAll('.card-user .card-title').at(0).text()).toEqual(mockUsers[0].name);
-      expect(wrapper.findAll('.card-user .card-title').at(5).text()).toEqual(mockUsers[5].name);
+      expect(wrapper.findAll('.card-user h4').at(0).text()).toEqual(mockUsers[0].name);
+      expect(wrapper.findAll('.card-user h4').at(5).text()).toEqual(mockUsers[5].name);
       done();
     }, 150);
   });

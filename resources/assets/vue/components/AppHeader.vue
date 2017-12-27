@@ -95,13 +95,13 @@ export default class AppHeader extends Vue {
 div
   b-navbar.navbar-expand-lg.bg-light.top-bar(type='light')
     b-container
-      router-link.btn.btn-link.back-button(v-show='path !== homePath', :to='backUrl')
+      b-link.back-button(v-show='path !== homePath', :to='backUrl')
         i.fa.fa-arrow-left(aria-hidden='true')
 
-      router-link.navbar-brand(:to='homePath', :class='{"has-back": path !== homePath}')
+      b-navbar-brand(:to='homePath', :class='{"has-back": path !== homePath}')
         img.d-inline-block.align-top(
           :src='logo',
-          height='36',
+          height=36,
           alt='Logo',
         )
 
@@ -109,7 +109,7 @@ div
 
       b-collapse#nav_collapse(is-nav)
         b-navbar-nav.ml-auto
-          a.nav-link.menu(
+          b-nav-item.menu(
             v-for='item in menu',
             :key='item.key',
             @click='item.handler($event)',
@@ -121,7 +121,7 @@ div
               @click='showSettings()'
             ) {{ $t('strings.settings') }}
 
-            a.dropdown-item(
+            b-dropdown-item(
               :href='logoutUrl',
               onclick='event.preventDefault(); document.getElementById("logout-form").submit();'
             ) {{ $t('home.logout') }}
@@ -186,12 +186,10 @@ div
   .has-back {
     padding-left: 15px;
   }
-  .btn.btn-link {
+  .back-button {
     color: $inactive_color;
-    transition: 0.3s ease all;
     &:hover {
       color: $accent_color;
-      cursor: pointer;
     }
   }
 }

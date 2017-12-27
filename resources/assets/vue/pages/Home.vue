@@ -23,7 +23,7 @@ export default class Home extends Vue {
   @RootMutation('SET_MENU') setMenu;
 
   mounted() {
-    if(this.homePath !== '/') {
+    if (this.homePath !== '/') {
       this.$router.push(this.homePath);
       return;
     }
@@ -34,8 +34,8 @@ export default class Home extends Vue {
 </script>
 
 <template lang="pug">
-main.container.home
+b-container.home(tag='main')
   h1 {{ $t('strings.welcome') }}, {{ user.name }}
-  .row
+  b-row
     card-home(v-for='item in homeItems', :key='item.name', :item='item')
 </template>

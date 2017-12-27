@@ -49,8 +49,8 @@ describe('AppHeader.vue', () => {
     });
 
     expect(wrapper.find('b-nav-item-dropdown').element.getAttribute('text')).toEqual(localState.user.name);
-    expect(wrapper.find('.back-button').element.getAttribute('href')).toEqual(`/${localState.backUrl}`);
-    expect(wrapper.find('.has-back').element.getAttribute('href')).toEqual(`/${localState.homePath}`);
+    expect(wrapper.find('.back-button').element.getAttribute('to')).toEqual(`${localState.backUrl}`);
+    expect(wrapper.find('.has-back').element.getAttribute('to')).toEqual(`${localState.homePath}`);
     expect(wrapper.find('[name="_token"]').element.getAttribute('value')).toEqual(localState.csrfToken);
 
     expect(wrapper.findAll('.menu')).toHaveLength(localState.menu.length);

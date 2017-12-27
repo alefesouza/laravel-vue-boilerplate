@@ -39,24 +39,24 @@ export default class Users extends Vue {
     try {
       const response = await axios.get(`${this.endpoint}`);
 
-      switch(response.status) {
+      switch (response.status) {
         case 200:
           const data = response.data;
-          
-          if(data.error) {
+
+          if (data.error) {
             dialog(this.t('errors.generic_error'), false);
 
             return;
           }
 
           this.users = data.users;
-        break;
+          break;
         case 401:
           this.$router.push(this.homePath);
           return;
         default:
           dialog(this.t('errors.generic_error'), false);
-        break;
+          break;
       }
 
       this.setBackUrl('/');
@@ -65,7 +65,7 @@ export default class Users extends Vue {
         text: this.t('users.add_user'),
         handler: this.addUser,
       }]);
-    } catch(e) {
+    } catch (e) {
       dialog(this.t('errors.generic_error'), false);
     }
   }
@@ -186,7 +186,7 @@ export default class Users extends Vue {
 </script>
 
 <template lang="pug">
-main.container
+b-container(tag='main')
   .users(v-if='users.length !== 0')
     card-user(
       v-for='user in users',
