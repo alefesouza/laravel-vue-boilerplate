@@ -59,7 +59,7 @@
       "@php artisan package:discover"
     ],
     "test": "\"vendor/bin/phpunit\"",
-    "docker": "cp .env.docker .env && cp .env.docker .env.testing && composer install && php artisan key:generate && php artisan key:generate --env=testing && php artisan vue-i18n:generate && php artisan migrate && php artisan db:seed && composer run test && yarn --pure-lockfile && yarn prod && yarn test"
+    "docker": "cp .env.docker .env && cp .env.docker .env.testing && composer install && php artisan key:generate && php artisan key:generate --env=testing && php artisan vue-i18n:generate && php artisan migrate && php artisan db:seed"
   },
   "config": {
     "preferred-install": "dist",
