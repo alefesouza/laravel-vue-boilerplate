@@ -17,6 +17,10 @@ class User extends Authenticatable
         'password', 'remember_token', 'created_at', 'updated_at',
     ];
 
+    protected $casts = [
+        'type_id' => 'integer',
+    ];
+
     public function isAdmin()
     {
         return $this->type_id == 1;

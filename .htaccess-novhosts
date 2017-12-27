@@ -2,20 +2,26 @@
 # file to direct the DocumentRoot to the ./public folder.
 # Just rename this file to .htaccess and delete or rename the ./public/.htaccess file.
 
-# If you use it, remember to change this directory file permissions to
-# deny direct access to the framework files.
+# Uncomment it to enable PHP 7 as default for this project (tested on HostGator)
+# AddHandler application/x-httpd-php70 .php
+# <IfModule mod_suphp.c>
+#     suPHP_ConfigPath /opt/php70/lib
+# </IfModule>
 
 <IfModule mod_rewrite.c>
     <IfModule mod_negotiation.c>
         Options -MultiViews
     </IfModule>
+    
+    RewriteEngine On
 
-    <Files .env>
+    <FilesMatch ^\.>
         Order allow,deny
         Deny from all
-    </Files>
-
-    RewriteEngine On
+    </FilesMatch>
+    
+    # Disallow direct access to all project folders except public
+    RewriteRule ^(app|bootstrap|config|database|docker|resources|routes|tests|vendor) index.php [L]
 
     # Redirect Trailing Slashes If Not A Folder...
     RewriteCond %{REQUEST_FILENAME} !-d
@@ -41,4 +47,3 @@
     RewriteCond %{HTTP:Authorization} .
     RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
 </IfModule>
-
