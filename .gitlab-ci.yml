@@ -1,0 +1,25 @@
+image: registry.gitlab.com/alefesouza/laravel-vue-boilerplate:latest
+
+services:
+  - mysql:5.7.20
+
+variables:
+  MYSQL_DATABASE: laravel_vue_boilerplate
+  MYSQL_ROOT_PASSWORD: root
+  DB_HOST: mysql
+  DB_USERNAME: root
+  DB_PASSWORD: root
+
+cache:
+  paths:
+  - node_modules/
+  - vendor/
+
+stages:
+  - test
+
+unit_test:
+  stage: test
+  script:
+    - cp .env.example .env
+    - composer run docker

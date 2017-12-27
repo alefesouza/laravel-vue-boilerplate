@@ -1,0 +1,75 @@
+body {
+  background: #eeeeee;
+  height: 100%;
+  overflow-x: hidden;
+  #login-screen,
+  #login-row {
+    height: 100%;
+  }
+  #login-screen {
+    form {
+      margin-top: 35px;
+      max-width: 380px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    #login-col {
+      padding: 50px;
+    }
+    #logo {
+      margin-top: 0px;
+    }
+    .reset-title {
+      font-weight: 500;
+      line-height: 1.1;
+      margin-bottom: 20px;
+      color: #000000;
+      font-size: 27px;
+    }
+    .checkbox {
+      display: inline;
+      label {
+        margin-top: 7px;
+        &:hover {
+          cursor: pointer;
+        }
+      }
+    }
+    #boxes,
+    a {
+      font-size: 14px;
+      color: #a4aaba;
+      text-transform: none;
+    }
+  }
+  #login-background {
+    padding-left: 75px;
+    #welcome {
+      color: #ffffff;
+      max-width: 555px;
+      margin-top: 65px;
+      padding-right: 55px;
+      margin-bottom: 65px;
+      h1 {
+        font-weight: lighter;
+        font-size: 60px;
+      }
+    }
+  }
+  @media(min-width: 768px) {
+    #login-background {
+      #welcome {
+        margin-top: 285px;
+        margin-bottom: 0px;
+      }
+    }
+    #login-screen {
+      #logo {
+        margin-top: 50px;
+      }
+      form {
+        margin-top: 150px;
+      }
+    }
+  }
+}

@@ -1,0 +1,27 @@
+// Hide usually unused files
+{
+  "files.exclude": {
+    ".env.*": true,
+    ".babelrc": true,
+    ".editorconfig": true,
+    ".eslintrc": true,
+    ".htaccess-novhosts": true,
+    ".gitattributes": true,
+    ".gitlab-ci.yml": true,
+    "artisan": true,
+    "composer.lock": true,
+    "docker-compose.yml": true,
+    "Dockerfile": true,
+    "tslint.json": true,
+    "tsconfig.json": true,
+    "package-lock.json": true,
+    "phpunit.xml": true,
+    "yarn.lock": true,
+    "docker/": true,
+    "node_modules/": true,
+    "public/css": true,
+    "public/js": true,
+    "public/fonts": true,
+    "vendor/": true
+  }
+}

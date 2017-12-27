@@ -1,0 +1,98 @@
+{
+  "name": "laravel-vue-boilerplate",
+  "description": "A Laravel 5.4 SPA application with a users CRUD using Vue.js 2.5, Bootstrap 4, TypeScript, SASS, Pug and Jest.",
+  "version": "1.0.0",
+  "author": "Alefe Souza <contact@alefesouza.com>",
+  "keywords": [
+    "laravel",
+    "vue",
+    "boilerplate",
+    "typescript",
+    "sass",
+    "scss",
+    "pug",
+    "jest"
+  ],
+  "license": "MIT",
+  "scripts": {
+    "start": "npm install && npm run prod && npm test",
+    "dev": "npm run development",
+    "development": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "watch": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --watch --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "watch-poll": "npm run watch -- --watch-poll",
+    "hot": "cross-env NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "prod": "npm run production",
+    "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "test": "cross-env NODE_ENV=test jest"
+  },
+  "dependencies": {
+    "axios": "^0.17.1",
+    "bootstrap": "^4.0.0-beta.2",
+    "bootstrap-vue": "^1.4.0",
+    "font-awesome": "^4.7.0",
+    "vue": "^2.5.13",
+    "vue-modal-dialogs": "^2.0.0",
+    "vue-router": "^3.0.1",
+    "vuex": "^3.0.1",
+    "vuex-i18n": "^1.8.0"
+  },
+  "devDependencies": {
+    "@types/faker": "^4.1.2",
+    "@types/jest": "^21.1.9",
+    "@types/vuex-i18n": "^1.7.0",
+    "babel-preset-env": "^1.6.1",
+    "cross-env": "^5.1.3",
+    "eslint": "^4.13.1",
+    "eslint-config-airbnb-base": "^12.1.0",
+    "faker": "^4.1.0",
+    "jest": "^22.0.4",
+    "jest-serializer-vue": "^0.3.0",
+    "jest-vue-preprocessor": "^1.3.1",
+    "laravel-mix": "^1.7.2",
+    "pug": "^2.0.0-rc.4",
+    "ts-jest": "^22.0.0",
+    "ts-loader": "^3.2.0",
+    "tslint": "^5.8.0",
+    "tslint-config-airbnb": "^5.4.2",
+    "typescript": "^2.6.2",
+    "vue-class-component": "^6.1.2",
+    "vue-property-decorator": "^6.0.0",
+    "vue-test-utils": "^1.0.0-beta.8",
+    "vuex-class": "^0.3.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alefesouza/laravel-vue-boilerplate.git"
+  },
+  "bugs": {
+    "url": "https://github.com/alefesouza/laravel-vue-boilerplate/issues"
+  },
+  "homepage": "https://github.com/alefesouza/laravel-vue-boilerplate#readme",
+  "jest": {
+    "moduleFileExtensions": [
+      "ts",
+      "js",
+      "json",
+      "vue"
+    ],
+    "mapCoverage": true,
+    "transform": {
+      "^.+\\.js$": "<rootDir>/node_modules/babel-jest",
+      ".*\\.vue$": "<rootDir>/node_modules/jest-vue-preprocessor",
+      ".*\\.ts$": "ts-jest"
+    },
+    "transformIgnorePatterns": [
+      "node_modules/(?!vue-modal-dialogs)"
+    ],
+    "moduleNameMapper": {
+      "^@/(.*)$": "<rootDir>/resources/assets/vue/$1"
+    },
+    "snapshotSerializers": [
+      "<rootDir>/node_modules/jest-serializer-vue"
+    ],
+    "testRegex": "tests/vue/.*.spec\\.(js|ts)$",
+    "globals": {
+      "baseUrl": ""
+    }
+  }
+}
