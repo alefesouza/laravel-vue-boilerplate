@@ -42,7 +42,9 @@ export default class AppHeader extends Vue {
   async handleOk(evt) {
     evt.preventDefault();
 
-    if (this.settings.password !== this.settings.password_confirmation) {
+    const { settings } = this;
+
+    if (settings.password !== settings.password_confirmation) {
       dialog(this.t('front.passwords_not_match'), false);
       return;
     }
@@ -51,8 +53,8 @@ export default class AppHeader extends Vue {
     this.okText = this.t('buttons.sending') + '...';
 
     try {
-      const response = await axios.post(`${baseUrl}settings`, this.settings);
-      const data: { error: boolean, description: string, user: User } = response.data;
+      const response = await axios.post(`${baseUrl}settings`, settings);
+      const { data } = response;
 
       this.isSending = false;
       this.okText = this.t('buttons.save');

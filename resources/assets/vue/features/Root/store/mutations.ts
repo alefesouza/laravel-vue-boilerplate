@@ -1,13 +1,15 @@
 const SET_DATA = (state, obj) => {
+  const { data } = obj;
+
   const token = document.head.querySelector('meta[name="csrf-token"]');
 
   if (token) {
-    obj.data.csrfToken = (<HTMLMetaElement>token).content;
+    data.csrfToken = (<HTMLMetaElement>token).content;
   }
 
-  obj.data.loaded = true;
+  data.loaded = true;
 
-  Object.assign(state, ...obj.data);
+  Object.assign(state, ...data);
 };
 
 const SET_BACK_URL = (state, obj) => {

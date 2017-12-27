@@ -41,7 +41,7 @@ export default class Users extends Vue {
 
       switch (response.status) {
         case 200:
-          const data = response.data;
+          const { data } = response;
 
           if (data.error) {
             dialog(this.t('errors.generic_error'), false);
@@ -97,7 +97,7 @@ export default class Users extends Vue {
   async handleOk(evt) {
     evt.preventDefault();
 
-    const isAdd = this.isAdd;
+    const { isAdd } = this;
 
     let url = this.endpoint;
 
@@ -159,7 +159,7 @@ export default class Users extends Vue {
 
     try {
       const response = await axios.delete(`${this.endpoint}/${user.id}`);
-      const data = response.data;
+      const { data } = response;
 
       if (response.status !== 200 || data.error) {
         dialog(data.description, false);
