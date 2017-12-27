@@ -1,2 +1,4 @@
-$accent_color: #1b3ddb;
-$inactive_color: #a4aaba;
+// Just an example of how to change Bootstrap theme colors, it's the default values
+$primary_color: #007bff;
+$danger_color: #dc3545;
+$theme-colors: ("primary": $primary_color, "danger": $danger_color);

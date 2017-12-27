@@ -4,7 +4,7 @@
   <img src="logo.png" />
 </p>
 
-A Laravel 5.4 SPA application boilerplate using Vue.js 2.5, Bootstrap 4, TypeScript, Sass and Pug with:
+A Laravel 5.5 SPA application boilerplate using Vue.js 2.5, Bootstrap 4, TypeScript, Sass and Pug with:
 
 * An users CRUD if the current user is an admin.
 * i18n for English and Portuguese, based on browser language settings.

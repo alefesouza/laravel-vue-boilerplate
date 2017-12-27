@@ -21,12 +21,12 @@ b-col.card-home(:to='item.link', tag='b-link', cols=12, md=6, sm=12, lg=3)
 .card-home {
   color: #000000;
   font-size: 25px;
+  margin-top: 50px;
   &:hover {
     text-decoration: none;
   }
   .card {
     min-height: 200px;
-    margin-top: 50px;
     .card-body {
       display: flex;
       align-items: flex-end;

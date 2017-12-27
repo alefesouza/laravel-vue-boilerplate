@@ -97,7 +97,7 @@ export default class AppHeader extends Vue {
 div
   b-navbar.navbar-expand-lg.bg-light.top-bar(type='light')
     b-container
-      b-link.back-button(v-show='path !== homePath', :to='backUrl')
+      b-link.back-button.text-secondary(v-show='path !== homePath', :to='backUrl')
         i.fa.fa-arrow-left(aria-hidden='true')
 
       b-navbar-brand(:to='homePath', :class='{"has-back": path !== homePath}')
@@ -118,14 +118,21 @@ div
             href='#',
           ) {{ item.text }}
 
+          b-nav-item(
+            target='_blank',
+            href='https://github.com/alefesouza/laravel-vue-boilerplate',
+          ) GitHub
+            | &nbsp;
+            i.fa.fa-github(aria-hidden='true')
+
           b-nav-item-dropdown(:text='user.name')
             b-dropdown-item(
-              @click='showSettings()'
+              @click='showSettings()',
             ) {{ $t('strings.settings') }}
 
             b-dropdown-item(
               :href='logoutUrl',
-              onclick='event.preventDefault(); document.getElementById("logout-form").submit();'
+              onclick='event.preventDefault(); document.getElementById("logout-form").submit();',
             ) {{ $t('home.logout') }}
 
             form#logout-form(
@@ -187,12 +194,6 @@ div
 .top-bar {
   .has-back {
     padding-left: 15px;
-  }
-  .back-button {
-    color: $inactive_color;
-    &:hover {
-      color: $accent_color;
-    }
   }
 }
 </style>

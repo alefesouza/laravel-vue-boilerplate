@@ -44,7 +44,7 @@
                 </label>
             </div>
 
-            <a class="btn btn-link" href="{{ route('password.request') }}">
+            <a class="btn btn-link text-secondary" href="{{ route('password.request') }}">
                 <i class="fa fa-question-circle" aria-hidden="true"></i> @lang('login.forgot_password')
             </a>
         </div>
