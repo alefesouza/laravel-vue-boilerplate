@@ -4,6 +4,11 @@
   <img src="logo.png" />
 </p>
 
+<p align="center">
+  <a href="https://gitlab.com/alefesouza/laravel-vue-boilerplate/pipelines"><img src="https://gitlab.com/alefesouza/laravel-vue-boilerplate/badges/master/build.svg" alt="Build Status"></a>
+  <img src="https://img.shields.io/github/license/alefesouza/laravel-vue-boilerplate.svg" alt="License">
+</p>
+
 A Laravel 5.5 Single Page Application boilerplate using Vue.js 2.5, Bootstrap 4, TypeScript, Sass and Pug with:
 
 * A users CRUD if the current user is an admin.
