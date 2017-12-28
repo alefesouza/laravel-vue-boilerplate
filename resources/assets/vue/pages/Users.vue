@@ -1,11 +1,13 @@
 <script lang="ts">
 import { Mutation, State, namespace } from 'vuex-class';
 import { Component, Vue, Provide } from 'vue-property-decorator';
-import axios from 'axios';
-import { clone } from 'lodash';
 import { makeDialog } from 'vue-modal-dialogs';
+
+import axios from 'axios';
+import { clone, find } from 'lodash';
+
 import CardUser from '../components/CardUser.vue';
-import Dialog from "../components/Dialog.vue";
+import Dialog from '../components/Dialog.vue';
 
 declare const baseUrl: string;
 
@@ -40,10 +42,10 @@ export default class Users extends Vue {
       const response = await axios.get(`${this.endpoint}`);
 
       switch (response.status) {
-        case 200:
+        case 200: {
           const { data } = response;
 
-          if (data.error) {
+          if (data.errors) {
             dialog(this.t('errors.generic_error'), false);
 
             return;
@@ -51,12 +53,15 @@ export default class Users extends Vue {
 
           this.users = data.users;
           break;
-        case 401:
+        }
+        case 401: {
           this.$router.push(this.homePath);
           return;
-        default:
+        }
+        default: {
           dialog(this.t('errors.generic_error'), false);
           break;
+        }
       }
 
       this.setBackUrl('/');
@@ -119,13 +124,13 @@ export default class Users extends Vue {
         response = await axios.put(url, this.form);
       }
 
-      const data: { error: boolean, description: string, user: User } = response.data;
+      const data = response.data;
 
       this.isSending = false;
 
-      if (response.status !== 200 || data.error) {
+      if (response.status !== 200 || data.errors) {
         this.okText = oldText;
-        dialog(data.description, false);
+        dialog(find(data.errors)[0], false);
 
         return;
       }
@@ -149,7 +154,7 @@ export default class Users extends Vue {
     const message = this.t(
       'front.delete_confirmation',
       {
-        name: (<string>Vue.i18n.translate('strings.user', null, 0)).toLowerCase(),
+        name: (<string>Vue.i18n.translate('strings.users', null, 1)).toLowerCase(),
       }
     );
 
@@ -161,8 +166,8 @@ export default class Users extends Vue {
       const response = await axios.delete(`${this.endpoint}/${user.id}`);
       const { data } = response;
 
-      if (response.status !== 200 || data.error) {
-        dialog(data.description, false);
+      if (response.status !== 200 || data.errors) {
+        dialog(find(data.errors)[0], false);
         return;
       }
 
@@ -176,11 +181,7 @@ export default class Users extends Vue {
   }
 
   t(key: string, options?: any): string {
-    if (typeof Vue.i18n !== 'undefined') {
-      return <string>Vue.i18n.translate(key, options);
-    }
-
-    return '';
+    return <string>Vue.i18n.translate(key, options);
   }
 }
 </script>

@@ -8,25 +8,13 @@ use App\User;
 use App\Util\Errors;
 use App\Util\Utils;
 use Response;
+use Validator;
 
 class SettingController extends Controller
 {
     public function saveSettings(Request $request)
     {
-        $password = $request['password'];
-
-        $pass = !empty($password);
-
-        $has_error = $this->validateForm($request->all(), $pass);
-
-        if ($has_error !== false) {
-            return Response::json([
-                'error' => true,
-                'description' => $has_error
-            ], 422);
-        }
-        
-        $data = ['error' => false];
+        $this->validator($request);
 
         if (Auth::user()->isAdmin()) {
             $settingsFile = Utils::getSettingsFile();
@@ -38,9 +26,12 @@ class SettingController extends Controller
             file_put_contents($settingsFile, $settings);
         }
 
-        if (empty($request['password'])) {
-            unset($request['password']);
-        } else {
+        $data = [];
+
+        if (!empty($request['password'])) {
+            $user = User::find(Auth::user()->id);
+            $password = $request['password'];
+
             if ($user->update(['password' => bcrypt($password)])) {
                 $data['password'] = true;
             }
@@ -48,26 +39,11 @@ class SettingController extends Controller
 
         return $data;
     }
-
-    private function validateForm($data, $pass)
+    
+    private function validator(Request $request)
     {
-        $validator = validator($data, [
-            'password' => $pass ? 'required|min:6|confirmed' : '',
-            'password_confirmation' => $pass ? 'required|min:6' : '',
+        $request->validate([
+            'password' => 'nullable|string|min:6|confirmed',
         ]);
-
-        if ($validator->fails()) {
-            $errors = $validator->errors()->getMessages();
-
-            if (array_key_exists('password', $errors)) {
-                if (strpos($errors['password'][0], 'confirmation') !== false) {
-                    return __('errors.invalid_password_confirmation');
-                }
-
-                return __('errors.invalid_password');
-            }
-        }
-
-        return false;
     }
 }

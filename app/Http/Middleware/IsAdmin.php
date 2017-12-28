@@ -20,8 +20,12 @@ class IsAdmin
         }
 
         return response()->json([
-            'error' => true,
-            'description' => __('errors.unauthorized'),
+            'message' => __('errors.unauthorized'),
+            'errors' => [
+                'message' => [
+                    __('errors.unauthorized'),
+                ],
+            ],
         ], 401);
     }
 }

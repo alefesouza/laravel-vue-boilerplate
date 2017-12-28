@@ -6,7 +6,7 @@ const setData = async ({ commit }, obj) => {
   const response = await axios.get(`${baseUrl}vue`);
   const { data } = response;
 
-  if (response.status === 200 && !data.error) {
+  if (response.status === 200 && !data.errors) {
     commit('SET_DATA', data);
   }
 };

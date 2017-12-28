@@ -27,7 +27,7 @@ class UserControllerValidationTest extends TestCase
 
     public function testPOSTWithInvalidName()
     {
-        $response = $this->actingAs($this->admin)->call(
+        $response = $this->actingAs($this->admin)->json(
                     'POST',
                     '/data/users',
                     [
@@ -38,18 +38,26 @@ class UserControllerValidationTest extends TestCase
                     ]
                 );
 
+        $response
+            ->assertStatus(422)
+            ->assertHeader('Content-Type', 'application/json')
+            ->assertJson([
+                'message' => __('validation.message'),
+                'errors' => [
+                    'name' => [ __('validation.required', [
+                        'attribute' => 'name',
+                    ]) ],
+                ],
+            ]);
+
         $json = json_decode($response->getContent());
 
-        $this->assertTrue($json->error);
-        $this->assertEquals($json->description, __('errors.invalid_name'));
         $this->assertDatabaseMissing('users', ['email' => 'test@alefesouza.com']);
-        $this->assertEquals($response->status(), 422);
-        $this->assertEquals('application/json', $response->headers->get('Content-Type'));
     }
 
     public function testPOSTWithInvalidEmail()
     {
-        $response = $this->actingAs($this->admin)->call(
+        $response = $this->actingAs($this->admin)->json(
             'POST',
             '/data/users',
             [
@@ -60,18 +68,26 @@ class UserControllerValidationTest extends TestCase
             ]
         );
 
+        $response
+            ->assertStatus(422)
+            ->assertHeader('Content-Type', 'application/json')
+            ->assertJson([
+                'message' => __('validation.message'),
+                'errors' => [
+                    'email' => [ __('validation.email', [
+                        'attribute' => __('validation.attributes.email'),
+                    ]) ],
+                ],
+            ]);
+
         $json = json_decode($response->getContent());
 
-        $this->assertTrue($json->error);
-        $this->assertEquals($json->description, __('errors.invalid_email'));
         $this->assertDatabaseMissing('users', ['email' => 'test@alefesou']);
-        $this->assertEquals($response->status(), 422);
-        $this->assertEquals('application/json', $response->headers->get('Content-Type'));
     }
 
     public function testPOSTWithInvalidUserType()
     {
-        $response = $this->actingAs($this->admin)->call(
+        $response = $this->actingAs($this->admin)->json(
             'POST',
             '/data/users',
             [
@@ -82,18 +98,24 @@ class UserControllerValidationTest extends TestCase
             ]
         );
 
+        $response
+            ->assertStatus(422)
+            ->assertHeader('Content-Type', 'application/json')
+            ->assertJson([
+                'message' => __('validation.message'),
+                'errors' => [
+                    'type_id' => [ __('users.invalid_user_type') ],
+                ],
+            ]);
+    
         $json = json_decode($response->getContent());
 
-        $this->assertTrue($json->error);
-        $this->assertEquals($json->description, __('errors.invalid_type'));
         $this->assertDatabaseMissing('users', ['email' => 'test@alefesouza.com']);
-        $this->assertEquals($response->status(), 422);
-        $this->assertEquals('application/json', $response->headers->get('Content-Type'));
     }
 
     public function testPOSTWithInvalidUserTypeWithAnInteger()
     {
-        $response = $this->actingAs($this->admin)->call(
+        $response = $this->actingAs($this->admin)->json(
             'POST',
             '/data/users',
             [
@@ -104,18 +126,24 @@ class UserControllerValidationTest extends TestCase
             ]
         );
 
+        $response
+            ->assertStatus(422)
+            ->assertHeader('Content-Type', 'application/json')
+            ->assertJson([
+                'message' => __('validation.message'),
+                'errors' => [
+                    'type_id' => [ __('users.invalid_user_type') ],
+                ],
+            ]);
+    
         $json = json_decode($response->getContent());
 
-        $this->assertTrue($json->error);
-        $this->assertEquals($json->description, __('errors.invalid_type'));
         $this->assertDatabaseMissing('users', ['email' => 'test@alefesouza.com']);
-        $this->assertEquals($response->status(), 422);
-        $this->assertEquals('application/json', $response->headers->get('Content-Type'));
     }
 
     public function testPOSTWithInvalidPassword()
     {
-        $response = $this->actingAs($this->admin)->call(
+        $response = $this->actingAs($this->admin)->json(
             'POST',
             '/data/users',
             [
@@ -126,18 +154,27 @@ class UserControllerValidationTest extends TestCase
             ]
         );
 
+        $response
+            ->assertStatus(422)
+            ->assertHeader('Content-Type', 'application/json')
+            ->assertJson([
+                'message' => __('validation.message'),
+                'errors' => [
+                    'password' => [ __('validation.min.string', [
+                        'attribute' => __('validation.attributes.password'),
+                        'min' => 6,
+                    ]) ],
+                ],
+            ]);
+
         $json = json_decode($response->getContent());
 
-        $this->assertTrue($json->error);
-        $this->assertEquals($json->description, __('errors.invalid_password'));
         $this->assertDatabaseMissing('users', ['email' => 'test@alefesouza.com']);
-        $this->assertEquals($response->status(), 422);
-        $this->assertEquals('application/json', $response->headers->get('Content-Type'));
     }
 
     public function testPUTWithInvalidName()
     {
-        $response = $this->actingAs($this->admin)->call(
+        $response = $this->actingAs($this->admin)->json(
                     'PUT',
                     '/data/users/'.$this->user->id,
                     [
@@ -148,18 +185,26 @@ class UserControllerValidationTest extends TestCase
                     ]
                 );
 
+        $response
+            ->assertStatus(422)
+            ->assertHeader('Content-Type', 'application/json')
+            ->assertJson([
+                'message' => __('validation.message'),
+                'errors' => [
+                    'name' => [ __('validation.required', [
+                        'attribute' => 'name',
+                    ]) ],
+                ],
+            ]);
+
         $json = json_decode($response->getContent());
 
-        $this->assertTrue($json->error);
-        $this->assertEquals($json->description, __('errors.invalid_name'));
         $this->assertDatabaseMissing('users', ['email' => 'test@alefesouza.com']);
-        $this->assertEquals($response->status(), 422);
-        $this->assertEquals('application/json', $response->headers->get('Content-Type'));
     }
 
     public function testPUTWithInvalidEmail()
     {
-        $response = $this->actingAs($this->admin)->call(
+        $response = $this->actingAs($this->admin)->json(
             'PUT',
             '/data/users/'.$this->user->id,
             [
@@ -170,18 +215,26 @@ class UserControllerValidationTest extends TestCase
             ]
         );
 
+        $response
+            ->assertStatus(422)
+            ->assertHeader('Content-Type', 'application/json')
+            ->assertJson([
+                'message' => __('validation.message'),
+                'errors' => [
+                    'email' => [ __('validation.email', [
+                        'attribute' => __('validation.attributes.email'),
+                    ]) ],
+                ],
+            ]);
+
         $json = json_decode($response->getContent());
 
-        $this->assertTrue($json->error);
-        $this->assertEquals($json->description, __('errors.invalid_email'));
         $this->assertDatabaseMissing('users', ['email' => 'test@alefesou']);
-        $this->assertEquals($response->status(), 422);
-        $this->assertEquals('application/json', $response->headers->get('Content-Type'));
     }
 
     public function testPUTWithInvalidUserType()
     {
-        $response = $this->actingAs($this->admin)->call(
+        $response = $this->actingAs($this->admin)->json(
             'PUT',
             '/data/users/'.$this->user->id,
             [
@@ -191,19 +244,26 @@ class UserControllerValidationTest extends TestCase
                 'password' => 'aaaaaaa'
             ]
         );
+    
 
+        $response
+            ->assertStatus(422)
+            ->assertHeader('Content-Type', 'application/json')
+            ->assertJson([
+                'message' => __('validation.message'),
+                'errors' => [
+                    'type_id' => [ __('users.invalid_user_type') ],
+                ],
+            ]);
+    
         $json = json_decode($response->getContent());
 
-        $this->assertTrue($json->error);
-        $this->assertEquals($json->description, __('errors.invalid_type'));
         $this->assertDatabaseMissing('users', ['email' => 'test@alefesouza.com']);
-        $this->assertEquals($response->status(), 422);
-        $this->assertEquals('application/json', $response->headers->get('Content-Type'));
     }
 
     public function testPUTWithInvalidUserTypeWithAnInteger()
     {
-        $response = $this->actingAs($this->admin)->call(
+        $response = $this->actingAs($this->admin)->json(
             'PUT',
             '/data/users/'.$this->user->id,
             [
@@ -213,19 +273,25 @@ class UserControllerValidationTest extends TestCase
                 'password' => 'aaaaaaa'
             ]
         );
-
+    
+        $response
+            ->assertStatus(422)
+            ->assertHeader('Content-Type', 'application/json')
+            ->assertJson([
+                'message' => __('validation.message'),
+                'errors' => [
+                    'type_id' => [ __('users.invalid_user_type') ],
+                ],
+            ]);
+    
         $json = json_decode($response->getContent());
 
-        $this->assertTrue($json->error);
-        $this->assertEquals($json->description, __('errors.invalid_type'));
         $this->assertDatabaseMissing('users', ['email' => 'test@alefesouza.com']);
-        $this->assertEquals($response->status(), 422);
-        $this->assertEquals('application/json', $response->headers->get('Content-Type'));
     }
 
     public function testPUTWithInvalidPassword()
     {
-        $response = $this->actingAs($this->admin)->call(
+        $response = $this->actingAs($this->admin)->json(
             'PUT',
             '/data/users/'.$this->user->id,
             [
@@ -236,12 +302,21 @@ class UserControllerValidationTest extends TestCase
             ]
         );
 
+        $response
+        ->assertStatus(422)
+            ->assertHeader('Content-Type', 'application/json')
+        ->assertJson([
+            'message' => __('validation.message'),
+            'errors' => [
+                'password' => [ __('validation.min.string', [
+                    'attribute' => __('validation.attributes.password'),
+                    'min' => 6,
+                ]) ],
+            ],
+        ]);
+
         $json = json_decode($response->getContent());
 
-        $this->assertTrue($json->error);
-        $this->assertEquals($json->description, __('errors.invalid_password'));
         $this->assertDatabaseMissing('users', ['email' => 'test@alefesouza.com']);
-        $this->assertEquals($response->status(), 422);
-        $this->assertEquals('application/json', $response->headers->get('Content-Type'));
     }
 }

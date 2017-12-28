@@ -53,17 +53,14 @@ class HomeController extends Controller
 
         $data = [
             'appName' => config('app.name', 'Laravel'),
-            'user' => $user,
             'homePath' => $user->getHomePath(),
             'logo' => image('logo.png'),
-            'homeItems' => $homeItems,
             'logoutUrl' => route('logout'),
+            'user' => $user,
+            'homeItems' => $homeItems,
             'settings' => $settings,
         ];
 
-        return [
-            'error' => false,
-            'data' => $data
-        ];
+        return $data;
     }
 }

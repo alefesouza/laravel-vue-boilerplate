@@ -19,7 +19,6 @@ class UserController extends Controller
     public function index()
     {
         return [
-            'error' => false,
             'users' => User::all(),
         ];
     }
@@ -32,31 +31,22 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $has_error = $this->validateForm($request->all(), true);
-
-        if ($has_error !== false) {
-            return Response::json([
-                'error' => true, 'description' => $has_error
-            ], 422);
-        }
+        $this->validator($request);
 
         $request['password'] = bcrypt($request->password);
 
         try {
-            $user = new User;
-            $user = $user->create($request->all());
+            $user = User::create($request->all());
 
-            return [
-                'error' => false,
-                'user' => $user,
-            ];
+            if ($user) {
+                return [
+                    'user' => $user,
+                ];
+            }
+
+            return $this->makeError('errors.creating_user', 'database');
         } catch (\Exception $e) {
-            $description = $this->checkException($e);
-
-            return [
-                'error' => true,
-                'description' => $description
-            ];
+            return $this->makeError();
         }
     }
     
@@ -71,17 +61,12 @@ class UserController extends Controller
     {
         $password = $request['password'];
 
-        $pass = !empty($password);
+        $checkPass = !empty($password);
 
-        $has_error = $this->validateForm($request->all(), $pass);
+        $this->validator($request, $checkPass, $user->id);
 
-        if ($has_error !== false) {
-            return Response::json([
-                'error' => true, 'description' => $has_error
-            ], 422);
-        }
-
-        if (empty($request['password'])) {
+        // Unset password field if the user didn't change it.
+        if (!$checkPass) {
             unset($request['password']);
         } else {
             $request['password'] = bcrypt($request['password']);
@@ -90,19 +75,19 @@ class UserController extends Controller
         try {
             if ($user->update($request->all())) {
                 return [
-                    'error' => false,
                     'user' => $user,
                 ];
             }
 
-            return [ 'error' => true, 'description' => __('errors.error_updating_user') ];
+            return $this->makeError(
+                'errors.error_updating_user',
+                'database'
+            );
         } catch (\Exception $e) {
-            $description = $this->checkException($e);
-
-            return [
-                'error' => true,
-                'description' => $description
-            ];
+            return $this->makeError(
+                'errors.fatal_error',
+                'exception'
+            );
         }
     }
 
@@ -114,43 +99,28 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        return [ 'error' => !$user->delete() ];
-    }
-
-    private function checkException($e)
-    {
-        if ($e instanceof QueryException) {
-            if ($e->errorInfo[0] == '23000') {
-                return __('errors.email_exists');
-            }
+        if ($user->delete()) {
+            return [];
         }
 
-        return __('errors.generic_error');
+        return $this->makeError();
     }
 
-    private function validateForm($data, $pass)
+    private function validator(Request $request, $checkPass = true, $id = '')
     {
-        $validator = validator($data, [
+        $emailValidation = 'required|max:191|email|unique:users';
+
+        if ($id) {
+            $emailValidation .= ',email,'.$id;
+        }
+
+        $request->validate([
             'name' => 'required|max:191',
-            'email' => 'required|max:191|email',
+            'email' => $emailValidation,
             'type_id' => 'required|integer|between:1,2',
-            'password' => $pass ? 'required|min:6' : '',
+            'password' => $checkPass ? 'required|min:6' : '',
+        ], [
+            'type_id.*' => __('users.invalid_user_type'),
         ]);
-
-        if ($validator->fails()) {
-            $errors = $validator->errors()->getMessages();
-
-            if (array_key_exists('name', $errors)) {
-                return __('errors.invalid_name');
-            } elseif (array_key_exists('email', $errors)) {
-                return __('errors.invalid_email');
-            } elseif (array_key_exists('type_id', $errors)) {
-                return __('errors.invalid_type');
-            } elseif (array_key_exists('password', $errors)) {
-                return __('errors.invalid_password');
-            }
-        }
-
-        return false;
     }
 }

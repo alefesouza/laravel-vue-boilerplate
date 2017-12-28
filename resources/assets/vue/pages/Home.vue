@@ -2,6 +2,7 @@
 import { mapState } from 'vuex';
 import { Mutation, State, namespace } from 'vuex-class';
 import { Component, Vue } from 'vue-property-decorator';
+
 import CardHome from '../components/CardHome.vue';
 
 declare const baseUrl;

@@ -2,8 +2,11 @@
 import { mapState } from 'vuex';
 import { State, namespace } from 'vuex-class';
 import { Component, Vue, Provide } from 'vue-property-decorator';
-import axios from 'axios';
 import { makeDialog } from 'vue-modal-dialogs';
+
+import axios from 'axios';
+import { find } from 'lodash';
+
 import Dialog from "../components/Dialog.vue";
 
 declare const baseUrl;
@@ -45,7 +48,9 @@ export default class AppHeader extends Vue {
     const { settings } = this;
 
     if (settings.password !== settings.password_confirmation) {
-      dialog(this.t('front.passwords_not_match'), false);
+      dialog(this.t('validation.confirmed', {
+        attribute: this.t('strings.password').toLowerCase(),
+      }), false);
       return;
     }
 
@@ -59,8 +64,8 @@ export default class AppHeader extends Vue {
       this.isSending = false;
       this.okText = this.t('buttons.save');
 
-      if (response.status !== 200 || data.error) {
-        dialog(data.description, false);
+      if (response.status !== 200 || data.errors) {
+        dialog(find(data.errors)[0], false);
 
         return;
       }
@@ -84,11 +89,7 @@ export default class AppHeader extends Vue {
   }
 
   t(key: string, options?: any): string {
-    if (typeof Vue.i18n !== 'undefined') {
-      return <string>Vue.i18n.translate(key, options);
-    }
-
-    return '';
+    return <string>Vue.i18n.translate(key, options);
   }
 }
 </script>

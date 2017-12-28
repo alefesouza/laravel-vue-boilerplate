@@ -3,8 +3,9 @@ import { mapState } from 'vuex';
 import { Mutation, namespace } from 'vuex-class';
 import { Component, Vue } from 'vue-property-decorator';
 import { makeDialog } from 'vue-modal-dialogs';
+
 import CardHome from '../components/CardHome.vue';
-import Dialog from "../components/Dialog.vue";
+import Dialog from '../components/Dialog.vue';
 
 const dialog = makeDialog<string, boolean, boolean>(Dialog, 'message', 'isConfirm');
 

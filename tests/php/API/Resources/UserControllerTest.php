@@ -30,13 +30,14 @@ class UserControllerTest extends TestCase
                 '/data/users'
             );
 
-        $this->assertEquals($response->status(), 200);
-        $this->assertEquals('application/json', $response->headers->get('Content-Type'));
+        $response
+            ->assertStatus(200)
+            ->assertHeader('Content-Type', 'application/json');
     }
 
     public function testPOSTWithValidForm()
     {
-        $response = $this->actingAs($this->admin)->call(
+        $response = $this->actingAs($this->admin)->json(
                 'POST',
                 '/data/users',
                 [
@@ -48,39 +49,54 @@ class UserControllerTest extends TestCase
             );
             
         $json = json_decode($response->getContent());
+        
+        $response
+            ->assertStatus(200)
+            ->assertHeader('Content-Type', 'application/json')
+            ->assertJson([
+                'user' => 
+                [
+                    'id' => $json->user->id,
+                    'name' => 'Alefe',
+                    'email' => 'test@alefesouza.com',
+                    'type_id' => 2,
+                ],
+            ]);
 
-        $this->assertFalse($json->error);
         $this->assertDatabaseHas('users', ['email' => 'test@alefesouza.com']);
-        $this->assertEquals($response->status(), 200);
-        $this->assertEquals('Alefe', $json->user->name);
-        $this->assertEquals('test@alefesouza.com', $json->user->email);
-        $this->assertEquals('application/json', $response->headers->get('Content-Type'));
     }
 
     public function testPUT()
     {
         $user = factory(User::class)->create();
 
-        $response = $this->actingAs($this->admin)->call(
+        $response = $this->actingAs($this->admin)->json(
                 'PUT',
                 '/data/users/'.$user->id,
                 [
-                    'name' => 'Alefesssssssss',
-                    'email' => 'admin@admidsfsdfn.com',
+                    'name' => 'Alefe Souza',
+                    'email' => 'contact@alefesouza.com',
                     'type_id' => 2,
                     'password' => 'aaaaaaaa',
                 ]
             );
+    
+        $response
+            ->assertStatus(200)
+            ->assertHeader('Content-Type', 'application/json')
+            ->assertJson([
+                'user' => 
+                [
+                    'id' => $user->id,
+                    'name' => 'Alefe Souza',
+                    'email' => 'contact@alefesouza.com',
+                    'type_id' => 2,
+                ],
+            ]);
 
         $json = json_decode($response->getContent());
         
-        $this->assertFalse($json->error);
-        $this->assertDatabaseHas('users', ['name' => 'Alefesssssssss', 'email' => 'admin@admidsfsdfn.com']);
-        $this->assertEquals('Alefesssssssss', $json->user->name);
-        $this->assertEquals('admin@admidsfsdfn.com', $json->user->email);
-        $this->assertEquals(2, $json->user->type_id);
-        $this->assertEquals($response->status(), 200);
-        $this->assertEquals('application/json', $response->headers->get('Content-Type'));
+        $this->assertDatabaseHas('users', ['name' => 'Alefe Souza', 'email' => 'contact@alefesouza.com']);
     }
 
     public function testDELETE()
@@ -91,12 +107,36 @@ class UserControllerTest extends TestCase
                 'DELETE',
                 '/data/users/'.$user->id
             );
+        
+        $response
+            ->assertStatus(200)
+            ->assertHeader('Content-Type', 'application/json')
+            ->assertJson([]);
 
         $json = json_decode($response->getContent());
 
-        $this->assertFalse($json->error);
         $this->assertDatabaseMissing('users', ['name' => 'Alefesssssssss']);
-        $this->assertEquals($response->status(), 200);
-        $this->assertEquals('application/json', $response->headers->get('Content-Type'));
+    }
+
+    public function testDisallowAccessToNormalUser()
+    {
+        $user = factory(User::class)->create([
+            'type_id' => '2',
+        ]);
+
+        $response = $this->actingAs($user)->json(
+                'GET',
+                '/data/users'
+            );
+        
+        $response
+            ->assertStatus(401)
+            ->assertHeader('Content-Type', 'application/json')
+            ->assertJson([
+                'message' => __('errors.unauthorized'),
+                'errors' => [
+                    'message' => [ __('errors.unauthorized') ],
+                ],
+            ]);
     }
 }

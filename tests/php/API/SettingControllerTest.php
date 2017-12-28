@@ -26,7 +26,7 @@ class SettingControllerTest extends TestCase
 
     public function testPOSTSettingsWithValidForm()
     {
-        $response = $this->actingAs($this->admin)->call(
+        $response = $this->actingAs($this->admin)->json(
                 'POST',
                 '/data/settings',
                 [
@@ -35,55 +35,23 @@ class SettingControllerTest extends TestCase
                 ]
             );
 
-        $json = json_decode($response->getContent());
+        $response
+            ->assertStatus(200)
+            ->assertHeader('Content-Type', 'application/json')
+            ->assertJson([
+                'password' => true,
+            ]);
 
-        $this->assertFalse($json->error);
+        $json = json_decode($response->getContent());
 
         $password = User::find($this->admin->id)->password;
 
         $this->assertTrue(Hash::check('aaaaaa', $password));
-        $this->assertEquals($response->status(), 200);
-        $this->assertEquals('application/json', $response->headers->get('Content-Type'));
-    }
-
-    public function testGETVue()
-    {
-        $response = $this->actingAs($this->admin)
-            ->call(
-                'GET',
-                '/data/vue'
-            );
-
-        $json = json_decode($response->getContent());
-
-        $homeItems = [
-            [
-                'name' => trans_choice('strings.users', 2),
-                'link' => 'users',
-                'icon' => 'fa-users',
-            ],
-        ];
-
-        $data = $json->data;
-        
-        $this->assertFalse($json->error);
-        $this->assertTrue(empty($data->user->password));
-        $this->assertEquals($this->admin->id, $data->user->id);
-        $this->assertEquals($this->admin->name, $data->user->name);
-        $this->assertEquals('/', $data->homePath);
-        $this->assertEquals(route('logout'), $data->logoutUrl);
-        $this->assertEquals(image('logo.png'), $data->logo);
-        $this->assertEquals($homeItems[0]['link'], $data->homeItems[0]->link);
-        $this->assertEquals($homeItems[0]['name'], $data->homeItems[0]->name);
-        $this->assertEquals($homeItems[0]['icon'], $data->homeItems[0]->icon);
-
-        $this->assertEquals($response->status(), 200);
-        $this->assertEquals('application/json', $response->headers->get('Content-Type'));
     }
 
     public function testPOSTSettingsWithInvalidConfirmation()
     {
-        $response = $this->actingAs($this->admin)->call(
+        $response = $this->actingAs($this->admin)->json(
                 'POST',
                 '/data/settings',
                 [
@@ -92,17 +60,29 @@ class SettingControllerTest extends TestCase
                 ]
             );
 
+        $response
+            
+        ->assertHeader('Content-Type', 'application/json')
+            ->assertHeader('Content-Type', 'application/json')
+            ->assertJson([
+                'message' => __('validation.message'),
+                'errors' => [
+                    'password' => [ __('validation.confirmed', [
+                        'attribute' => __('validation.attributes.password'),
+                    ]) ],
+                ],
+            ]);
+
         $json = json_decode($response->getContent());
+
+        $password = $this->admin->password;
         
-        $this->assertTrue($json->error);
-        $this->assertEquals($json->description, __('errors.invalid_password_confirmation'));
-        $this->assertEquals($response->status(), 422);
-        $this->assertEquals('application/json', $response->headers->get('Content-Type'));
+        $this->assertFalse(Hash::check('aaaaaa', $password));
     }
 
     public function testPOSTSettingsWithInvalidCharNumber()
     {
-        $response = $this->actingAs($this->admin)->call(
+        $response = $this->actingAs($this->admin)->json(
                     'POST',
                     '/data/settings',
                     [
@@ -113,18 +93,35 @@ class SettingControllerTest extends TestCase
 
         $json = json_decode($response->getContent());
 
-        $this->assertTrue($json->error);
-        $this->assertEquals($json->description, __('errors.invalid_password'));
-        $this->assertEquals($response->status(), 422);
-        $this->assertEquals('application/json', $response->headers->get('Content-Type'));
+        $response
+            ->assertStatus(422)
+            ->assertHeader('Content-Type', 'application/json')
+            ->assertJson([
+                'message' => __('validation.message'),
+                'errors' => [
+                    'password' => [ __('validation.min.string', [
+                        'attribute' => __('validation.attributes.password'),
+                        'min' => 6,
+                    ]) ],
+                ],
+            ]);
+
+        $password = User::find($this->admin->id)->password;
+
+        $this->assertFalse(Hash::check('aaaa', $password));
     }
 
     public function testPOSTSettingsWithoutPassword()
     {
-        $response = $this->actingAs($this->admin)->call(
+        $response = $this->actingAs($this->admin)->json(
             'POST',
             '/data/settings'
         );
+
+        $response
+            ->assertStatus(200)
+            ->assertHeader('Content-Type', 'application/json')
+            ->assertJson([]);
 
         $json = json_decode($response->getContent());
         
@@ -132,9 +129,7 @@ class SettingControllerTest extends TestCase
 
         $this->assertTrue(Hash::check('secret', $password));
 
-        $this->assertFalse($json->error);
-        $this->assertFalse(isset($json->description));
-        $this->assertEquals($response->status(), 200);
-        $this->assertEquals('application/json', $response->headers->get('Content-Type'));
+
+        $this->admin->delete();
     }
 }

@@ -4,7 +4,7 @@
   <img src="logo.png" />
 </p>
 
-A Laravel 5.5 SPA application boilerplate using Vue.js 2.5, Bootstrap 4, TypeScript, Sass and Pug with:
+A Laravel 5.5 SPA boilerplate using Vue.js 2.5, Bootstrap 4, TypeScript, Sass and Pug with:
 
 * A users CRUD if the current user is an admin.
 * i18n for English and Portuguese, based on browser language settings.
@@ -37,10 +37,13 @@ Front-end:
 * [Bootstrap 4](https://github.com/twbs/bootstrap)
 * [BootstrapVue](https://github.com/bootstrap-vue/bootstrap-vue/)
 * [Font Awesome](https://github.com/FortAwesome/Font-Awesome)
+* [TypeScript](https://github.com/microsoft/typescript)
 * [Pug](https://github.com/pugjs/pug)
 * [Sass](https://github.com/sass/node-sass)
 * [Laravel Mix](https://github.com/JeffreyWay/laravel-mix)
 * [Jest](https://github.com/facebook/jest)
+
+The TypeScript code tries to follow the [Airbnb JavaScript Style Guide](https://github.com/airbnb/javascript), the linters are already included and configured.
 
 Back-end:
 

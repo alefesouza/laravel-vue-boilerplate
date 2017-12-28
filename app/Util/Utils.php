@@ -32,6 +32,6 @@ class Utils
 
     public static function getSettingsFile()
     {
-        return base_path('.settings');
+        return base_path('storage/.settings');
     }
 }

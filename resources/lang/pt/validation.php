@@ -13,7 +13,9 @@ return [
     |
     */
 
-    'accepted'             => 'O :attribute deve ser aceitado.',
+    'message' => 'Os dados fornecidos são inválidos',
+
+    'accepted'             => 'O :attribute deve ser aceito.',
     'active_url'           => 'O :attribute não é uma URL válida.',
     'after'                => 'O :attribute deve ser uma data após :date.',
     'after_or_equal'       => 'O :attribute deve ser uma data depois ou igual a :date.',
@@ -30,7 +32,7 @@ return [
         'array'   => 'O :attribute deve ter entre :min e :max items.',
     ],
     'boolean'              => 'O campo :attribute deve ser verdadeiro ou false.',
-    'confirmed'            => 'A confirmação de :attribute não é igual.',
+    'confirmed'            => 'A confirmação de :attribute e a :attribute devem ser iguais.',
     'date'                 => 'O :attribute não é uma data válida.',
     'date_format'          => 'O :attribute não é do formato :format.',
     'different'            => 'O :attribute e :other devem ser diferentes.',
@@ -116,6 +118,10 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+        'email' => 'e-mail',
+        'password' => 'senha',
+        'type_id' => 'user type',
+    ],
 
 ];

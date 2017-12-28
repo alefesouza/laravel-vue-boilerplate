@@ -21,7 +21,12 @@ b-card.card-user.mb-3(no-body)
 
   b-card-body
     p.card-text
-      span.font-weight-bold {{ $t('users.user_type') }}:&nbsp;
+      span.font-weight-bold {{ $t('strings.email') }}:
+      =' '
+      | {{ user.email }}
+      br/
+      span.font-weight-bold {{ $t('users.user_type') }}:
+      =' '
       | {{ user.type_id === 1 ? $t('strings.admin') : $t('strings.normal') }}
 
   b-card-footer
@@ -30,9 +35,11 @@ b-card.card-user.mb-3(no-body)
       v-if='user.id !== actualUser.id',
       variant='link')
       i.fa.fa-trash-o(aria-hidden='true')
+      =' '
       | {{ $t('buttons.delete') }}
 
     b-button.float-right(@click='$emit("edit-user")', variant='link')
       i.fa.fa-pencil-square-o(aria-hidden='true')
+      =' '
       | {{ $t('buttons.edit') }}
 </template>
