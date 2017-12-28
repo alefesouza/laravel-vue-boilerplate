@@ -44,7 +44,11 @@ class HomeControllerTest extends TestCase
 
         $settingsFile = Utils::getSettingsFile();
 
-        $settings = json_decode(file_get_contents($settingsFile), true);
+        if (file_exists($settingsFile)) {
+            $settings = json_decode(file_get_contents($settingsFile), true);
+        } else {
+            $settings = [];
+        }
 
         $response
             ->assertStatus(200)
