@@ -83,7 +83,7 @@
       ".*\\.ts$": "ts-jest"
     },
     "transformIgnorePatterns": [
-      "node_modules/(?!vue-modal-dialogs)"
+      "node_modules/(?!(vue-modal-dialogs|vuex-i18n))"
     ],
     "moduleNameMapper": {
       "^@/(.*)$": "<rootDir>/resources/assets/vue/$1"

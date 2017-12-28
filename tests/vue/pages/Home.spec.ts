@@ -1,5 +1,4 @@
 import Vue from 'vue';
-import Vuex from 'vuex';
 import {
   mount,
 } from 'vue-test-utils';
@@ -7,9 +6,7 @@ import faker from 'faker';
 
 import Home from '@/pages/Home.vue';
 import storeMock from '../mocks/store-mock';
-
-Vue.use(Vuex);
-Vue.prototype.$t = jest.fn();
+import configStore from '../mocks/config-store';
 
 const localState = {
   homePath: '/',
@@ -35,14 +32,28 @@ const localState = {
 storeMock.modules.Root.state = localState;
 
 describe('Home.vue', () => {
-  const store = new Vuex.Store(storeMock);
+  const store = configStore(Vue, storeMock);
 
-  it('should have 3 CardHome components and has a name on the title', () => {
+  it('should have 3 CardHome components and has a name with "Welcome" on the title', () => {
     const wrapper = mount(Home, {
       store,
     });
 
+    const welcome = 'Welcome';
+
+    expect(wrapper.find('h1').text()).toEqual(`${welcome}, ${localState.user.name}`);
     expect(wrapper.findAll('.card-home')).toHaveLength(localState.homeItems.length);
-    expect(wrapper.find('h1').text()).toContain(localState.user.name);
+  });
+
+  it('should have a name with "Bem-vindo" on the title', () => {
+    Vue.i18n.set('pt');
+
+    const wrapper = mount(Home, {
+      store,
+    });
+
+    const welcome = 'Bem-vindo';
+
+    expect(wrapper.find('h1').text()).toEqual(`${welcome}, ${localState.user.name}`);
   });
 });

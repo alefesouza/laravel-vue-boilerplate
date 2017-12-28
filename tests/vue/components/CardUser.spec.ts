@@ -1,5 +1,4 @@
 import Vue from 'vue';
-import Vuex from 'vuex';
 import {
   shallow,
 } from 'vue-test-utils';
@@ -7,9 +6,7 @@ import faker from 'faker';
 
 import CardUser from '@/components/CardUser.vue';
 import storeMock from '../mocks/store-mock';
-
-Vue.use(Vuex);
-Vue.prototype.$t = jest.fn();
+import configStore from '../mocks/config-store';
 
 const localState = {
   user: {
@@ -21,7 +18,7 @@ const localState = {
 storeMock.modules.Root.state = localState;
 
 describe('CardUser.vue', () => {
-  const store = new Vuex.Store(storeMock);
+  const store = configStore(Vue, storeMock);
   const user = {
     id: 1,
     name: faker.name.findName(),

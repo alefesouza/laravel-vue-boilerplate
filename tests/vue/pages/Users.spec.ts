@@ -1,5 +1,4 @@
 import Vue from 'vue';
-import Vuex from 'vuex';
 import {
   mount,
 } from 'vue-test-utils';
@@ -7,20 +6,7 @@ import faker from 'faker';
 
 import Users from '@/pages/Users.vue';
 import storeMock from '../mocks/store-mock';
-
-Vue.use(Vuex);
-
-Vue.prototype.$t = jest.fn();
-
-const localState = {
-  homePath: '/',
-  user: {
-    name: faker.name.findName(),
-    type_id: 1,
-  },
-};
-
-storeMock.modules.Root.state = localState;
+import configStore from '../mocks/config-store';
 
 const mockUsers = [];
 
@@ -45,13 +31,23 @@ jest.mock('axios', () => ({
   })),
 }));
 
+const localState = {
+  homePath: '/',
+  user: {
+    name: faker.name.findName(),
+    type_id: 1,
+  },
+};
+
+storeMock.modules.Root.state = localState;
+
 describe('Users.vue', () => {
+  const store = configStore(Vue, storeMock);
+
   beforeEach(() => {
     jest.resetModules();
     jest.clearAllMocks();
   });
-
-  const store = new Vuex.Store(storeMock);
 
   it('should have 10 CardUsers components', (done) => {
     const wrapper = mount(Users, {

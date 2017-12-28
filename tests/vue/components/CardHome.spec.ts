@@ -1,5 +1,4 @@
 import Vue from 'vue';
-import Vuex from 'vuex';
 import {
   shallow,
 } from 'vue-test-utils';
@@ -7,12 +6,10 @@ import faker from 'faker';
 
 import CardHome from '@/components/CardHome.vue';
 import storeMock from '../mocks/store-mock';
-
-Vue.use(Vuex);
-Vue.prototype.$t = jest.fn();
+import configStore from '../mocks/config-store';
 
 describe('CardHome.vue', () => {
-  const store = new Vuex.Store(storeMock);
+  const store = configStore(Vue, storeMock);
 
   it('should render correctly', () => {
     const item = {
@@ -28,7 +25,7 @@ describe('CardHome.vue', () => {
       },
     });
 
-    expect(wrapper.find('div').text()).toEqual(item.name);
+    expect(wrapper.find('.name').text()).toEqual(item.name);
     expect(wrapper.find('.card-home').element.getAttribute('to')).toEqual(item.link);
     expect(wrapper.find('.card-home i').classes()).toContain(item.icon);
   });

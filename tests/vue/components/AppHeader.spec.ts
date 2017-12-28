@@ -1,19 +1,16 @@
 import Vue from 'vue';
-import Vuex from 'vuex';
 import Router from 'vue-router';
 import {
-  mount,
+  shallow,
 } from 'vue-test-utils';
 import faker from 'faker';
 
 import AppHeader from '@/components/AppHeader.vue';
 import routerMock from '../mocks/router-mock';
 import storeMock from '../mocks/store-mock';
+import configStore from '../mocks/config-store';
 
-Vue.use(Vuex);
 Vue.use(Router);
-
-Vue.prototype.$t = jest.fn();
 
 const localState = {
   user: {
@@ -39,11 +36,11 @@ const localState = {
 storeMock.modules.Root.state = localState;
 
 describe('AppHeader.vue', () => {
-  const store = new Vuex.Store(storeMock);
-  const router = new Router(routerMock);
+  const store = configStore(Vue, storeMock);
+  const router = new Router(<any>routerMock);
 
   it('should fill information', () => {
-    const wrapper = mount(AppHeader, {
+    const wrapper = shallow(AppHeader, {
       store,
       router,
     });
