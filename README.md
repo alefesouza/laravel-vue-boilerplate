@@ -6,7 +6,7 @@
 
 A Laravel 5.5 SPA application boilerplate using Vue.js 2.5, Bootstrap 4, TypeScript, Sass and Pug with:
 
-* An users CRUD if the current user is an admin.
+* A users CRUD if the current user is an admin.
 * i18n for English and Portuguese, based on browser language settings.
 * Vue component tests using Jest and API tests using PHPUnit.
 * Already configured to run tests on Docker and GitLab CI.
@@ -91,7 +91,7 @@ Seed the database:
 
     php artisan db:seed
 
-Compile all the front-end stuff
+Compile all the front-end stuff:
 
     npm run prod
 
