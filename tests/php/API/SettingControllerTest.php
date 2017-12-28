@@ -9,7 +9,7 @@ use App\User;
 use App\Util\Errors;
 use App\Util\Utils;
 
-class PageControllerTest extends TestCase
+class SettingControllerTest extends TestCase
 {
     use DatabaseTransactions;
 

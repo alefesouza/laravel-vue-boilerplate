@@ -9,4 +9,8 @@ return [
     'reset_password' => 'Reset password',
     'confirm_password' => 'Confirm password',
     'send_reset_link' => 'Send the reset link',
+
+    'login' => 'Login',
+    'register' => 'Register',
+
 ];

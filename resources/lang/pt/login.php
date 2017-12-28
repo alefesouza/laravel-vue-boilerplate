@@ -10,4 +10,7 @@ return [
     'confirm_password' => 'Confirmar senha',
     'send_reset_link' => 'Enviar link de recuperação',
 
+    'login' => 'Login',
+    'register' => 'Cadastrar',
+
 ];

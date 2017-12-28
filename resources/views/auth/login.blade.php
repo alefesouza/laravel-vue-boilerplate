@@ -1,6 +1,6 @@
 @extends('layouts.login')
 
-@section('title', 'Login')
+@section('title', __('login.login'))
 
 @section('content')
 <form class="form-horizontal" method="POST" action="{{ route('login') }}">
@@ -53,8 +53,12 @@
     <div class="form-group">
         <div>
             <button type="submit" class="btn btn-primary">
-                Login
+                @lang('login.login')
             </button>
+
+            <a href="{{ route('register') }}" class="btn btn-primary float-right">
+                @lang('login.register')
+            </a>
         </div>
     </div>
 </form>

@@ -9,7 +9,7 @@ use App\Util\Errors;
 use App\Util\Utils;
 use Response;
 
-class PageController extends Controller
+class SettingController extends Controller
 {
     public function saveSettings(Request $request)
     {

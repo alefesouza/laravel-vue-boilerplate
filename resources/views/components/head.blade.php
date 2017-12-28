@@ -1,4 +1,8 @@
+@hasSection('title')
+<title>@yield('title') - {{ config('app.name', 'Laravel') }}</title>
+@else
 <title>{{ config('app.name', 'Laravel') }}</title>
+@endif
 
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">

@@ -20,7 +20,7 @@ Route::group([
     
     Route::get('/data/vue', 'HomeController@vue')->name('vue');
 
-    Route::post('/data/settings', 'PageController@saveSettings')->name('settings.save');
+    Route::post('/data/settings', 'SettingController@saveSettings')->name('settings.save');
 });
 
 Route::group([

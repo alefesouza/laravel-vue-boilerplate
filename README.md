@@ -61,7 +61,7 @@ Run:
 
 After it starts, just on the first time, run on another terminal:
 
-    docker exec -it laravel-vue-boilerplate composer run docker && yarn docker
+    docker exec laravel-vue-boilerplate bash --login -c "composer run docker && yarn docker"
 
 The application will be available on http://localhost:8000 and the phpMyAdmin on http://localhost:8080
 
@@ -83,13 +83,9 @@ Generate i18n string for Vue, based on Laravel i18n files:
 
     php artisan vue-i18n:generate
 
-Migrate the database:
+Migrate and seed the database:
 
-    php artisan migrate
-
-Seed the database:
-
-    php artisan db:seed
+    php artisan migrate --seed
 
 Compile all the front-end stuff:
 
