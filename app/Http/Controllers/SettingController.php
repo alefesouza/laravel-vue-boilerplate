@@ -28,8 +28,6 @@ class SettingController extends Controller
         
         $data = ['error' => false];
 
-        $user = User::find(Auth::user()->id);
-
         if (Auth::user()->isAdmin()) {
             $settingsFile = Utils::getSettingsFile();
 

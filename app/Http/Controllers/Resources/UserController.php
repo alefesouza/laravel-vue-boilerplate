@@ -123,8 +123,6 @@ class UserController extends Controller
             if ($e->errorInfo[0] == '23000') {
                 return __('errors.email_exists');
             }
-            
-            return __('errors.generic_error');
         }
 
         return __('errors.generic_error');
