@@ -1,6 +1,6 @@
 {
   "name": "laravel-vue-boilerplate",
-  "description": "A Laravel 5.5 SPA application with a users CRUD using Vue.js 2.5, Bootstrap 4, TypeScript, SASS, Pug and Jest.",
+  "description": "A Laravel 5.5 SPA boilerplate with a users CRUD using Vue.js 2.5, Bootstrap 4, TypeScript, Sass, Pug and Jest.",
   "version": "1.0.0",
   "author": "Alefe Souza <contact@alefesouza.com>",
   "keywords": [
