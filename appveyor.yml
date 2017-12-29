@@ -1,0 +1,55 @@
+build: false
+
+environment:
+  PHP_CHOCO_VERSION: 7.2.0
+  PHP_CACHE_DIR: C:\tools\php
+  NODEJS_VERSION: 8
+  MYSQL_DATABASE: laravel_vue_boilerplate_test
+  MYSQL_HOST: localhost
+  MYSQL_USER: root
+  MYSQL_PASSWORD: Password12!
+  MYSQL_PATH: C:\Program Files\MySQL\MySQL Server 5.7
+
+cache:
+  - '%PHP_CACHE_DIR% -> appveyor.yml'
+  - '%LOCALAPPDATA%\Yarn'
+  - node_modules
+  - vendor
+
+init:
+  - SET PATH=%PHP_CACHE_DIR%;%PATH%
+  - SET COMPOSER_CACHE_DIR=%PHP_CACHE_DIR%
+  - SET COMPOSER_NO_INTERACTION=1
+  - SET PHP=0
+  - SET PATH=%MYSQL_PATH%\bin;%PATH%
+
+install:
+  - ps: Start-Service MySQL57
+
+  - copy .env.appveyor .env
+  - copy .env.appveyor .env.testing /Y
+
+  - mysqladmin --host=%MYSQL_HOST% --user=%MYSQL_USER% --password=%MYSQL_PASSWORD% create %MYSQL_DATABASE%
+
+  - ps: Install-Product node $env:NODEJS_VERSION
+  
+  - IF EXIST %PHP_CACHE_DIR% (SET PHP=1)
+  - IF %PHP%==0 cinst php -y --version %PHP_CHOCO_VERSION%  --params "/InstallDir:%PHP_CACHE_DIR%"
+  - IF %PHP%==0 cinst composer -y --ia "/DEV=%PHP_CACHE_DIR%"
+  - IF %PHP%==0 (composer --version) ELSE (composer self-update)
+  - IF %PHP%==0 echo extension=pdo_mysql >> C:\tools\php\php.ini
+  - IF %PHP%==0 echo extension=intl >> C:\tools\php\php.ini
+  - cd %APPVEYOR_BUILD_FOLDER%
+  - composer install --prefer-dist --no-progress
+
+  - composer run generate-key
+  - php artisan vue-i18n:generate
+  - php artisan migrate --seed
+
+  - yarn --pure-lockfile
+  - yarn production
+
+test_script:
+  - cd %APPVEYOR_BUILD_FOLDER%
+  - composer test
+  - yarn test

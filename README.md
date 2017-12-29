@@ -5,8 +5,10 @@
 </p>
 
 <p align="center">
-  <a href="https://gitlab.com/alefesouza/laravel-vue-boilerplate/pipelines"><img src="https://gitlab.com/alefesouza/laravel-vue-boilerplate/badges/master/build.svg" alt="Build Status"></a>
-  <img src="https://img.shields.io/github/license/alefesouza/laravel-vue-boilerplate.svg" alt="License">
+  <a href="https://ci.appveyor.com/project/alefesouza/laravel-vue-boilerplate"><img src="https://img.shields.io/appveyor/ci/alefesouza/laravel-vue-boilerplate.svg?label=AppVeyor"></a>
+  <a href="https://circleci.com/gh/alefesouza/laravel-vue-boilerplate/"><img src="https://img.shields.io/circleci/project/github/alefesouza/laravel-vue-boilerplate.svg?label=CircleCI"></a>
+  <a href="https://travis-ci.org/alefesouza/laravel-vue-boilerplate" title="Travis CI"><img src="https://api.travis-ci.org/alefesouza/laravel-vue-boilerplate.svg?branch=master"></a>
+  <a href="https://gitlab.com/alefesouza/laravel-vue-boilerplate/pipelines" title="GitLab CI"><img src="https://gitlab.com/alefesouza/laravel-vue-boilerplate/badges/master/build.svg" alt="Build Status"></a>
 </p>
 
 A Laravel 5.5 Single Page Application boilerplate using Vue.js 2.5, Bootstrap 4, TypeScript, Sass and Pug with:
@@ -14,7 +16,7 @@ A Laravel 5.5 Single Page Application boilerplate using Vue.js 2.5, Bootstrap 4,
 * A users CRUD if the current user is an admin.
 * i18n for English and Portuguese, based on browser language settings.
 * Vue component tests using Jest and API tests using PHPUnit.
-* Already configured to run tests on Docker and GitLab CI.
+* Already configured to run tests on Docker, GitLab CI, TravisCI, CircleCI and AppVeyor.
 * Dockerfile configured with PHP 7, Node.js 8, Yarn and Composer, with MySQL and phpMyAdmin on Docker Compose.
 
 You can check it live [on this website](https://alefesouza.com/github/laravel-vue-boilerplate), with the credentials:

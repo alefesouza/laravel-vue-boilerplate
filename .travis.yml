@@ -1,0 +1,24 @@
+language: php
+
+php:
+  - 7.0
+
+before_install:
+  - mysql -e 'CREATE DATABASE laravel_vue_boilerplate_test;'
+
+before_script:
+  - cp .env.testing .env
+  - composer self-update
+  - composer install
+  - composer run generate-key
+  - php artisan vue-i18n:generate
+  - php artisan migrate --seed
+  - yarn --pure-lockfile
+  - yarn production
+
+script:
+  - phpunit
+  - yarn test
+
+services:
+  - mysql

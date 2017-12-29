@@ -1,0 +1,55 @@
+version: 2
+
+jobs:
+  build:
+    docker:
+      - image: circleci/php:7.0-node-browsers
+      
+      - image: circleci/mysql:5.7
+        environment:
+          - MYSQL_USER=root
+          - MYSQL_PASSWORD=
+          - MYSQL_ALLOW_EMPTY_PASSWORD=true
+          - MYSQL_DATABASE=laravel_vue_boilerplate_test
+
+    working_directory: ~/laravel
+
+    steps:
+      - checkout
+      - run: sudo apt install -y zlib1g-dev libicu-dev g++
+      - run: sudo docker-php-ext-install zip
+      - run: sudo docker-php-ext-install pdo_mysql
+      - run: sudo docker-php-ext-configure intl && sudo docker-php-ext-install intl
+      - run: sudo composer self-update
+
+      - restore_cache:
+          keys:
+            - composer-v1-{{ checksum "composer.lock" }}
+            - composer-v1-
+
+      - run: cp .env.testing .env
+      - run: composer self-update
+      - run: composer install -n --prefer-dist
+      - run: composer run generate-key
+      - run: php artisan vue-i18n:generate
+      - run: php artisan migrate --seed
+      - run: composer run test
+
+      - save_cache:
+          key: composer-v1-{{ checksum "composer.lock" }}
+          paths:
+            - vendor
+
+      - restore_cache:
+          keys:
+            - node-v1-{{ checksum "package.json" }}
+            - node-v1-
+
+      - run: yarn --pure-lockfile
+      - save_cache:
+          key: node-v1-{{ checksum "package.json" }}
+          paths:
+            - node_modules
+      
+      - run: yarn production
+      - run: yarn test
