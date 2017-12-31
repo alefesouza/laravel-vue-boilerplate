@@ -1,4 +1,4 @@
-image: registry.gitlab.com/alefesouza/laravel-vue-boilerplate:latest
+image: alefesouza/php7-laravel-node-yarn
 
 services:
   - mysql:5.7.20
@@ -22,4 +22,4 @@ unit_test:
   stage: test
   script:
     - composer run docker
-    - echo "yarn docker" | bash --login
+    - yarn docker

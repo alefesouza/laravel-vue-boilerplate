@@ -40,8 +40,9 @@ install:
   - IF %PHP%==0 echo extension=pdo_mysql >> C:\tools\php\php.ini
   - IF %PHP%==0 echo extension=intl >> C:\tools\php\php.ini
   - cd %APPVEYOR_BUILD_FOLDER%
-  - composer install --prefer-dist --no-progress
+  - composer install -n --prefer-dist
 
+before_test:
   - composer run generate-key
   - php artisan vue-i18n:generate
   - php artisan migrate --seed
@@ -50,6 +51,14 @@ install:
   - yarn production
 
 test_script:
-  - cd %APPVEYOR_BUILD_FOLDER%
-  - composer test
+  - composer test -- --log-junit tests-phpunit.xml
   - yarn test
+
+after_test:
+  - php phpunit-log-junit-fix.php tests-phpunit.xml
+  - ps: >- 
+      $wc = New-Object 'System.Net.WebClient'
+
+      $wc.UploadFile("https://ci.appveyor.com/api/testresults/junit/$($env:APPVEYOR_JOB_ID)", (Resolve-Path .\tests-phpunit.xml))
+      
+      $wc.UploadFile("https://ci.appveyor.com/api/testresults/junit/$($env:APPVEYOR_JOB_ID)", (Resolve-Path .\tests-jest.xml))

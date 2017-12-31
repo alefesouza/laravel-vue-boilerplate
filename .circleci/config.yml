@@ -3,7 +3,9 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/php:7.0-node-browsers
+      # You can use this project Docker image, or uncomment the code on this file
+      - image: alefesouza/php7-laravel-node-yarn
+      # - image: circleci/php:7.0-node-browsers
       
       - image: circleci/mysql:5.7
         environment:
@@ -16,24 +18,27 @@ jobs:
 
     steps:
       - checkout
-      - run: sudo apt install -y zlib1g-dev libicu-dev g++
-      - run: sudo docker-php-ext-install zip
-      - run: sudo docker-php-ext-install pdo_mysql
-      - run: sudo docker-php-ext-configure intl && sudo docker-php-ext-install intl
-      - run: sudo composer self-update
+      # - run: sudo apt install -y zlib1g-dev libicu-dev g++
+      # - run: sudo docker-php-ext-install zip
+      # - run: sudo docker-php-ext-install pdo_mysql
+      # - run: sudo docker-php-ext-configure intl && sudo docker-php-ext-install intl
 
       - restore_cache:
           keys:
             - composer-v1-{{ checksum "composer.lock" }}
             - composer-v1-
 
-      - run: cp .env.testing .env
-      - run: composer self-update
-      - run: composer install -n --prefer-dist
-      - run: composer run generate-key
-      - run: php artisan vue-i18n:generate
-      - run: php artisan migrate --seed
-      - run: composer run test
+      - run:
+          name: Run Composer
+          command: |
+            cp .env.testing .env
+
+            composer self-update
+            composer install -n --prefer-dist
+            composer run generate-key
+
+            php artisan vue-i18n:generate
+            php artisan migrate --seed
 
       - save_cache:
           key: composer-v1-{{ checksum "composer.lock" }}
@@ -44,12 +49,31 @@ jobs:
           keys:
             - node-v1-{{ checksum "package.json" }}
             - node-v1-
+      
+      - run:
+          name: Run Yarn
+          command: |
+            yarn --pure-lockfile
+            yarn production
 
-      - run: yarn --pure-lockfile
       - save_cache:
           key: node-v1-{{ checksum "package.json" }}
           paths:
             - node_modules
-      
-      - run: yarn production
-      - run: yarn test
+
+      - run:
+          name: Test
+          command: |
+            mkdir -p out/tests
+
+            yarn test
+            mv tests-jest.xml out/tests/tests-jest.xml
+
+            composer test -- --log-junit out/tests/tests-phpunit.xml
+
+      - store_artifacts:
+          path: out/tests
+          destination: test-results
+
+      - store_test_results:
+          path: out/tests

@@ -9,7 +9,7 @@ before_install:
 before_script:
   - cp .env.testing .env
   - composer self-update
-  - composer install
+  - composer install -n --prefer-dist
   - composer run generate-key
   - php artisan vue-i18n:generate
   - php artisan migrate --seed

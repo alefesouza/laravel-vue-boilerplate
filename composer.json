@@ -64,7 +64,7 @@
     "permissions": "chgrp -R www-data storage bootstrap/cache && chmod -R ug+rwx storage bootstrap/cache",
     "docker": [
       "@composer run copy-env",
-      "@composer install",
+      "@composer install -n --prefer-dist",
       "@composer run generate-key",
       "php artisan vue-i18n:generate",
       "php artisan migrate --seed",

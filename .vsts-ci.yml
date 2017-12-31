@@ -15,10 +15,6 @@ phases:
         scoop bucket add versions 
 
         scoop install php70
-
-        Get-ChildItem "C:\Users\buildguest\scoop\apps" | get-acl
-        Get-ChildItem "C:\Users\buildguest\scoop\apps\php70" | get-acl
-        Get-ChildItem "C:\Users\buildguest\scoop\apps\php70\current" | get-acl
         
         echo extension=php_pdo_sqlite.dll | Add-Content $env:PHPIni
         echo extension=php_intl.dll | Add-Content $env:PHPIni
@@ -30,7 +26,7 @@ phases:
         php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
         php composer-setup.php
 
-        npm install -g yarnpkg
+        npm install -g yarn
       displayName: Install PHP, Composer and Yarn
       env:
         PHPIni: C:\Users\buildguest\scoop\apps\php70\current\php.ini
@@ -42,7 +38,7 @@ phases:
         Copy-Item .env.vsts-ci .env
         Copy-Item .env.vsts-ci .env.testing -Force
 
-        php composer.phar install --prefer-dist --no-progress
+        php composer.phar install -n --prefer-dist
         php composer.phar run generate-key
         php artisan vue-i18n:generate
 
@@ -99,7 +95,7 @@ phases:
 
         curl -sS https://getcomposer.org/installer | sudo php -- --install-dir=/usr/local/bin --filename=composer
 
-        npm install -g yarnpkg
+        npm install -g yarn
       displayName: Install PHP, Composer and Yarn
       env:
         PHPVersion: 7.0
@@ -108,7 +104,7 @@ phases:
         cp .env.vsts-ci .env
         cp .env.vsts-ci .env.testing
 
-        composer install --prefer-dist --no-progress
+        composer install -n --prefer-dist
         composer run generate-key
         php artisan vue-i18n:generate
 
@@ -157,7 +153,7 @@ phases:
 
         brew install php$PHPVersion php$PHPVersion-intl composer
 
-        npm install -g yarnpkg
+        npm install -g yarn
       displayName: Install PHP, Composer and Yarn
       env:
         PHPVersion: 70
@@ -166,7 +162,7 @@ phases:
         cp .env.vsts-ci .env
         cp .env.vsts-ci .env.testing
 
-        composer install --prefer-dist --no-progress
+        composer install -n --prefer-dist
         composer run generate-key
         php artisan vue-i18n:generate
 

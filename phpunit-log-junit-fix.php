@@ -2,9 +2,9 @@
 /**
  * @author Alefe Souza <contact@alefesouza.com>
  * 
- * Remove nested <testsuite> tags from PHPUnit --log-junit result file
+ * Remove nested <testsuite> tags from PHPUnit --log-junit generated file.
  * I've created it after I wanted to run tests on Visual Studio Team Services CI,
- * bun an error occurred because of these nested tags.
+ * but an error occurred because of these nested tags.
  * 
  * Use it:
  * 
