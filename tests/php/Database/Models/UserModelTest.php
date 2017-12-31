@@ -3,7 +3,7 @@
 namespace Tests\Database\Models;
 
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
 use App\User;
 
 class UserModelTest extends TestCase

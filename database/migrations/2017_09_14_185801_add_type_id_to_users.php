@@ -13,9 +13,15 @@ class AddTypeIdToUsers extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->unsignedSmallInteger('type_id')->after('id');
+        $driver = Schema::connection($this->getConnection())->getConnection()->getDriverName();
 
+        Schema::table('users', function (Blueprint $table) use ($driver) {
+            if($driver === 'sqlite') {
+                $table->unsignedSmallInteger('type_id')->default(0)->after('id');
+            } else {
+                $table->unsignedSmallInteger('type_id')->after('id');
+            }
+            
             $table->foreign('type_id')->references('id')->on('user_types');
         });
     }

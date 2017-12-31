@@ -17,6 +17,7 @@
     "tslint.json": true,
     "tsconfig.json": true,
     "package-lock.json": true,
+    "phpunit-log-junit-fix.php": true,
     "phpunit.xml": true,
     ".travis.yml": true,
     "yarn.lock": true,

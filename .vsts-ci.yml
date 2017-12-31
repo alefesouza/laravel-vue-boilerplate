@@ -1,0 +1,201 @@
+phases:
+  - phase: test_on_windows
+    displayName: Test on Windows
+    queue: Hosted
+
+    steps:
+    - task: NodeTool@0
+      displayName: Use Node.js 8.9.3
+      inputs:
+        versionSpec: 8.9.3
+        
+    - powershell: |
+        iex (new-object net.webclient).downloadstring('https://get.scoop.sh')
+
+        scoop bucket add versions 
+
+        scoop install php70
+
+        Get-ChildItem "C:\Users\buildguest\scoop\apps" | get-acl
+        Get-ChildItem "C:\Users\buildguest\scoop\apps\php70" | get-acl
+        Get-ChildItem "C:\Users\buildguest\scoop\apps\php70\current" | get-acl
+        
+        echo extension=php_pdo_sqlite.dll | Add-Content $env:PHPIni
+        echo extension=php_intl.dll | Add-Content $env:PHPIni
+        echo extension=php_openssl.dll | Add-Content $env:PHPIni
+        echo extension=php_mbstring.dll | Add-Content $env:PHPIni
+
+        $env:PATH += ";C:\Users\buildguest\scoop\apps\php70\current"
+
+        php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+        php composer-setup.php
+
+        npm install -g yarnpkg
+      displayName: Install PHP, Composer and Yarn
+      env:
+        PHPIni: C:\Users\buildguest\scoop\apps\php70\current\php.ini
+
+    - powershell: |
+        # PATH variable was redefined when I tested...
+        $env:PATH += ";$env:PHP"
+
+        Copy-Item .env.vsts-ci .env
+        Copy-Item .env.vsts-ci .env.testing -Force
+
+        php composer.phar install --prefer-dist --no-progress
+        php composer.phar run generate-key
+        php artisan vue-i18n:generate
+
+        New-Item database\database.sqlite -type file
+        php artisan migrate --seed
+      displayName: Run Composer
+      env:
+        php: C:\Users\buildguest\scoop\apps\php70\current
+
+    - powershell: |
+        yarn --pure-lockfile
+        yarn production
+      displayName: Run Yarn
+
+    - powershell: |
+        $env:PATH += ";$env:PHP"
+
+        php composer.phar test -- --log-junit tests-phpunit.xml
+        php phpunit-log-junit-fix.php tests-phpunit.xml
+        
+        yarn test
+      displayName: Test
+      env:
+        PHP: C:\Users\buildguest\scoop\apps\php70\current
+
+    - task: PublishTestResults@2
+      displayName: Publish PHPUnit Tests
+      inputs:
+        testRunner: JUnit
+        testResultsFiles: tests-phpunit.xml
+        testRunTitle: PHPUnit Tests
+
+    - task: PublishTestResults@2
+      displayName: Publish Jest Tests
+      inputs:
+        testRunner: JUnit
+        testResultsFiles: tests-jest.xml
+        testRunTitle: Jest Tests
+  
+  - phase: test_on_linux
+    displayName: Test on Linux
+    queue: Hosted Linux Preview
+
+    steps:
+    - task: NodeTool@0
+      displayName: Use Node.js 8.9.3
+      inputs:
+        versionSpec: 8.9.3
+
+    - script: |
+        sudo add-apt-repository ppa:ondrej/php-$PHPVersion
+        sudo apt-get update
+        sudo apt-get -y --allow-unauthenticated install php$PHPVersion php$PHPVersion-mbstring php$PHPVersion-sqlite php$PHPVersion-intl php$PHPVersion-dom
+
+        curl -sS https://getcomposer.org/installer | sudo php -- --install-dir=/usr/local/bin --filename=composer
+
+        npm install -g yarnpkg
+      displayName: Install PHP, Composer and Yarn
+      env:
+        PHPVersion: 7.0
+
+    - script: |
+        cp .env.vsts-ci .env
+        cp .env.vsts-ci .env.testing
+
+        composer install --prefer-dist --no-progress
+        composer run generate-key
+        php artisan vue-i18n:generate
+
+        touch ./database/database.sqlite
+        php artisan migrate --seed
+      displayName: Run Composer
+
+    - script: |
+        yarn --pure-lockfile
+        yarn production
+      displayName: Run Yarn
+
+    - script: |
+        composer test -- --log-junit tests-phpunit.xml
+        php phpunit-log-junit-fix.php tests-phpunit.xml
+        
+        yarn test
+      displayName: Test
+
+    - task: PublishTestResults@2
+      displayName: Publish PHPUnit Tests
+      inputs:
+        testRunner: JUnit
+        testResultsFiles: tests-phpunit.xml
+        testRunTitle: PHPUnit Tests
+
+    - task: PublishTestResults@2
+      displayName: Publish Jest Tests
+      inputs:
+        testRunner: JUnit
+        testResultsFiles: tests-jest.xml
+        testRunTitle: Jest Tests
+
+  - phase: test_on_mac
+    displayName: Test on macOS
+    queue: Hosted macOS Preview
+
+    steps:
+    - task: NodeTool@0
+      displayName: Use Node.js 8.9.3
+      inputs:
+        versionSpec: 8.9.3
+
+    - script: |
+        brew tap homebrew/php
+
+        brew install php$PHPVersion php$PHPVersion-intl composer
+
+        npm install -g yarnpkg
+      displayName: Install PHP, Composer and Yarn
+      env:
+        PHPVersion: 70
+
+    - script: |
+        cp .env.vsts-ci .env
+        cp .env.vsts-ci .env.testing
+
+        composer install --prefer-dist --no-progress
+        composer run generate-key
+        php artisan vue-i18n:generate
+
+        touch ./database/database.sqlite
+        php artisan migrate --seed
+      displayName: Run Composer
+
+    - script: |
+        yarn --pure-lockfile
+        yarn production
+      displayName: Run Yarn
+
+    - script: |
+        composer test -- --log-junit tests-phpunit.xml
+        php phpunit-log-junit-fix.php tests-phpunit.xml
+
+        yarn test
+      displayName: Test
+
+    - task: PublishTestResults@2
+      displayName: Publish PHPUnit Tests
+      inputs:
+        testRunner: JUnit
+        testResultsFiles: tests-phpunit.xml
+        testRunTitle: PHPUnit Tests
+
+    - task: PublishTestResults@2
+      displayName: Publish Jest Tests
+      inputs:
+        testRunner: JUnit
+        testResultsFiles: tests-jest.xml
+        testRunTitle: Jest Tests

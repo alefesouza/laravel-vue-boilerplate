@@ -47,6 +47,7 @@
     "eslint-config-airbnb-base": "^12.1.0",
     "faker": "^4.1.0",
     "jest": "^22.0.4",
+    "jest-junit": "^3.4.1",
     "jest-serializer-vue": "^0.3.0",
     "jest-vue-preprocessor": "^1.3.1",
     "laravel-mix": "^1.7.2",
@@ -70,20 +71,15 @@
   },
   "homepage": "https://github.com/alefesouza/laravel-vue-boilerplate#readme",
   "jest": {
+    "globals": {
+      "baseUrl": ""
+    },
+    "mapCoverage": true,
     "moduleFileExtensions": [
       "ts",
       "js",
       "json",
       "vue"
-    ],
-    "mapCoverage": true,
-    "transform": {
-      "^.+\\.js$": "<rootDir>/node_modules/babel-jest",
-      ".*\\.vue$": "<rootDir>/node_modules/jest-vue-preprocessor",
-      ".*\\.ts$": "ts-jest"
-    },
-    "transformIgnorePatterns": [
-      "node_modules/(?!(vue-modal-dialogs|vuex-i18n))"
     ],
     "moduleNameMapper": {
       "^@/(.*)$": "<rootDir>/resources/assets/vue/$1"
@@ -92,8 +88,19 @@
       "<rootDir>/node_modules/jest-serializer-vue"
     ],
     "testRegex": "tests/vue/.*.spec\\.(js|ts)$",
-    "globals": {
-      "baseUrl": ""
-    }
+    "testResultsProcessor": "jest-junit",
+    "transform": {
+      "^.+\\.js$": "<rootDir>/node_modules/babel-jest",
+      ".*\\.vue$": "<rootDir>/node_modules/jest-vue-preprocessor",
+      ".*\\.ts$": "ts-jest"
+    },
+    "transformIgnorePatterns": [
+      "node_modules/(?!(vue-modal-dialogs|vuex-i18n))"
+    ]
+  },
+  "jest-junit": {
+    "suiteName": "Jest Tests",
+    "output": "./tests-jest.xml",
+    "ancestorSeparator": " › "
   }
 }

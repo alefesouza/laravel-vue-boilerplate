@@ -13,6 +13,9 @@ yarn-error.log
 .env
 .settings
 
+/tests-jest.xml
+/tests-phpunit.xml
+
 public/js
 public/css
 resources/assets/vue/vue-i18n-locales.generated.js

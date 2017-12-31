@@ -3,7 +3,7 @@
 namespace Tests\Database\Models;
 
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Support\Facades\DB;
 
 class SeedTest extends TestCase
