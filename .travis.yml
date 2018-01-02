@@ -3,12 +3,18 @@ language: php
 php:
   - 7.0
 
+services:
+  - mysql
+
+cache:
+  - node_modules
+  - vendor
+
 before_install:
   - mysql -e 'CREATE DATABASE laravel_vue_boilerplate_test;'
 
 before_script:
   - cp .env.testing .env
-  - composer self-update
   - composer install -n --prefer-dist
   - composer run generate-key
   - php artisan vue-i18n:generate
@@ -17,8 +23,5 @@ before_script:
   - yarn production
 
 script:
-  - phpunit
+  - composer test
   - yarn test
-
-services:
-  - mysql

@@ -40,11 +40,10 @@ export default class Users extends Vue {
   async mounted() {
     try {
       const response = await axios.get(`${this.endpoint}`);
+      const { status, data } = response;
 
-      switch (response.status) {
+      switch (status) {
         case 200: {
-          const { data } = response;
-
           if (data.errors) {
             dialog(this.t('errors.generic_error'), false);
 
@@ -60,7 +59,7 @@ export default class Users extends Vue {
         }
         default: {
           dialog(this.t('errors.generic_error'), false);
-          break;
+          return;
         }
       }
 
@@ -102,12 +101,20 @@ export default class Users extends Vue {
   async handleOk(evt) {
     evt.preventDefault();
 
-    const { isAdd } = this;
+    const { isAdd, form } = this;
+
+    if (form.password !== form.password_confirmation) {
+      dialog(this.t('validation.confirmed', {
+        attribute: this.t('strings.password').toLowerCase(),
+      }), false);
+
+      return;
+    }
 
     let url = this.endpoint;
 
     if (!isAdd) {
-      url += `/${this.form.id}`;
+      url += `/${form.id}`;
     }
 
     let oldText = this.okText;
@@ -124,11 +131,11 @@ export default class Users extends Vue {
         response = await axios.put(url, this.form);
       }
 
-      const data = response.data;
+      const { status, data } = response;
 
       this.isSending = false;
 
-      if (response.status !== 200 || data.errors) {
+      if (status !== 200 || data.errors) {
         this.okText = oldText;
         dialog(find(data.errors)[0], false);
 
@@ -164,9 +171,9 @@ export default class Users extends Vue {
 
     try {
       const response = await axios.delete(`${this.endpoint}/${user.id}`);
-      const { data } = response;
+      const { status, data } = response;
 
-      if (response.status !== 200 || data.errors) {
+      if (status !== 200 || data.errors) {
         dialog(find(data.errors)[0], false);
         return;
       }
@@ -236,6 +243,15 @@ b-container(tag='main')
           v-model='form.password',
           maxlength=191,
           required,
+        )
+      b-form-group(
+        :label='$t("settings.password_confirmation")'
+        label-for='password_confirmation',
+      )
+        b-form-input#password_confirmation(
+          type='password',
+          v-model='form.password_confirmation',
+          maxlength=191,
         )
       b-form-group(:label='$t("users.user_type")')
         b-form-radio-group(v-model="form.type_id", name='type_id')

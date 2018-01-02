@@ -4,9 +4,9 @@ declare const baseUrl: string;
 
 const setData = async ({ commit }, obj) => {
   const response = await axios.get(`${baseUrl}vue`);
-  const { data } = response;
+  const { status, data } = response;
 
-  if (response.status === 200 && !data.errors) {
+  if (status === 200 && !data.errors) {
     commit('SET_DATA', data);
   }
 };

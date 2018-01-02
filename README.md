@@ -16,7 +16,7 @@ A Laravel 5.5 Single Page Application boilerplate using Vue.js 2.5, Bootstrap 4,
 * A users CRUD if the current user is an admin.
 * i18n for English and Portuguese, based on browser language settings.
 * Vue component tests using Jest and API tests using PHPUnit.
-* Already configured to run tests on Docker, GitLab CI, Travis CI, CircleCI, AppVeyor and VSTS on Windows, Linux and macOS.
+* Already configured to run tests on Docker, GitLab CI, Travis CI, CircleCI, AppVeyor and VSTS CI on Windows, Linux and macOS.
 * Dockerfile configured with PHP 7, Node.js 8, Yarn and Composer, with MySQL and phpMyAdmin on Docker Compose.
 
 You can check it live [on this website](https://alefesouza.com/github/laravel-vue-boilerplate), with the credentials:
@@ -71,7 +71,7 @@ Run:
 
 After it starts, just on the first time, run on another terminal:
 
-    docker exec laravel-vue-boilerplate bash --login -c "composer run docker && yarn docker"
+    docker exec laravel-vue-boilerplate bash -c "composer run docker && yarn docker"
 
 The application will be available on http://localhost:8000 and the phpMyAdmin on http://localhost:8080
 

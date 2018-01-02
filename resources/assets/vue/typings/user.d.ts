@@ -3,4 +3,6 @@ declare interface User {
   email?: string;
   name?: string;
   type_id?: number;
+  password?: string;
+  password_confirmation?: string;
 }

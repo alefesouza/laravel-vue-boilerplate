@@ -20,15 +20,20 @@ class User extends Authenticatable
     protected $casts = [
         'type_id' => 'integer',
     ];
+    
+    public function setPasswordAttribute($value)
+    {
+      $this->attributes['password'] = bcrypt($value);
+    }
 
     public function isAdmin()
     {
-        return $this->type_id == 1;
+        return $this->type_id === 1;
     }
 
     public function isNormal()
     {
-        return $this->type_id == 2;
+        return $this->type_id === 2;
     }
 
     public function getTypeText()

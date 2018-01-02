@@ -33,8 +33,6 @@ class UserController extends Controller
     {
         $this->validator($request);
 
-        $request['password'] = bcrypt($request->password);
-
         try {
             $user = User::create($request->all());
 
@@ -46,7 +44,10 @@ class UserController extends Controller
 
             return $this->makeError('errors.creating_user', 'database');
         } catch (\Exception $e) {
-            return $this->makeError();
+            return $this->makeError(
+                'errors.fatal_error',
+                'exception'
+            );
         }
     }
     
@@ -59,18 +60,11 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        $password = $request['password'];
-
-        $checkPass = !empty($password);
-
-        $this->validator($request, $checkPass, $user->id);
-
-        // Unset password field if the user didn't change it.
-        if (!$checkPass) {
+        if(empty($request['password'])) {
             unset($request['password']);
-        } else {
-            $request['password'] = bcrypt($request['password']);
         }
+
+        $this->validator($request, $user->id);
 
         try {
             if ($user->update($request->all())) {
@@ -106,7 +100,7 @@ class UserController extends Controller
         return $this->makeError();
     }
 
-    private function validator(Request $request, $checkPass = true, $id = '')
+    private function validator(Request $request, $id = '')
     {
         $emailValidation = 'required|max:191|email|unique:users';
 
@@ -118,7 +112,7 @@ class UserController extends Controller
             'name' => 'required|max:191',
             'email' => $emailValidation,
             'type_id' => 'required|integer|between:1,2',
-            'password' => $checkPass ? 'required|min:6' : '',
+            'password' => 'sometimes|min:6|confirmed',
         ], [
             'type_id.*' => __('users.invalid_user_type'),
         ]);

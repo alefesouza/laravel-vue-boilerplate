@@ -45,11 +45,12 @@ class UserControllerTest extends TestCase
                     'email' => 'test@alefesouza.com',
                     'type_id' => 2,
                     'password' => 'aaaaaaaa',
+                    'password_confirmation' => 'aaaaaaaa',
                 ]
             );
             
         $json = json_decode($response->getContent());
-        
+
         $response
             ->assertStatus(200)
             ->assertHeader('Content-Type', 'application/json')
@@ -78,6 +79,7 @@ class UserControllerTest extends TestCase
                     'email' => 'contact@alefesouza.com',
                     'type_id' => 2,
                     'password' => 'aaaaaaaa',
+                    'password_confirmation' => 'aaaaaaaa',
                 ]
             );
     

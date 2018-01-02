@@ -59,18 +59,23 @@ export default class AppHeader extends Vue {
 
     try {
       const response = await axios.post(`${baseUrl}settings`, settings);
-      const { data } = response;
+      const { status, data } = response;
 
       this.isSending = false;
       this.okText = this.t('buttons.save');
 
-      if (response.status !== 200 || data.errors) {
+      if (status !== 200 || data.errors) {
         dialog(find(data.errors)[0], false);
 
         return;
       }
 
       if ('password' in data) {
+        if (!data.password) {
+          dialog(this.t('errors.generic_error'), false);
+          return;
+        }
+
         dialog(this.t('front.password_changed_successfully'), false);
       }
 
