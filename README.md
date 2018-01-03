@@ -55,7 +55,7 @@ The TypeScript code tries to follow the [Airbnb JavaScript Style Guide](https://
 Back-end:
 
 * [Laravel](https://github.com/laravel/laravel)
-* [Laravel HTMLMin](https://github.com/HTMLMin/Laravel-HTMLMin)
+* [Laravel Pug](https://github.com/bkwld/laravel-pug)
 * [laravel-vue-i18n-generator](https://github.com/martinlindhe/laravel-vue-i18n-generator)
 * [PHPUnit](https://github.com/sebastianbergmann/phpunit)
 

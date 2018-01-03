@@ -1,0 +1,72 @@
+extends /layouts/login
+
+block title
+  title #{__('login.register')} - #{config('app.name', 'Laravel')}
+
+block content
+  form.form-horizontal.no-margin(
+    style={ 'margin-top': '30px' },
+    method='POST',
+    action=route('register'),
+  )
+    != csrf_field()
+
+    .title #{__('login.register')}
+
+    .form-group(class={ 'has-error': errors.has('name') })
+      label.control-label(for='name') #{__('strings.name')}
+
+      div
+        input#name.form-control(
+          type='text',
+          name='name'
+          value=old('name'),
+          required,
+          autofocus,
+        )
+
+        if errors.has('name')
+          span.help-block
+            strong #{errors.first('name')}
+
+    .form-group(class={ 'has-error': errors.has('email') })
+      label.control-label(for='email') #{__('strings.email')}
+
+      div
+        input#email.form-control(
+          type='email',
+          value=old('email'),
+          required,
+        )
+
+        if errors.has('email')
+          span.help-block
+            strong #{errors.first('email')}
+
+    div.form-group(class={ 'has-error': errors.has('password') })
+      label.control-label(for='password') #{__('strings.password')}
+
+      div
+        input#password.form-control(
+          type='password',
+          name='password',
+          required,
+        )
+
+        if errors.has('password')
+          span.help-block
+            strong #{errors.first('password')}
+
+    .form-group
+      label.control-label(for='password-confirm') #{__('settings.password_confirmation')}
+
+      div
+        input#password-confirm.form-control(
+          type='password',
+          name='password_confirmation',
+          required,
+        )
+
+    .form-group
+      div
+        button.btn.btn-primary(type='submit') #{__('login.register')}

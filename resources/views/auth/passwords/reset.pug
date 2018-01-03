@@ -1,0 +1,61 @@
+extends /layouts/login
+
+block title
+  title #{__('login.reset_password')} - #{config('app.name', 'Laravel')}
+
+block content
+  form.form-horizontal(method='POST', action=route('password.email'))
+    != csrf_field()
+
+    if session('status')
+      .alert.alert-success
+        = session('status')
+
+    .title #{__('login.reset_password')}
+
+    .form-group(class={ 'has-error': errors.has('email') })
+      label.control-label(for='email') #{__('strings.email')}
+
+      div
+        input#email.form-control(
+          type='email',
+          name='email',
+          value=email || old('email'),
+          required, autofocus
+        )
+
+        if errors.has('email')
+          span.help-block
+            strong #{errors.first('email')}
+        
+    .form-group(class={ 'has-error': errors.has('password') })
+      label.control-label(for='password') #{__('strings.password')}
+
+      div
+        input#password.form-control(
+          name='password',
+          type='password',
+          required
+        )
+
+        if errors.has('password')
+          span.help-block
+            strong #{errors.first('password')}
+        
+    .form-group(class={ 'has-error': errors.has('password_confirmation') })
+      label.control-label(for='password') #{__('strings.confirm_password')}
+
+      div
+        input#password-confirm.form-control(
+          name='password_confirmation',
+          type='password',
+          required
+        )
+
+        if errors.has('password_confirmation')
+          span.help-block
+            strong #{errors.first('password_confirmation')}
+
+    .form-group
+      div
+        button.btn.btn-primary(type='submit') #{__('login.reset_password')}

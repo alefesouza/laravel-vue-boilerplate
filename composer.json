@@ -14,8 +14,8 @@
   "type": "project",
   "require": {
     "php": ">=7.0.0",
+    "bkwld/laravel-pug": "^1.5",
     "fideloper/proxy": "~3.3",
-    "htmlmin/htmlmin": "^5.0",
     "laravel/framework": "5.5.*",
     "martinlindhe/laravel-vue-i18n-generator": "^0.1.20"
   },
