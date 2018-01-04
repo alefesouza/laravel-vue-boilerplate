@@ -19,7 +19,7 @@ class UserController extends Controller
     public function index()
     {
         return [
-            'users' => User::all(),
+            'users' => User::paginate(5),
         ];
     }
 

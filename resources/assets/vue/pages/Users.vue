@@ -24,6 +24,10 @@ const RootState = namespace('Root', State);
 export default class Users extends Vue {
   @Provide() users: User[] = [];
   @Provide() form: User = {};
+  @Provide() currentPage = 1;
+  @Provide() perPage = 5;
+  @Provide() totalUsers = 0;
+  @Provide() totalPages = 0;
 
   @RootState('homePath') homePath;
 
@@ -38,40 +42,14 @@ export default class Users extends Vue {
   editIndex = 0;
 
   async mounted() {
-    try {
-      const response = await axios.get(`${this.endpoint}`);
-      const { status, data } = response;
+    await this.getUsers(1);
 
-      switch (status) {
-        case 200: {
-          if (data.errors) {
-            dialog(this.t('errors.generic_error'), false);
-
-            return;
-          }
-
-          this.users = data.users;
-          break;
-        }
-        case 401: {
-          this.$router.push(this.homePath);
-          return;
-        }
-        default: {
-          dialog(this.t('errors.generic_error'), false);
-          return;
-        }
-      }
-
-      this.setBackUrl('/');
-      this.setMenu([{
-        key: 'add_user',
-        text: this.t('users.add_user'),
-        handler: this.addUser,
-      }]);
-    } catch (e) {
-      dialog(this.t('errors.generic_error'), false);
-    }
+    this.setBackUrl('/');
+    this.setMenu([{
+      key: 'add_user',
+      text: this.t('users.add_user'),
+      handler: this.addUser,
+    }]);
   }
 
   addUser(e) {
@@ -143,7 +121,9 @@ export default class Users extends Vue {
       }
 
       if (isAdd) {
-        this.users.push(data.user);
+        if (this.currentPage === this.totalPages) {
+          this.users.push(data.user);
+        }
       } else {
         this.users[this.editIndex] = data.user;
       }
@@ -187,6 +167,42 @@ export default class Users extends Vue {
     }
   }
 
+  async getUsers(page) {
+    let response;
+
+    try {
+      response = await axios.get(`${this.endpoint}?page=${page}`);
+    } catch (e) {
+      dialog(this.t('errors.generic_error'), false);
+    }
+
+    const { status, data } = response;
+
+    switch (status) {
+      case 200: {
+        if (data.errors) {
+          dialog(this.t('errors.generic_error'), false);
+
+          return;
+        }
+
+        this.perPage = data.users.per_page;
+        this.totalUsers = data.users.total;
+        this.totalPages = data.users.last_page;
+        this.users = data.users.data;
+        break;
+      }
+      case 401: {
+        this.$router.push(this.homePath);
+        return;
+      }
+      default: {
+        dialog(this.t('errors.generic_error'), false);
+        return;
+      }
+    }
+  }
+
   t(key: string, options?: any): string {
     return <string>Vue.i18n.translate(key, options);
   }
@@ -195,6 +211,15 @@ export default class Users extends Vue {
 
 <template lang="pug">
 b-container(tag='main')
+  b-pagination(
+    v-model='currentPage',
+    v-if='totalUsers > perPage'
+    :total-rows='totalUsers',
+    :per-page='perPage',
+    :input='getUsers',
+    align='center',
+  )
+
   .users(v-if='users.length !== 0')
     card-user(
       v-for='user in users',
@@ -204,13 +229,22 @@ b-container(tag='main')
       :user='user',
     )
 
+  b-pagination(
+    v-model='currentPage',
+    v-if='totalUsers > 1'
+    :total-rows='totalUsers',
+    :per-page='perPage',
+    @input='getUsers',
+    align='center',
+  )
+
   b-modal(
     ref='modal',
+    hide-header-close=true,
     :title='isAdd ? $t("users.add_user") : $t("users.edit_user")',
     :ok-disabled='isSending',
     :ok-title='okText',
     :cancel-title='$t("buttons.cancel")',
-    hide-header-close=true,
     @ok='handleOk',
   )
     b-form

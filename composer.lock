@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "906e62be35a612fccda6a185d1104113",
+    "content-hash": "60ebe0e39211e0d3548ec32f9938b07b",
     "packages": [
         {
             "name": "bkwld/laravel-pug",
-            "version": "1.5.5",
+            "version": "1.5.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/BKWLD/laravel-pug.git",
-                "reference": "a33bdcf5d496e6515da27da037aae269e70d408c"
+                "reference": "7793e90e0674b0bf04640f4864d1aa4f757b8961"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/BKWLD/laravel-pug/zipball/a33bdcf5d496e6515da27da037aae269e70d408c",
-                "reference": "a33bdcf5d496e6515da27da037aae269e70d408c",
+                "url": "https://api.github.com/repos/BKWLD/laravel-pug/zipball/7793e90e0674b0bf04640f4864d1aa4f757b8961",
+                "reference": "7793e90e0674b0bf04640f4864d1aa4f757b8961",
                 "shasum": ""
             },
             "require": {
@@ -64,7 +64,7 @@
                 }
             ],
             "description": "Pug view adapter for Laravel",
-            "time": "2017-12-12T17:31:18+00:00"
+            "time": "2018-01-03T21:04:06+00:00"
         },
         {
             "name": "cebe/markdown",
@@ -440,92 +440,17 @@
             "time": "2015-10-10T12:58:30+00:00"
         },
         {
-            "name": "htmlmin/htmlmin",
-            "version": "v5.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/HTMLMin/Laravel-HTMLMin.git",
-                "reference": "0974daa18f3f917cf7479cf8ec756c170eb67e6a"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/HTMLMin/Laravel-HTMLMin/zipball/0974daa18f3f917cf7479cf8ec756c170eb67e6a",
-                "reference": "0974daa18f3f917cf7479cf8ec756c170eb67e6a",
-                "shasum": ""
-            },
-            "require": {
-                "illuminate/contracts": "5.1.*|5.2.*|5.3.*|5.4.*|5.5.*",
-                "illuminate/filesystem": "5.1.*|5.2.*|5.3.*|5.4.*|5.5.*",
-                "illuminate/http": "5.1.*|5.2.*|5.3.*|5.4.*|5.5.*",
-                "illuminate/routing": "5.1.*|5.2.*|5.3.*|5.4.*|5.5.*",
-                "illuminate/support": "5.1.*|5.2.*|5.3.*|5.4.*|5.5.*",
-                "illuminate/view": "5.1.*|5.2.*|5.3.*|5.4.*|5.5.*",
-                "mrclay/minify": "^2.2",
-                "php": ">=5.5.9"
-            },
-            "require-dev": {
-                "graham-campbell/testbench": "^3.1|^4.0",
-                "mockery/mockery": "^0.9.4",
-                "phpunit/phpunit": "^4.8|^5.0|^6.0"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "5.0-dev"
-                },
-                "laravel": {
-                    "providers": [
-                        "HTMLMin\\HTMLMin\\HTMLMinServiceProvider"
-                    ],
-                    "aliases": {
-                        "HTMLMin": "HTMLMin\\HTMLMin\\Facades\\HTMLMin"
-                    }
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "HTMLMin\\HTMLMin\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Graham Campbell",
-                    "email": "graham@alt-three.com"
-                },
-                {
-                    "name": "Raza Mehdi",
-                    "email": "srmk@outlook.com"
-                }
-            ],
-            "description": "HTMLMin Is A Simple HTML Minifier For Laravel 5",
-            "keywords": [
-                "Laravel HTMLMin",
-                "Laravel-HTMLMin",
-                "framework",
-                "html",
-                "html minifier",
-                "htmlmin",
-                "laravel",
-                "minifier"
-            ],
-            "time": "2017-08-25T10:56:24+00:00"
-        },
-        {
             "name": "js-phpize/js-phpize",
-            "version": "1.12.0",
+            "version": "1.12.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pug-php/js-phpize.git",
-                "reference": "0e13b055ea31d9655f98287c5131af1037dd8a6a"
+                "reference": "bc4628db2b77bda9b656e7dfd9fce7cb64ba3853"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pug-php/js-phpize/zipball/0e13b055ea31d9655f98287c5131af1037dd8a6a",
-                "reference": "0e13b055ea31d9655f98287c5131af1037dd8a6a",
+                "url": "https://api.github.com/repos/pug-php/js-phpize/zipball/bc4628db2b77bda9b656e7dfd9fce7cb64ba3853",
+                "reference": "bc4628db2b77bda9b656e7dfd9fce7cb64ba3853",
                 "shasum": ""
             },
             "require": {
@@ -553,7 +478,7 @@
                 }
             ],
             "description": "Convert js-like syntax to standalone PHP code.",
-            "time": "2017-12-05T09:22:31+00:00"
+            "time": "2018-01-04T10:31:20+00:00"
         },
         {
             "name": "js-phpize/js-phpize-phug",
@@ -1135,51 +1060,6 @@
                 "psr-3"
             ],
             "time": "2017-06-19T01:22:40+00:00"
-        },
-        {
-            "name": "mrclay/minify",
-            "version": "2.3.3",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/mrclay/minify.git",
-                "reference": "1928e89208d28e91427b2f13b67acdbd8cd01ac9"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/mrclay/minify/zipball/1928e89208d28e91427b2f13b67acdbd8cd01ac9",
-                "reference": "1928e89208d28e91427b2f13b67acdbd8cd01ac9",
-                "shasum": ""
-            },
-            "require": {
-                "ext-pcre": "*",
-                "php": ">=5.2.1"
-            },
-            "require-dev": {
-                "tubalmartin/cssmin": "~2.4.8"
-            },
-            "suggest": {
-                "tubalmartin/cssmin": "Support minify with CSSMin (YUI PHP port)"
-            },
-            "type": "library",
-            "autoload": {
-                "classmap": [
-                    "min/lib/"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-3-Clause"
-            ],
-            "authors": [
-                {
-                    "name": "Stephen Clay",
-                    "email": "steve@mrclay.org",
-                    "role": "Developer"
-                }
-            ],
-            "description": "Minify is a PHP5 app that helps you follow several rules for client-side performance. It combines multiple CSS or Javascript files, removes unnecessary whitespace and comments, and serves them with gzip encoding and optimal client-side cache headers",
-            "homepage": "http://code.google.com/p/minify/",
-            "time": "2017-11-03T21:04:01+00:00"
         },
         {
             "name": "mtdowling/cron-expression",
