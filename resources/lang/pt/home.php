@@ -2,9 +2,8 @@
 
 return [
 
+    'logout' => 'Sair',
     'manage' => 'GERENCIAR',
-    'benefits' => 'Benefícios',
-    'messages' => 'Mensagens',
-    'logout' => 'Sair'
+    'welcome' => 'Bem-vindo, :name',
 
 ];

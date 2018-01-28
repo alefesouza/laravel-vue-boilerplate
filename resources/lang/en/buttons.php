@@ -2,19 +2,19 @@
 
 return [
 
-    'open' => 'Open',
-    'edit' => 'Edit',
-    'delete' => 'Delete',
-    'approve' => 'Approve',
-    'reject' => 'Reject',
-    'publish' => 'Publish',
-    'cancel' => 'Cancel',
-    'update' => 'Update',
     'add' => 'Add',
-    'save' => 'Save',
+    'approve' => 'Approve',
+    'cancel' => 'Cancel',
     'change_file' => 'Change file',
     'choose_file' => 'Choose file',
-    'sending' => 'Sending',
+    'delete' => 'Delete',
+    'edit' => 'Edit',
     'ok' => 'OK',
+    'open' => 'Open',
+    'publish' => 'Publish',
+    'reject' => 'Reject',
+    'save' => 'Save',
+    'sending' => 'Sending',
+    'update' => 'Update',
 
 ];

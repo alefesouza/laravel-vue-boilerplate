@@ -21,9 +21,12 @@ Vue.i18n.add('en', Locales.en);
 Vue.i18n.add('pt', Locales.pt);
 
 const htmlTag = document.documentElement;
+let lang = 'en';
 
 if (htmlTag) {
-  Vue.i18n.set(htmlTag.lang);
+  lang = htmlTag.lang;
 }
+
+Vue.i18n.set(lang);
 
 export default store;

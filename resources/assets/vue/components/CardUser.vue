@@ -1,13 +1,12 @@
 <script lang="ts">
+import { Component, Prop, Vue } from 'vue-property-decorator';
 import { mapState } from 'vuex';
-import { Component, Vue, Prop } from 'vue-property-decorator';
 
 declare const baseUrl;
 
 @Component({})
 export default class CardUser extends Vue {
-  @Prop()
-  user: any;
+  @Prop() user: any;
 
   get actualUser() {
     return this.$store.state.Root.user;

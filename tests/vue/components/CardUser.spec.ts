@@ -2,11 +2,13 @@ import Vue from 'vue';
 import {
   shallow,
 } from 'vue-test-utils';
+
 import faker from 'faker';
 
-import CardUser from '@/components/CardUser.vue';
-import storeMock from '../mocks/store-mock';
 import configStore from '../mocks/config-store';
+import storeMock from '../mocks/store-mock';
+
+import CardUser from '@/components/CardUser.vue';
 
 const localState = {
   user: {

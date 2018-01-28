@@ -15,7 +15,7 @@ class SeedTest extends TestCase
      *
      * @return void
      */
-    public function testThereIsTwoUserTypes()
+    public function testThereAreTwoUserTypes()
     {
         $userTypes = DB::select('SELECT * FROM user_types');
 

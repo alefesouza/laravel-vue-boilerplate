@@ -1,7 +1,7 @@
 <script lang="ts">
-import { mapState } from 'vuex';
-import { Mutation, State, namespace } from 'vuex-class';
 import { Component, Vue } from 'vue-property-decorator';
+import { Mutation, State, namespace } from 'vuex-class';
+import { mapState } from 'vuex';
 
 import CardHome from '../components/CardHome.vue';
 
@@ -15,13 +15,13 @@ const RootMutation = namespace('Root', Mutation);
     CardHome,
   },
   computed: {
-    ...mapState('Root', ['user', 'homeItems']),
+    ...mapState('Root', ['homeItems', 'user']),
   },
 })
 export default class Home extends Vue {
-  @RootState('homePath') homePath;
-
   @RootMutation('SET_MENU') setMenu;
+
+  @RootState('homePath') homePath;
 
   mounted() {
     if (this.homePath !== '/') {

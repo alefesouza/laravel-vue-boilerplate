@@ -2,18 +2,15 @@ import Vue from 'vue';
 import {
   mount,
 } from 'vue-test-utils';
+
 import faker from 'faker';
 
-import Home from '@/pages/Home.vue';
-import storeMock from '../mocks/store-mock';
 import configStore from '../mocks/config-store';
+import storeMock from '../mocks/store-mock';
+
+import Home from '@/pages/Home.vue';
 
 const localState = {
-  homePath: '/',
-  user: {
-    name: faker.name.findName(),
-    type_id: 1,
-  },
   homeItems: [{
     name: faker.lorem.word(),
     link: faker.internet.url(),
@@ -27,6 +24,11 @@ const localState = {
     link: faker.internet.url(),
     icon: faker.lorem.word(),
   }],
+  homePath: '/',
+  user: {
+    name: faker.name.findName(),
+    type_id: 1,
+  },
 };
 
 storeMock.modules.Root.state = localState;

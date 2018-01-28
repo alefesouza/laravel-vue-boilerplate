@@ -2,9 +2,8 @@
 
 return [
 
-    'welcome' => 'Welcome, :name',
-    'manage' => 'MANAGE',
-    'messages' => 'Messages',
     'logout' => 'Log out',
+    'manage' => 'MANAGE',
+    'welcome' => 'Welcome, :name',
 
 ];

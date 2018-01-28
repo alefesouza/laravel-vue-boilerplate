@@ -2,11 +2,13 @@ import Vue from 'vue';
 import {
   mount,
 } from 'vue-test-utils';
+
 import faker from 'faker';
 
-import Users from '@/pages/Users.vue';
-import storeMock from '../mocks/store-mock';
 import configStore from '../mocks/config-store';
+import storeMock from '../mocks/store-mock';
+
+import Users from '@/pages/Users.vue';
 
 const mockUsers = [];
 

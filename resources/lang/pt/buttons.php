@@ -2,19 +2,19 @@
 
 return [
 
-    'open' => 'Abrir',
-    'edit' => 'Editar',
-    'delete' => 'Apagar',
-    'approve' => 'Aprovar',
-    'reject' => 'Rejeitar',
-    'publish' => 'Publicar',
-    'cancel' => 'Cancelar',
-    'update' => 'Atualizar',
     'add' => 'Adicionar',
-    'save' => 'Salvar',
+    'approve' => 'Aprovar',
+    'cancel' => 'Cancelar',
     'change_file' => 'Atualizar arquivo',
     'choose_file' => 'Escolher arquivo',
-    'sending' => 'Enviando',
+    'delete' => 'Apagar',
+    'edit' => 'Editar',
     'ok' => 'OK',
+    'open' => 'Abrir',
+    'publish' => 'Publicar',
+    'reject' => 'Rejeitar',
+    'update' => 'Atualizar',
+    'save' => 'Salvar',
+    'sending' => 'Enviando',
 
 ];

@@ -3,7 +3,6 @@
   "files.exclude": {
     ".env.*": true,
     ".babelrc": true,
-    ".circleci": true,
     ".editorconfig": true,
     ".eslintrc": true,
     ".htaccess-novhosts": true,
@@ -22,6 +21,7 @@
     "phpunit-log-junit-fix.php": true,
     "phpunit.xml": true,
     "yarn.lock": true,
+    ".circleci/": true,
     "docker/": true,
     "node_modules/": true,
     "public/css": true,

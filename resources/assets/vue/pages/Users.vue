@@ -1,7 +1,7 @@
 <script lang="ts">
-import { Mutation, State, namespace } from 'vuex-class';
-import { Component, Vue, Provide } from 'vue-property-decorator';
 import { makeDialog } from 'vue-modal-dialogs';
+import { Component, Provide, Vue } from 'vue-property-decorator';
+import { Mutation, State, namespace } from 'vuex-class';
 
 import axios from 'axios';
 import { clone, find } from 'lodash';
@@ -22,24 +22,24 @@ const RootState = namespace('Root', State);
   },
 })
 export default class Users extends Vue {
-  @Provide() users: User[] = [];
-  @Provide() form: User = {};
   @Provide() currentPage = 1;
+  @Provide() form: User = {};
   @Provide() perPage = 5;
   @Provide() totalUsers = 0;
   @Provide() totalPages = 0;
-
-  @RootState('homePath') homePath;
+  @Provide() users: User[] = [];
 
   @RootMutation('SET_BACK_URL') setBackUrl;
   @RootMutation('SET_MENU') setMenu;
 
+  @RootState('homePath') homePath;
+
   readonly endpoint = `${baseUrl}users`;
 
+  editIndex = 0;
   isAdd = true;
   isSending = false;
   okText = '';
-  editIndex = 0;
 
   async mounted() {
     await this.getUsers(1);
@@ -74,67 +74,6 @@ export default class Users extends Vue {
     this.form = clone(user);
 
     (<any>this.$refs.modal).show();
-  }
-
-  async handleOk(evt) {
-    evt.preventDefault();
-
-    const { isAdd, form } = this;
-
-    if (form.password !== form.password_confirmation) {
-      dialog(this.t('validation.confirmed', {
-        attribute: this.t('strings.password').toLowerCase(),
-      }), false);
-
-      return;
-    }
-
-    let url = this.endpoint;
-
-    if (!isAdd) {
-      url += `/${form.id}`;
-    }
-
-    let oldText = this.okText;
-
-    this.isSending = true;
-    this.okText = this.t('buttons.sending') + '...';
-
-    try {
-      let response;
-
-      if (isAdd) {
-        response = await axios.post(url, this.form);
-      } else {
-        response = await axios.put(url, this.form);
-      }
-
-      const { status, data } = response;
-
-      this.isSending = false;
-
-      if (status !== 200 || data.errors) {
-        this.okText = oldText;
-        dialog(find(data.errors)[0], false);
-
-        return;
-      }
-
-      if (isAdd) {
-        if (this.currentPage === this.totalPages) {
-          this.users.push(data.user);
-        }
-      } else {
-        this.users[this.editIndex] = data.user;
-      }
-
-      (<any>this.$refs.modal).hide();
-    } catch {
-      this.isSending = false;
-      this.okText = oldText;
-
-      dialog(this.t('errors.generic_error'), false);
-    }
   }
 
   async deleteUser(user) {
@@ -200,6 +139,67 @@ export default class Users extends Vue {
         dialog(this.t('errors.generic_error'), false);
         return;
       }
+    }
+  }
+
+  async handleOk(evt) {
+    evt.preventDefault();
+
+    const { isAdd, form } = this;
+
+    if (form.password !== form.password_confirmation) {
+      dialog(this.t('validation.confirmed', {
+        attribute: this.t('strings.password').toLowerCase(),
+      }), false);
+
+      return;
+    }
+
+    let url = this.endpoint;
+
+    if (!isAdd) {
+      url += `/${form.id}`;
+    }
+
+    let oldText = this.okText;
+
+    this.isSending = true;
+    this.okText = this.t('buttons.sending') + '...';
+
+    try {
+      let response;
+
+      if (isAdd) {
+        response = await axios.post(url, this.form);
+      } else {
+        response = await axios.put(url, this.form);
+      }
+
+      const { status, data } = response;
+
+      this.isSending = false;
+
+      if (status !== 200 || data.errors) {
+        this.okText = oldText;
+        dialog(find(data.errors)[0], false);
+
+        return;
+      }
+
+      if (isAdd) {
+        if (this.currentPage === this.totalPages) {
+          this.users.push(data.user);
+        }
+      } else {
+        this.users[this.editIndex] = data.user;
+      }
+
+      (<any>this.$refs.modal).hide();
+    } catch {
+      this.isSending = false;
+      this.okText = oldText;
+
+      dialog(this.t('errors.generic_error'), false);
     }
   }
 

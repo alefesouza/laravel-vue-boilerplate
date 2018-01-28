@@ -1,14 +1,16 @@
 import Vue from 'vue';
-import Router from 'vue-router';
 import {
   shallow,
 } from 'vue-test-utils';
+import Router from 'vue-router';
+
 import faker from 'faker';
 
-import AppHeader from '@/components/AppHeader.vue';
+import configStore from '../mocks/config-store';
 import routerMock from '../mocks/router-mock';
 import storeMock from '../mocks/store-mock';
-import configStore from '../mocks/config-store';
+
+import AppHeader from '@/components/AppHeader.vue';
 
 Vue.use(Router);
 

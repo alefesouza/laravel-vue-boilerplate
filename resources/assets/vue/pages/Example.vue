@@ -1,8 +1,8 @@
 <script lang="ts">
-import { mapState } from 'vuex';
-import { Mutation, namespace } from 'vuex-class';
-import { Component, Vue } from 'vue-property-decorator';
 import { makeDialog } from 'vue-modal-dialogs';
+import { Component, Vue } from 'vue-property-decorator';
+import { Mutation, namespace } from 'vuex-class';
+import { mapState } from 'vuex';
 
 import CardHome from '../components/CardHome.vue';
 import Dialog from '../components/Dialog.vue';
@@ -17,7 +17,7 @@ const RootMutation = namespace('Root', Mutation);
     CardHome,
   },
   computed: {
-    ...mapState('Root', ['user', 'homeItems']),
+    ...mapState('Root', ['homeItems', 'user']),
   },
 })
 export default class Home extends Vue {

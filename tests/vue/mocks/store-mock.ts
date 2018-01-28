@@ -1,5 +1,3 @@
-const state = {};
-
 const actions = {
   setData: jest.fn(),
 };
@@ -9,12 +7,14 @@ const mutations = {
   SET_BACK_URL: jest.fn(),
 };
 
+const state = {};
+
 export default {
   modules: {
     Root: {
-      state,
       actions,
       mutations,
+      state,
       namespaced: true,
     },
   },

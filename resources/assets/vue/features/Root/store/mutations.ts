@@ -1,3 +1,7 @@
+const SET_BACK_URL = (state, obj) => {
+  state.backUrl = obj;
+};
+
 const SET_DATA = (state, obj) => {
   const token = document.head.querySelector('meta[name="csrf-token"]');
 
@@ -10,16 +14,12 @@ const SET_DATA = (state, obj) => {
   Object.assign(state, ...obj);
 };
 
-const SET_BACK_URL = (state, obj) => {
-  state.backUrl = obj;
-};
-
 const SET_MENU = (state, obj) => {
   state.menu = obj;
 };
 
 export default {
-  SET_DATA,
   SET_BACK_URL,
+  SET_DATA,
   SET_MENU,
 };

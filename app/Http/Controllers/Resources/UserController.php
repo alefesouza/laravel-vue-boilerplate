@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Resources;
 
+use Illuminate\Database\QueryException;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\User;
 use App\Util\Utils;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Response;
-use Illuminate\Database\QueryException;
+use Response;
 
 class UserController extends Controller
 {

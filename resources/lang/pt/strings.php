@@ -2,22 +2,24 @@
 
 return [
 
+    'admin' => 'Administrador',
+    'email' => 'E-mail',
+    'image' => 'Imagem',
+    'loading' => 'Carregando',
+    'logo' => 'Logo',
+    'name' => 'Nome',
+    'normal' => 'Comum',
+    'optional' => 'Opcional',
+    'password' => 'Senha',
+    'required' => 'Obrigatório',
+    'text' => 'Texto',
+    'title' => 'Título',
+    'user' => 'Usuário',
+    'welcome' => 'Bem-vindo',
+
+    // Pages
     'home' => 'Início',
     'users' => 'Usuário|Usuários',
     'settings' => 'Configurações',
-
-    'welcome' => 'Bem-vindo',
-    'name' => 'Nome',
-    'email' => 'E-mail',
-    'password' => 'Senha',
-    'normal' => 'Comum',
-    'admin' => 'Administrador',
-    'logo' => 'Logo',
-    'title' => 'Título',
-    'optional' => 'Opcional',
-    'text' => 'Texto',
-    'image' => 'Imagem',
-    'user' => 'Usuário',
-    'loading' => 'Carregando',
 
 ];

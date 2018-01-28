@@ -2,11 +2,13 @@ import Vue from 'vue';
 import {
   shallow,
 } from 'vue-test-utils';
+
 import faker from 'faker';
 
-import CardHome from '@/components/CardHome.vue';
-import storeMock from '../mocks/store-mock';
 import configStore from '../mocks/config-store';
+import storeMock from '../mocks/store-mock';
+
+import CardHome from '@/components/CardHome.vue';
 
 describe('CardHome.vue', () => {
   const store = configStore(Vue, storeMock);

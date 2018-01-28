@@ -1,13 +1,13 @@
 <script lang="ts">
-import { mapState } from 'vuex';
-import { State, namespace } from 'vuex-class';
-import { Component, Vue, Provide } from 'vue-property-decorator';
 import { makeDialog } from 'vue-modal-dialogs';
+import { Component, Provide, Vue } from 'vue-property-decorator';
+import { namespace, State } from 'vuex-class';
+import { mapState } from 'vuex';
 
 import axios from 'axios';
 import { find } from 'lodash';
 
-import Dialog from "../components/Dialog.vue";
+import Dialog from '../components/Dialog.vue';
 
 declare const baseUrl;
 
@@ -18,13 +18,13 @@ const RootState = namespace('Root', State);
 @Component({
   computed: {
     ...mapState('Root', [
-      'user',
       'backUrl',
-      'logo',
-      'homePath',
-      'logoutUrl',
-      'menu',
       'csrfToken',
+      'logo',
+      'logoutUrl',
+      'homePath',
+      'menu',
+      'user',
     ]),
   },
 })
@@ -36,10 +36,6 @@ export default class AppHeader extends Vue {
 
   get path() {
     return this.$route.path;
-  }
-
-  showSettings() {
-    (<any>this.$refs.settings).show();
   }
 
   async handleOk(evt) {
@@ -91,6 +87,10 @@ export default class AppHeader extends Vue {
   onModalHidden() {
     this.settings.password = '';
     this.settings.password_confirmation = '';
+  }
+
+  showSettings() {
+    (<any>this.$refs.settings).show();
   }
 
   t(key: string, options?: any): string {

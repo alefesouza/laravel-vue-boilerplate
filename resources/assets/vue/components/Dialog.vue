@@ -1,18 +1,18 @@
 <script lang="ts">
 import { DialogComponent } from 'vue-modal-dialogs';
-import { Prop, Component } from 'vue-property-decorator';
+import { Component, Prop } from 'vue-property-decorator';
 
 @Component({})
 export default class Dialog extends DialogComponent<boolean> {
-  @Prop() message: string;
   @Prop() isConfirm: boolean;
-
-  ok() {
-    this.$close(true)
-  }
+  @Prop() message: string;
 
   cancel() {
     this.$close(false)
+  }
+
+  ok() {
+    this.$close(true)
   }
 }
 </script>

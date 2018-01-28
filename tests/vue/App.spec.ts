@@ -5,21 +5,22 @@ import {
   shallow,
 } from 'vue-test-utils';
 
-import App from '@/App.vue';
-import routerMock from './mocks/router-mock';
 import storeMock from './mocks/store-mock';
+import routerMock from './mocks/router-mock';
+
+import App from '@/App.vue';
 
 Vue.use(Vuex);
 Vue.use(Router);
 
 describe('App.vue', () => {
-  const store = new Vuex.Store(storeMock);
   const router = new Router(<any>routerMock);
+  const store = new Vuex.Store(storeMock);
 
   it('should have just one div in the component', () => {
     const wrapper = shallow(App, {
-      store,
       router,
+      store,
     });
 
     expect(wrapper.findAll('div')).toHaveLength(1);
