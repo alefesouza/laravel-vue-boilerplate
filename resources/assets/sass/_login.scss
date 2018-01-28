@@ -27,21 +27,15 @@ body {
       line-height: 1.1;
       margin-bottom: 20px;
     }
-    .checkbox {
-      display: inline;
-      label {
-        margin-top: 7px;
-        &:hover {
-          cursor: pointer;
-        }
-      }
-    }
   }
   #logo {
     margin-top: 0px;
   }
   #login-background {
     padding-left: 75px;
+  }
+  #reset-password {
+    padding-top: 0px;
   }
   #welcome {
     color: #ffffff;

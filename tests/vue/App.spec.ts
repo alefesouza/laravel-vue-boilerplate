@@ -3,7 +3,7 @@ import Vuex from 'vuex';
 import Router from 'vue-router';
 import {
   shallow,
-} from 'vue-test-utils';
+} from '@vue/test-utils';
 
 import storeMock from './mocks/store-mock';
 import routerMock from './mocks/router-mock';

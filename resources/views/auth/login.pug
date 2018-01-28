@@ -38,17 +38,16 @@ block content
 
     #boxes.form-group
       .d-flex.justify-content-between
-        .checkbox
-          label.custom-control.custom-checkbox
-            input.custom-control-input(
-              type='checkbox',
-              name='remember',
-              checked=old('remember'),
-            )
-            span.custom-control-indicator
-            span.custom-control-description #{__('login.keep_connected')}
+        
+        .custom-control.custom-checkbox
+          input#remember.custom-control-input(
+            type='checkbox',
+            checked=old('remember'),
+            name='remember',
+          )
+          label.custom-control-label(for='remember') #{__('login.keep_connected')}
 
-        a.btn.btn-link.text-secondary(href=route('password.request'))
+        a.btn.btn-link.text-secondary#reset-password(href=route('password.request'))
           i.fa.fa-question-circle(aria-hidden='true')
           | &nbsp;#{__('login.forgot_password')}
 

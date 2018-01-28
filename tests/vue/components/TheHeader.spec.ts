@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import {
   shallow,
-} from 'vue-test-utils';
+} from '@vue/test-utils';
 import Router from 'vue-router';
 
 import faker from 'faker';
