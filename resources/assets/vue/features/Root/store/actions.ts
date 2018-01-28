@@ -2,6 +2,10 @@ import axios from 'axios';
 
 declare const baseUrl: string;
 
+const setBackUrl = ({ commit }, obj) => {
+  commit('SET_BACK_URL', obj);
+};
+
 const setData = async ({ commit }, obj) => {
   const response = await axios.get(`${baseUrl}vue`);
   const { status, data } = response;
@@ -11,6 +15,12 @@ const setData = async ({ commit }, obj) => {
   }
 };
 
+const setMenu = ({ commit }, obj) => {
+  commit('SET_MENU', obj);
+};
+
 export default {
+  setBackUrl,
   setData,
+  setMenu,
 };

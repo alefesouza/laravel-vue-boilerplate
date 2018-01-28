@@ -1,10 +1,12 @@
 const actions = {
+  setBackUrl: jest.fn(),
   setData: jest.fn(),
+  setMenu: jest.fn(),
 };
 
 const mutations = {
-  SET_MENU: jest.fn(),
   SET_BACK_URL: jest.fn(),
+  SET_MENU: jest.fn(),
 };
 
 const state = {};

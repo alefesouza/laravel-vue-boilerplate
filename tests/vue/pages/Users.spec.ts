@@ -53,15 +53,15 @@ describe('Users.vue', () => {
     jest.clearAllMocks();
   });
 
-  it('should have 10 CardUsers components', (done) => {
+  it('should have 10 UsersCards components', (done) => {
     const wrapper = mount(Users, {
       store,
     });
 
     setTimeout(() => {
-      expect(wrapper.findAll('.card-user')).toHaveLength(mockUsers.length);
-      expect(wrapper.findAll('.card-user h4').at(0).text()).toEqual(mockUsers[0].name);
-      expect(wrapper.findAll('.card-user h4').at(5).text()).toEqual(mockUsers[5].name);
+      expect(wrapper.findAll('.users-card')).toHaveLength(mockUsers.length);
+      expect(wrapper.findAll('.users-card h4').at(0).text()).toEqual(mockUsers[0].name);
+      expect(wrapper.findAll('.users-card h4').at(5).text()).toEqual(mockUsers[5].name);
       done();
     }, 150);
   });

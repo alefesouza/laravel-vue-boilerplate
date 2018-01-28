@@ -8,9 +8,9 @@ import faker from 'faker';
 import configStore from '../mocks/config-store';
 import storeMock from '../mocks/store-mock';
 
-import CardHome from '@/components/CardHome.vue';
+import HomeCard from '@/components/HomeCard.vue';
 
-describe('CardHome.vue', () => {
+describe('HomeCard.vue', () => {
   const store = configStore(Vue, storeMock);
 
   it('should render correctly', () => {
@@ -20,7 +20,7 @@ describe('CardHome.vue', () => {
       icon: faker.lorem.word(),
     };
 
-    const wrapper = shallow(CardHome, {
+    const wrapper = shallow(HomeCard, {
       store,
       propsData: {
         item,
@@ -28,7 +28,7 @@ describe('CardHome.vue', () => {
     });
 
     expect(wrapper.find('.name').text()).toEqual(item.name);
-    expect(wrapper.find('.card-home').element.getAttribute('to')).toEqual(item.link);
-    expect(wrapper.find('.card-home i').classes()).toContain(item.icon);
+    expect(wrapper.find('.home-card').element.getAttribute('to')).toEqual(item.link);
+    expect(wrapper.find('.home-card i').classes()).toContain(item.icon);
   });
 });

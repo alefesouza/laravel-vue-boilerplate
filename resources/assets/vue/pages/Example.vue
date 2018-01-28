@@ -1,27 +1,27 @@
 <script lang="ts">
 import { makeDialog } from 'vue-modal-dialogs';
 import { Component, Vue } from 'vue-property-decorator';
-import { Mutation, namespace } from 'vuex-class';
+import { Action, namespace } from 'vuex-class';
 import { mapState } from 'vuex';
 
-import CardHome from '../components/CardHome.vue';
-import Dialog from '../components/Dialog.vue';
+import HomeCard from '../components/HomeCard.vue';
+import BaseDialog from '../components/BaseDialog.vue';
 
-const dialog = makeDialog<string, boolean, boolean>(Dialog, 'message', 'isConfirm');
+const dialog = makeDialog<string, boolean, boolean>(BaseDialog, 'message', 'isConfirm');
 
-const RootMutation = namespace('Root', Mutation);
+const RootAction = namespace('Root', Action);
 
 // TODO change
 @Component({
   components: {
-    CardHome,
+    HomeCard,
   },
   computed: {
     ...mapState('Root', ['homeItems', 'user']),
   },
 })
 export default class Home extends Vue {
-  @RootMutation('SET_MENU') setMenu;
+  @RootAction('SET_MENU') setMenu;
 
   mounted() {
     this.setMenu([{
@@ -31,7 +31,7 @@ export default class Home extends Vue {
         evt.preventDefault();
 
         dialog('Example 1 clicked', false);
-      }
+      },
     }, {
       text: 'Example 2',
       key: 2,
@@ -39,7 +39,7 @@ export default class Home extends Vue {
         evt.preventDefault();
 
         dialog('Example 2 clicked', false);
-      }
+      },
     }]);
   }
 }

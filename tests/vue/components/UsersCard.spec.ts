@@ -8,7 +8,7 @@ import faker from 'faker';
 import configStore from '../mocks/config-store';
 import storeMock from '../mocks/store-mock';
 
-import CardUser from '@/components/CardUser.vue';
+import UsersCard from '@/components/UsersCard.vue';
 
 const localState = {
   user: {
@@ -19,36 +19,33 @@ const localState = {
 
 storeMock.modules.Root.state = localState;
 
-describe('CardUser.vue', () => {
+describe('UsersCard.vue', () => {
   const store = configStore(Vue, storeMock);
   const user = {
     id: 1,
     name: faker.name.findName(),
   };
 
-  it('should not have delete button', () => {
-    const wrapper = shallow(CardUser, {
+  let wrapper;
+
+  beforeEach(() => {
+    wrapper = shallow(UsersCard, {
       store,
       propsData: {
         user,
       },
     });
+  });
 
-    expect(wrapper.find('.card-user h4').text()).toEqual(user.name);
+  it('should not have delete button', () => {
+    expect(wrapper.find('.users-card h4').text()).toEqual(user.name);
     expect(wrapper.findAll('.text-danger')).toHaveLength(0);
+
+    user.id = 2;
   });
 
   it('should have delete button disabled', () => {
-    user.id = 2;
-
-    const wrapper = shallow(CardUser, {
-      store,
-      propsData: {
-        user,
-      },
-    });
-
-    expect(wrapper.find('.card-user h4').text()).toEqual(user.name);
+    expect(wrapper.find('.users-card h4').text()).toEqual(user.name);
     expect(wrapper.findAll('.text-danger')).toHaveLength(1);
   });
 });

@@ -1,25 +1,25 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import { Mutation, State, namespace } from 'vuex-class';
+import { Action, State, namespace } from 'vuex-class';
 import { mapState } from 'vuex';
 
-import CardHome from '../components/CardHome.vue';
+import HomeCard from '../components/HomeCard.vue';
 
 declare const baseUrl;
 
 const RootState = namespace('Root', State);
-const RootMutation = namespace('Root', Mutation);
+const RootAction = namespace('Root', Action);
 
 @Component({
   components: {
-    CardHome,
+    HomeCard,
   },
   computed: {
     ...mapState('Root', ['homeItems', 'user']),
   },
 })
 export default class Home extends Vue {
-  @RootMutation('SET_MENU') setMenu;
+  @RootAction('setMenu') setMenu;
 
   @RootState('homePath') homePath;
 
@@ -38,5 +38,11 @@ export default class Home extends Vue {
 b-container.home(tag='main')
   h1 {{ $t('strings.welcome') }}, {{ user.name }}
   b-row
-    card-home(v-for='item in homeItems', :key='item.name', :item='item')
+    home-card(v-for='item in homeItems', :key='item.name', :item='item')
 </template>
+
+<style>
+main.container.home {
+  padding-top: 70px;
+}
+</style>

@@ -35,25 +35,24 @@ storeMock.modules.Root.state = localState;
 
 describe('Home.vue', () => {
   const store = configStore(Vue, storeMock);
+  let wrapper;
 
-  it('should have 3 CardHome components and has a name with "Welcome" on the title', () => {
-    const wrapper = mount(Home, {
+  beforeEach(() => {
+    wrapper = mount(Home, {
       store,
     });
+  });
 
+  it('should have 3 HomeCard components and has a name with "Welcome" on the title', () => {
     const welcome = 'Welcome';
 
     expect(wrapper.find('h1').text()).toEqual(`${welcome}, ${localState.user.name}`);
-    expect(wrapper.findAll('.card-home')).toHaveLength(localState.homeItems.length);
+    expect(wrapper.findAll('.home-card')).toHaveLength(localState.homeItems.length);
+
+    Vue.i18n.set('pt');
   });
 
   it('should have a name with "Bem-vindo" on the title', () => {
-    Vue.i18n.set('pt');
-
-    const wrapper = mount(Home, {
-      store,
-    });
-
     const welcome = 'Bem-vindo';
 
     expect(wrapper.find('h1').text()).toEqual(`${welcome}, ${localState.user.name}`);

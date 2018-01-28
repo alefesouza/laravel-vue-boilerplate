@@ -2,29 +2,30 @@ body {
   background: #eeeeee;
   height: 100%;
   overflow-x: hidden;
+  #boxes a {
+    font-size: 14px;
+    text-transform: none;
+  }
+  #login-col {
+    padding: 50px;
+  }
   #login-screen,
   #login-row {
     height: 100%;
   }
   #login-screen {
     form {
-      margin-top: 35px;
-      max-width: 380px;
       margin-left: auto;
       margin-right: auto;
-    }
-    #login-col {
-      padding: 50px;
-    }
-    #logo {
-      margin-top: 0px;
+      margin-top: 35px;
+      max-width: 380px;
     }
     .title {
+      color: #000000;
+      font-size: 27px;
       font-weight: 500;
       line-height: 1.1;
       margin-bottom: 20px;
-      color: #000000;
-      font-size: 27px;
     }
     .checkbox {
       display: inline;
@@ -35,39 +36,35 @@ body {
         }
       }
     }
-    #boxes a {
-      font-size: 14px;
-      text-transform: none;
-    }
+  }
+  #logo {
+    margin-top: 0px;
   }
   #login-background {
     padding-left: 75px;
-    #welcome {
-      color: #ffffff;
-      max-width: 555px;
-      margin-top: 65px;
-      padding-right: 55px;
-      margin-bottom: 65px;
-      h1 {
-        font-weight: lighter;
-        font-size: 60px;
-      }
+  }
+  #welcome {
+    color: #ffffff;
+    max-width: 555px;
+    margin-bottom: 65px;
+    margin-top: 65px;
+    padding-right: 55px;
+    h1 {
+      font-size: 60px;
     }
   }
   @media(min-width: 768px) {
-    #login-background {
-      #welcome {
-        margin-top: 285px;
-        margin-bottom: 0px;
-      }
-    }
     #login-screen {
-      #logo {
-        margin-top: 50px;
-      }
       form {
         margin-top: 150px;
       }
+    }
+    #logo {
+      margin-top: 50px;
+    }
+    #welcome {
+      margin-bottom: 0px;
+      margin-top: 285px;
     }
   }
 }

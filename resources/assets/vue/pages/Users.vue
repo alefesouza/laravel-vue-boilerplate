@@ -1,45 +1,50 @@
 <script lang="ts">
 import { makeDialog } from 'vue-modal-dialogs';
 import { Component, Provide, Vue } from 'vue-property-decorator';
-import { Mutation, State, namespace } from 'vuex-class';
+import { Action, State, namespace } from 'vuex-class';
 
 import axios from 'axios';
 import { clone, find } from 'lodash';
 
-import CardUser from '../components/CardUser.vue';
-import Dialog from '../components/Dialog.vue';
+import BaseDialog from '../components/BaseDialog.vue';
+import UsersCard from '../components/UsersCard.vue';
+import UsersModal from '../components/UsersModal.vue';
 
 declare const baseUrl: string;
 
-const dialog = makeDialog<string, boolean, boolean>(Dialog, 'message', 'isConfirm');
+const dialog = makeDialog<string, boolean, boolean>(BaseDialog, 'message', 'isConfirm');
 
-const RootMutation = namespace('Root', Mutation);
+const RootAction = namespace('Root', Action);
 const RootState = namespace('Root', State);
 
 @Component({
   components: {
-    CardUser,
+    UsersCard,
+    UsersModal,
   },
 })
 export default class Users extends Vue {
   @Provide() currentPage = 1;
   @Provide() form: User = {};
-  @Provide() perPage = 5;
-  @Provide() totalUsers = 0;
-  @Provide() totalPages = 0;
   @Provide() users: User[] = [];
 
-  @RootMutation('SET_BACK_URL') setBackUrl;
-  @RootMutation('SET_MENU') setMenu;
+  @Provide() modalData = {
+    editIndex: 0,
+    isAdd: true,
+    okText: '',
+  };
+  @Provide() pagination = {
+    perPage: 5,
+    totalUsers: 0,
+    totalPages: 0,
+  };
+
+  @RootAction('setBackUrl') setBackUrl;
+  @RootAction('setMenu') setMenu;
 
   @RootState('homePath') homePath;
 
   readonly endpoint = `${baseUrl}users`;
-
-  editIndex = 0;
-  isAdd = true;
-  isSending = false;
-  okText = '';
 
   async mounted() {
     await this.getUsers(1);
@@ -52,36 +57,40 @@ export default class Users extends Vue {
     }]);
   }
 
-  addUser(e) {
-    e.preventDefault();
+  addUser(evt: Event): void {
+    evt.preventDefault();
 
-    this.isAdd = true;
-    this.okText = this.t('buttons.add');
+    this.modalData = {
+      editIndex: 0,
+      isAdd: true,
+      okText: this.t('buttons.add'),
+    };
 
     this.form = {
       type_id: 2,
     };
 
-    (<any>this.$refs.modal).show();
+    (<any>this.$refs.users_modal).$refs.modal.show();
   }
 
-  editUser(user) {
-    this.editIndex = this.users.indexOf(user);
-
-    this.isAdd = false;
-    this.okText = this.t('buttons.update');
+  editUser(user: User, index: number): void {
+    this.modalData = {
+      editIndex: index,
+      isAdd: false,
+      okText: this.t('buttons.update'),
+    };
 
     this.form = clone(user);
 
-    (<any>this.$refs.modal).show();
+    (<any>this.$refs.users_modal).$refs.modal.show();
   }
 
-  async deleteUser(user) {
+  async deleteUser(user: User, index: number): Promise<void> {
     const message = this.t(
       'front.delete_confirmation',
       {
         name: (<string>Vue.i18n.translate('strings.users', null, 1)).toLowerCase(),
-      }
+      },
     );
 
     if (!await dialog(message, true)) {
@@ -97,7 +106,6 @@ export default class Users extends Vue {
         return;
       }
 
-      const index = this.users.indexOf(user);
       this.users.splice(index, 1);
 
       dialog(this.t('front.deleted_successfully'), false);
@@ -106,7 +114,7 @@ export default class Users extends Vue {
     }
   }
 
-  async getUsers(page) {
+  async getUsers(page: number): Promise<void> {
     let response;
 
     try {
@@ -125,9 +133,12 @@ export default class Users extends Vue {
           return;
         }
 
-        this.perPage = data.users.per_page;
-        this.totalUsers = data.users.total;
-        this.totalPages = data.users.last_page;
+        this.pagination = {
+          perPage: data.users.per_page,
+          totalUsers: data.users.total,
+          totalPages: data.users.last_page,
+        };
+
         this.users = data.users.data;
         break;
       }
@@ -142,65 +153,16 @@ export default class Users extends Vue {
     }
   }
 
-  async handleOk(evt) {
-    evt.preventDefault();
-
-    const { isAdd, form } = this;
-
-    if (form.password !== form.password_confirmation) {
-      dialog(this.t('validation.confirmed', {
-        attribute: this.t('strings.password').toLowerCase(),
-      }), false);
-
-      return;
+  modifyUsers(user: User): void {
+    if (this.modalData.isAdd) {
+      if (this.currentPage === this.pagination.totalPages) {
+        this.users.push(user);
+      }
+    } else {
+      this.users[this.modalData.editIndex] = user;
     }
 
-    let url = this.endpoint;
-
-    if (!isAdd) {
-      url += `/${form.id}`;
-    }
-
-    let oldText = this.okText;
-
-    this.isSending = true;
-    this.okText = this.t('buttons.sending') + '...';
-
-    try {
-      let response;
-
-      if (isAdd) {
-        response = await axios.post(url, this.form);
-      } else {
-        response = await axios.put(url, this.form);
-      }
-
-      const { status, data } = response;
-
-      this.isSending = false;
-
-      if (status !== 200 || data.errors) {
-        this.okText = oldText;
-        dialog(find(data.errors)[0], false);
-
-        return;
-      }
-
-      if (isAdd) {
-        if (this.currentPage === this.totalPages) {
-          this.users.push(data.user);
-        }
-      } else {
-        this.users[this.editIndex] = data.user;
-      }
-
-      (<any>this.$refs.modal).hide();
-    } catch {
-      this.isSending = false;
-      this.okText = oldText;
-
-      dialog(this.t('errors.generic_error'), false);
-    }
+    this.$forceUpdate();
   }
 
   t(key: string, options?: any): string {
@@ -212,83 +174,38 @@ export default class Users extends Vue {
 <template lang="pug">
 b-container(tag='main')
   b-pagination(
-    v-model='currentPage',
-    v-if='totalUsers > perPage'
-    :total-rows='totalUsers',
-    :per-page='perPage',
-    :input='getUsers',
     align='center',
+    v-if='pagination.totalUsers > pagination.perPage',
+    v-model='currentPage',
+    :per-page='pagination.perPage',
+    :total-rows='pagination.totalUsers',
+    @input='getUsers',
   )
 
-  .users(v-if='users.length !== 0')
-    card-user(
-      v-for='user in users',
-      @edit-user='editUser(user)',
-      @delete-user='deleteUser(user)',
+  .users(v-if='users.length > 0')
+    users-card(
+      v-for='(user, index) in users',
       :key='user.id',
       :user='user',
+      @edit-user='editUser(user, index)',
+      @delete-user='deleteUser(user, index)',
     )
 
+  div(v-else) {{ $t('users.no_users') }}
+
   b-pagination(
-    v-model='currentPage',
-    v-if='totalUsers > 1'
-    :total-rows='totalUsers',
-    :per-page='perPage',
-    @input='getUsers',
     align='center',
+    v-if='pagination.totalUsers > pagination.perPage',
+    v-model='currentPage',
+    :per-page='pagination.perPage',
+    :total-rows='pagination.totalUsers',
+    @input='getUsers',
   )
 
-  b-modal(
-    ref='modal',
-    hide-header-close=true,
-    :title='isAdd ? $t("users.add_user") : $t("users.edit_user")',
-    :ok-disabled='isSending',
-    :ok-title='okText',
-    :cancel-title='$t("buttons.cancel")',
-    @ok='handleOk',
+  users-modal(
+    ref='users_modal',
+    :form='form',
+    :modal-data='modalData',
+    @modify-users='modifyUsers',
   )
-    b-form
-      b-form-group(
-        :label='$t("strings.name")'
-        label-for='name',
-      )
-        b-form-input#name(
-          type='text',
-          v-model='form.name',
-          maxlength='191',
-          required,
-        )
-      b-form-group(
-        :label='$t("strings.email")'
-        label-for='email',
-      )
-        b-form-input#email(
-          type='email',
-          v-model='form.email',
-          maxlength=191,
-          required,
-        )
-      b-form-group(
-        :label='$t("strings.password")'
-        label-for='password',
-      )
-        b-form-input#password(
-          type='password',
-          v-model='form.password',
-          maxlength=191,
-          required,
-        )
-      b-form-group(
-        :label='$t("settings.password_confirmation")'
-        label-for='password_confirmation',
-      )
-        b-form-input#password_confirmation(
-          type='password',
-          v-model='form.password_confirmation',
-          maxlength=191,
-        )
-      b-form-group(:label='$t("users.user_type")')
-        b-form-radio-group(v-model="form.type_id", name='type_id')
-          b-form-radio(value=2) {{ $t('strings.normal') }}
-          b-form-radio(value=1) {{ $t('strings.admin') }}
 </template>

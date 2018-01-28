@@ -1,5 +1,5 @@
 @import 'variables';
-@import "~bootstrap/scss/bootstrap";
+@import '~bootstrap/scss/bootstrap';
 @import '~font-awesome/scss/font-awesome.scss';
 .login {
   height: 100%;
@@ -8,17 +8,16 @@
 
 body {
   background: #eeeeee;
-  main.container {
-    padding-top: 70px;
-  }
   h1 {
     font-size: 35px;
-    font-weight: lighter;
   }
-  .btn-link {
-    cursor: pointer;
+  main.container {
+    padding-top: 20px;
   }
   #vue-loading {
     margin: 16px;
+  }
+  .btn-link {
+    cursor: pointer;
   }
 }

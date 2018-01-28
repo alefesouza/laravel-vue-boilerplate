@@ -1,15 +1,16 @@
 <script lang="ts">
 import axios from 'axios';
-import { Action, State, namespace } from 'vuex-class'
+import { Action, State, namespace } from 'vuex-class';
 import { Component, Vue } from 'vue-property-decorator';
-import AppHeader from "./components/AppHeader.vue";
+
+import TheHeader from './components/TheHeader.vue';
 
 const RootState = namespace('Root', State);
 const RootAction = namespace('Root', Action);
 
 @Component({
   components: {
-    AppHeader,
+    TheHeader,
   },
 })
 export default class App extends Vue {
@@ -36,6 +37,6 @@ export default class App extends Vue {
 <template lang="pug">
 div
   dialogs-wrapper/
-  app-header/
+  the-header/
   router-view(v-if='loaded')/
 </template>

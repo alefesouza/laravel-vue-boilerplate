@@ -10,7 +10,7 @@ import configStore from '../mocks/config-store';
 import routerMock from '../mocks/router-mock';
 import storeMock from '../mocks/store-mock';
 
-import AppHeader from '@/components/AppHeader.vue';
+import TheHeader from '@/components/TheHeader.vue';
 
 Vue.use(Router);
 
@@ -37,12 +37,12 @@ const localState = {
 
 storeMock.modules.Root.state = localState;
 
-describe('AppHeader.vue', () => {
+describe('TheHeader.vue', () => {
   const store = configStore(Vue, storeMock);
   const router = new Router(<any>routerMock);
 
   it('should fill information', () => {
-    const wrapper = shallow(AppHeader, {
+    const wrapper = shallow(TheHeader, {
       store,
       router,
     });

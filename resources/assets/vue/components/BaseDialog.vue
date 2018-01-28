@@ -3,16 +3,16 @@ import { DialogComponent } from 'vue-modal-dialogs';
 import { Component, Prop } from 'vue-property-decorator';
 
 @Component({})
-export default class Dialog extends DialogComponent<boolean> {
+export default class BaseDialog extends DialogComponent<boolean> {
   @Prop() isConfirm: boolean;
   @Prop() message: string;
 
-  cancel() {
-    this.$close(false)
+  cancel(): void {
+    this.$close(false);
   }
 
-  ok() {
-    this.$close(true)
+  ok(): void {
+    this.$close(true);
   }
 }
 </script>
@@ -33,13 +33,13 @@ export default class Dialog extends DialogComponent<boolean> {
 
 <style lang="scss">
 .message-wrapper {
-  position: fixed;
+  background-color: rgba(0, 0, 0, 0.5);
+  height: 100%;
   left: 0;
+  padding-top: 20px;
+  position: fixed;
   top: 0;
   width: 100%;
-  height: 100%;
-  padding-top: 20px;
-  background-color: rgba(0, 0, 0, 0.5);
   z-index: 1051;
 }
 </style>

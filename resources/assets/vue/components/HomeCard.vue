@@ -8,7 +8,7 @@ export default class DashboardItem extends Vue {
 </script>
 
 <template lang="pug">
-b-col.card-home(:to='item.link', tag='b-link', cols=12, md=6, sm=12, lg=3)
+b-col.home-card(:to='item.link', tag='b-link', cols=12, md=6, sm=12, lg=3)
   b-card.mb-3
     i.fa.text-primary.icon(:class='item.icon', aria-hidden='true')
     .card-text
@@ -17,7 +17,7 @@ b-col.card-home(:to='item.link', tag='b-link', cols=12, md=6, sm=12, lg=3)
 </template>
 
 <style lang="scss">
-.card-home {
+.home-card {
   color: #000000;
   font-size: 25px;
   margin-top: 50px;
@@ -27,22 +27,21 @@ b-col.card-home(:to='item.link', tag='b-link', cols=12, md=6, sm=12, lg=3)
   .card {
     min-height: 200px;
     .card-body {
-      display: flex;
       align-items: flex-end;
+      display: flex;
       .icon {
-        font-size: 30px;
         font-size: 45px;
+        margin: 30px;
         position: absolute;
         right: 0;
         top: 0px;
-        margin: 30px;
       }
       .manage {
-        text-transform: uppercase;
-        font-weight: 400;
         color: #b0b2c2;
-        font-size: 12px;
         display: block;
+        font-weight: 400;
+        font-size: 12px;
+        text-transform: uppercase;
       }
     }
   }
