@@ -15,7 +15,7 @@ const RootAction = namespace('Root', Action);
     HomeCard,
   },
   computed: {
-    ...mapState('Root', ['homeItems', 'user']),
+    ...mapState('Root', ['homeItems', 'homePath', 'user']),
   },
 })
 export default class Home extends Vue {
@@ -24,11 +24,6 @@ export default class Home extends Vue {
   @RootState('homePath') homePath;
 
   mounted() {
-    if (this.homePath !== '/') {
-      this.$router.push(this.homePath);
-      return;
-    }
-
     this.setMenu([]);
   }
 }

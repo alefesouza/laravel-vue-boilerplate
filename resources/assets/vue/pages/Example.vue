@@ -21,9 +21,11 @@ const RootAction = namespace('Root', Action);
   },
 })
 export default class Home extends Vue {
-  @RootAction('SET_MENU') setMenu;
+  @RootAction('setBackUrl') setBackUrl;
+  @RootAction('setMenu') setMenu;
 
   mounted() {
+    this.setBackUrl('/');
     this.setMenu([{
       text: 'Example 1',
       key: 1,

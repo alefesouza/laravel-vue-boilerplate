@@ -26,6 +26,7 @@ const RootState = namespace('Root', State);
 export default class Users extends Vue {
   @Provide() currentPage = 1;
   @Provide() form: User = {};
+  @Provide() loading = true;
   @Provide() users: User[] = [];
 
   @Provide() modalData = {
@@ -123,6 +124,8 @@ export default class Users extends Vue {
       dialog(this.t('errors.generic_error'), false);
     }
 
+    this.loading = false;
+
     const { status, data } = response;
 
     switch (status) {
@@ -190,6 +193,8 @@ b-container(tag='main')
       @edit-user='editUser(user, index)',
       @delete-user='deleteUser(user, index)',
     )
+
+  div(v-else-if='loading') {{ $t('strings.loading') }}...
 
   div(v-else) {{ $t('users.no_users') }}
 

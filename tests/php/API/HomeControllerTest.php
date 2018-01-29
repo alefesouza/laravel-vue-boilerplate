@@ -40,6 +40,11 @@ class HomeControllerTest extends TestCase
                 'link' => 'users',
                 'icon' => 'fa-users',
             ],
+            [
+                'name' => __('strings.example'),
+                'icon' => 'fa-lightbulb-o',
+                'link' => 'example',
+            ],
         ];
 
         $settingsFile = Utils::getSettingsFile();

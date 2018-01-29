@@ -18,6 +18,7 @@ return [
     'welcome' => 'Bem-vindo',
 
     // Pages
+    'example' => 'Exemplo',
     'home' => 'Início',
     'users' => 'Usuário|Usuários',
     'settings' => 'Configurações',

@@ -18,6 +18,7 @@ return [
     'welcome' => 'Welcome',
 
     // Pages
+    'example' => 'Example',
     'home' => 'Home',
     'users' => 'User|Users',
     'settings' => 'Settings',

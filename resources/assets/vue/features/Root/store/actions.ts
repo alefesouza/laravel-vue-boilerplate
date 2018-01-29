@@ -1,4 +1,6 @@
-import axios from 'axios';
+import Vue from 'vue';
+
+import axios, { AxiosResponse } from 'axios';
 
 declare const baseUrl: string;
 
@@ -7,7 +9,17 @@ const setBackUrl = ({ commit }, obj) => {
 };
 
 const setData = async ({ commit }, obj) => {
-  const response = await axios.get(`${baseUrl}vue`);
+  let response: AxiosResponse<any>;
+
+  try {
+    response = await axios.get(`${baseUrl}vue`);
+  } catch {
+    alert(Vue.i18n.translate('errors.generic_error', null));
+    window.location.reload();
+
+    return;
+  }
+
   const { status, data } = response;
 
   if (status === 200 && !data.errors) {

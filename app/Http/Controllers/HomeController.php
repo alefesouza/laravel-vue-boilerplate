@@ -41,6 +41,11 @@ class HomeController extends Controller
                 'icon' => 'fa-users',
                 'link' => 'users',
             ],
+            [
+                'name' => __('strings.example'),
+                'icon' => 'fa-lightbulb-o',
+                'link' => 'example',
+            ],
         ];
 
         $settingsFile = Utils::getSettingsFile();
