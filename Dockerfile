@@ -1,10 +1,10 @@
 FROM php:7.0.26-apache
-MAINTAINER Alefe Souza <contact@alefesouza.com>
+LABEL maintainer="Alefe Souza <contact@alefesouza.com>"
 
 RUN a2enmod rewrite
 
 RUN apt-get update \
-  && apt-get install -y zlib1g-dev libicu-dev g++ \
+  && apt-get install -y zlib1g-dev libicu-dev g++ git openssh-client \
   && docker-php-ext-configure intl \
   && docker-php-ext-install pdo_mysql intl zip
 
