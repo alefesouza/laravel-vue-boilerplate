@@ -8,7 +8,7 @@ import faker from 'faker';
 import configStore from '../mocks/config-store';
 import storeMock from '../mocks/store-mock';
 
-import Home from '@/pages/Home.vue';
+import Home from '@/views/Home.vue';
 
 const localState = {
   homeItems: [{

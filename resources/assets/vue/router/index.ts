@@ -3,9 +3,9 @@ import Router from 'vue-router';
 
 import store from '../store';
 
-import Example from '../pages/Example.vue';
-import Home from '../pages/Home.vue';
-import Users from '../pages/Users.vue';
+import Example from '../views/Example.vue';
+import Home from '../views/Home.vue';
+import Users from '../views/Users.vue';
 
 import { isAdmin } from '../utils/index';
 

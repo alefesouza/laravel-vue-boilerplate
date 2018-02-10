@@ -8,7 +8,7 @@ import faker from 'faker';
 import configStore from '../mocks/config-store';
 import storeMock from '../mocks/store-mock';
 
-import Users from '@/pages/Users.vue';
+import Users from '@/views/Users.vue';
 
 const mockUsers = [];
 
