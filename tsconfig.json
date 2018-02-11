@@ -11,7 +11,12 @@
     "lib": [
       "dom",
       "es2017"
-    ]
+    ],
+    "paths": {
+      "@/*": [
+        "resources/assets/vue/*"
+      ]
+    }
   },
   "include": [
     "resources/assets/vue/**/*.ts",

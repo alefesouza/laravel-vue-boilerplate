@@ -3,7 +3,6 @@ import vuexI18n from 'vuex-i18n';
 
 import Locales from '@/vue-i18n-locales.generated';
 
-// tslint:disable-next-line:variable-name
 export default function configStore(Vue, storeMock) {
   Vue.use(Vuex);
 

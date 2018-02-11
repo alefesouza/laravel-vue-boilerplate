@@ -4,8 +4,8 @@ import { Component, Vue } from 'vue-property-decorator';
 import { Action, namespace } from 'vuex-class';
 import { mapState } from 'vuex';
 
-import HomeCard from '../components/HomeCard.vue';
-import BaseDialog from '../components/BaseDialog.vue';
+import HomeCard from '@/components/HomeCard.vue';
+import BaseDialog from '@/components/BaseDialog.vue';
 
 const dialog = makeDialog<string, boolean, boolean>(BaseDialog, 'message', 'isConfirm');
 

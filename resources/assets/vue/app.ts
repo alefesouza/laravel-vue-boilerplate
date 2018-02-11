@@ -1,19 +1,21 @@
 import Vue from 'vue';
 import BootstrapVue from 'bootstrap-vue';
 import ModalBaseDialogs from 'vue-modal-dialogs';
-import axios from 'axios';
 
 import store from './store';
+
+// Import it before vue-router because it uses i18n strings
+import './utils/i18n';
+import './utils/axios';
+
 import router from './router';
+
 import App from './App.vue';
 
 Vue.config.productionTip = false;
 
 Vue.use(BootstrapVue);
 Vue.use(ModalBaseDialogs);
-
-// Don't throw errors on 422 and 401 status code (used for validations)
-axios.defaults.validateStatus = status => status === 422 || status === 401 || status >= 200 && status < 300;
 
 new Vue({
   store,

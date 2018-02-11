@@ -1,19 +1,9 @@
 import Vue from 'vue';
-import Vuex from 'vuex';
 import vuexI18n from 'vuex-i18n';
 
-import Locales from '../vue-i18n-locales.generated';
-import Root from '../features/Root/store';
+import store from '@/store';
 
-Vue.use(Vuex);
-
-const modules = {
-  Root,
-};
-
-const store = new Vuex.Store({
-  modules,
-});
+import Locales from '@/vue-i18n-locales.generated';
 
 Vue.use(vuexI18n.plugin, store);
 
@@ -28,5 +18,3 @@ if (htmlTag) {
 }
 
 Vue.i18n.set(lang);
-
-export default store;

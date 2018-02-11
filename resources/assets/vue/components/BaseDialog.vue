@@ -2,7 +2,7 @@
 import { DialogComponent } from 'vue-modal-dialogs';
 import { Component, Prop } from 'vue-property-decorator';
 
-@Component({})
+@Component
 export default class BaseDialog extends DialogComponent<boolean> {
   @Prop() isConfirm: boolean;
   @Prop() message: string;

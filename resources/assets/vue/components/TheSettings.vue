@@ -7,6 +7,8 @@ import { mapState } from 'vuex';
 import axios, { AxiosResponse } from 'axios';
 import { find } from 'lodash';
 
+import t from '@/utils/translate';
+
 import BaseDialog from './BaseDialog.vue';
 
 declare const baseUrl;
@@ -15,19 +17,19 @@ const dialog = makeDialog<string, boolean, boolean>(BaseDialog, 'message', 'isCo
 
 const RootState = namespace('Root', State);
 
-@Component({})
+@Component
 export default class TheSettings extends Vue {
   @RootState('settings') settings;
   @RootState('user') user;
 
   @Provide() isSending = false;
-  @Provide() okText = this.t('buttons.save');
+  @Provide() okText = t('buttons.save');
 
   checkPassword() {
     if (this.settings.password !== this.settings.password_confirmation) {
       dialog(
-        this.t('validation.confirmed', {
-          attribute: this.t('strings.password').toLowerCase(),
+        t('validation.confirmed', {
+          attribute: t('strings.password').toLowerCase(),
         }),
         false,
       );
@@ -61,11 +63,11 @@ export default class TheSettings extends Vue {
 
     if ('password' in data) {
       if (!data.password) {
-        dialog(this.t('errors.generic_error'), false);
+        dialog(t('errors.generic_error'), false);
         return;
       }
 
-      dialog(this.t('front.password_changed_successfully'), false);
+      dialog(t('front.password_changed_successfully'), false);
     }
 
     (<any>this.$refs.modal).hide();
@@ -78,7 +80,7 @@ export default class TheSettings extends Vue {
 
   async postData(): Promise<any> {
     this.isSending = true;
-    this.okText = this.t('buttons.sending') + '...';
+    this.okText = t('buttons.sending') + '...';
 
     let response: AxiosResponse<any>;
 
@@ -87,7 +89,7 @@ export default class TheSettings extends Vue {
     } catch {
       this.resetState();
 
-      dialog(this.t('errors.generic_error'), false);
+      dialog(t('errors.generic_error'), false);
 
       return null;
     }
@@ -99,11 +101,7 @@ export default class TheSettings extends Vue {
 
   resetState() {
     this.isSending = false;
-    this.okText = this.t('buttons.save');
-  }
-
-  t(key: string, options?: any): string {
-    return <string>Vue.i18n.translate(key, options);
+    this.okText = t('buttons.save');
   }
 }
 </script>
@@ -116,7 +114,7 @@ b-modal(
   :ok-disabled='isSending',
   :ok-title='okText',
   :title='$t("strings.settings")',
-  @hidden="onModalHidden",
+  @hidden='onModalHidden',
   @ok='handleOk'
 )
   b-form

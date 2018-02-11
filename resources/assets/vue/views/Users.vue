@@ -6,9 +6,11 @@ import { Action, State, namespace } from 'vuex-class';
 import axios from 'axios';
 import { clone, find } from 'lodash';
 
-import BaseDialog from '../components/BaseDialog.vue';
-import UsersCard from '../components/UsersCard.vue';
-import UsersModal from '../components/UsersModal.vue';
+import t from '@/utils/translate';
+
+import BaseDialog from '@/components/BaseDialog.vue';
+import UsersCard from '@/components/UsersCard.vue';
+import UsersModal from '@/components/UsersModal.vue';
 
 declare const baseUrl: string;
 
@@ -53,7 +55,7 @@ export default class Users extends Vue {
     this.setBackUrl('/');
     this.setMenu([{
       key: 'add_user',
-      text: this.t('users.add_user'),
+      text: t('users.add_user'),
       handler: this.addUser,
     }]);
   }
@@ -64,7 +66,7 @@ export default class Users extends Vue {
     this.modalData = {
       editIndex: 0,
       isAdd: true,
-      okText: this.t('buttons.add'),
+      okText: t('buttons.add'),
     };
 
     this.form = {
@@ -78,7 +80,7 @@ export default class Users extends Vue {
     this.modalData = {
       editIndex: index,
       isAdd: false,
-      okText: this.t('buttons.update'),
+      okText: t('buttons.update'),
     };
 
     this.form = clone(user);
@@ -87,7 +89,7 @@ export default class Users extends Vue {
   }
 
   async deleteUser(user: User, index: number): Promise<void> {
-    const message = this.t(
+    const message = t(
       'front.delete_confirmation',
       {
         name: (<string>Vue.i18n.translate('strings.users', null, 1)).toLowerCase(),
@@ -109,9 +111,9 @@ export default class Users extends Vue {
 
       this.users.splice(index, 1);
 
-      dialog(this.t('front.deleted_successfully'), false);
+      dialog(t('front.deleted_successfully'), false);
     } catch {
-      dialog(this.t('errors.generic_error'), false);
+      dialog(t('errors.generic_error'), false);
     }
   }
 
@@ -121,7 +123,7 @@ export default class Users extends Vue {
     try {
       response = await axios.get(`${this.endpoint}?page=${page}`);
     } catch (e) {
-      dialog(this.t('errors.generic_error'), false);
+      dialog(t('errors.generic_error'), false);
     }
 
     this.loading = false;
@@ -131,7 +133,7 @@ export default class Users extends Vue {
     switch (status) {
       case 200: {
         if (data.errors) {
-          dialog(this.t('errors.generic_error'), false);
+          dialog(t('errors.generic_error'), false);
 
           return;
         }
@@ -150,7 +152,7 @@ export default class Users extends Vue {
         return;
       }
       default: {
-        dialog(this.t('errors.generic_error'), false);
+        dialog(t('errors.generic_error'), false);
         return;
       }
     }
@@ -166,10 +168,6 @@ export default class Users extends Vue {
     }
 
     this.$forceUpdate();
-  }
-
-  t(key: string, options?: any): string {
-    return <string>Vue.i18n.translate(key, options);
   }
 }
 </script>

@@ -36,6 +36,7 @@ mix
       extensions: ['*', '.js', '.jsx', '.vue', '.ts', '.tsx'],
       alias: {
         styles: path.resolve(__dirname, 'resources/assets/sass'),
+        '@': path.resolve(__dirname, 'resources/assets/vue'),
       },
     },
   });

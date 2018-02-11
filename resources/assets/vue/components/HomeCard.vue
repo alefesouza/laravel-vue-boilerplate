@@ -1,7 +1,7 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
 
-@Component({})
+@Component
 export default class DashboardItem extends Vue {
   @Prop() item: any;
 }

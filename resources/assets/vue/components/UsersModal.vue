@@ -6,6 +6,8 @@ import { mapState } from 'vuex';
 import axios, { AxiosResponse } from 'axios';
 import { find } from 'lodash';
 
+import t from '@/utils/translate';
+
 import BaseDialog from './BaseDialog.vue';
 import TheSettings from './TheSettings.vue';
 
@@ -13,7 +15,7 @@ declare const baseUrl;
 
 const dialog = makeDialog<string, boolean, boolean>(BaseDialog, 'message', 'isConfirm');
 
-@Component({})
+@Component
 export default class UsersModal extends Vue {
   @Prop() form;
   @Prop() modalData;
@@ -27,8 +29,8 @@ export default class UsersModal extends Vue {
   checkPassword() {
     if (this.form.password !== this.form.password_confirmation) {
       dialog(
-        this.t('validation.confirmed', {
-          attribute: this.t('strings.password').toLowerCase(),
+        t('validation.confirmed', {
+          attribute: t('strings.password').toLowerCase(),
         }),
         false,
       );
@@ -43,8 +45,6 @@ export default class UsersModal extends Vue {
     evt.preventDefault();
 
     this.initialOkText = this.modalData.okText;
-
-    const { modalData, form } = this;
 
     if (this.checkPassword()) {
       return;
@@ -73,29 +73,27 @@ export default class UsersModal extends Vue {
   }
 
   async postData(): Promise<any> {
-    const { modalData, form } = this;
-
     let url = this.endpoint;
 
-    if (!modalData.isAdd) {
+    if (!this.modalData.isAdd) {
       url += `/${this.form.id}`;
     }
 
     this.isSending = true;
-    this.modalData.okText = this.t('buttons.sending') + '...';
+    this.modalData.okText = t('buttons.sending') + '...';
 
     let response;
 
     try {
-      if (modalData.isAdd) {
-        response = await axios.post(url, form);
+      if (this.modalData.isAdd) {
+        response = await axios.post(url, this.form);
       } else {
-        response = await axios.put(url, form);
+        response = await axios.put(url, this.form);
       }
     } catch {
       this.resetState();
 
-      dialog(this.t('errors.generic_error'), false);
+      dialog(t('errors.generic_error'), false);
 
       return null;
     }
@@ -108,10 +106,6 @@ export default class UsersModal extends Vue {
   resetState(): void {
     this.isSending = false;
     this.modalData.okText = this.initialOkText;
-  }
-
-  t(key: string, options?: any): string {
-    return <string>Vue.i18n.translate(key, options);
   }
 }
 </script>

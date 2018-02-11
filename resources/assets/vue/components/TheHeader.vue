@@ -2,7 +2,6 @@
 import { makeDialog } from 'vue-modal-dialogs';
 import { Component, Vue } from 'vue-property-decorator';
 import { mapState } from 'vuex';
-
 import BaseDialog from './BaseDialog.vue';
 import TheSettings from './TheSettings.vue';
 

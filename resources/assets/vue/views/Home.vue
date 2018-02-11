@@ -3,7 +3,7 @@ import { Component, Vue } from 'vue-property-decorator';
 import { Action, State, namespace } from 'vuex-class';
 import { mapState } from 'vuex';
 
-import HomeCard from '../components/HomeCard.vue';
+import HomeCard from '@/components/HomeCard.vue';
 
 declare const baseUrl;
 

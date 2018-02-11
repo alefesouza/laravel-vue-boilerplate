@@ -19,7 +19,7 @@ export default class App extends Vue {
 
 <template lang="pug">
 div
-  dialogs-wrapper/
-  the-header/
-  router-view(v-if='loaded')/
+  dialogs-wrapper
+  the-header
+  router-view(v-if='loaded')
 </template>
