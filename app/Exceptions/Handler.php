@@ -3,6 +3,7 @@
 namespace App\Exceptions;
 
 use Exception;
+use Illuminate\Database\QueryException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Validation\ValidationException;
 
@@ -54,6 +55,13 @@ class Handler extends ExceptionHandler
                 'message' => __('validation.message'),
                 'errors' => $exception->validator->getMessageBag(),
             ], 422);
+        }
+
+        if ($exception instanceof QueryException && $request->wantsJson()) {
+            return response()->json(error(
+                'errors.fatal_error',
+                'database'
+            ), 422);
         }
 
         return parent::render($request, $exception);

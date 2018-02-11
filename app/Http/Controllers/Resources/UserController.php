@@ -33,24 +33,11 @@ class UserController extends Controller
     {
         $this->validator($request);
 
-        try {
-            $user = User::create($request->all());
-
-            if ($user) {
-                return [
-                    'user' => $user,
-                ];
-            }
-
-            return $this->makeError('errors.creating_user', 'database');
-        } catch (\Exception $e) {
-            return $this->makeError(
-                'errors.fatal_error',
-                'exception'
-            );
-        }
+        return tap(new User($request->all()), function ($user) {
+            $user->save();
+        });
     }
-    
+
     /**
      * Update the specified resource in storage.
      *
@@ -60,29 +47,13 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        if(empty($request['password'])) {
+        if (empty($request['password'])) {
             unset($request['password']);
         }
 
         $this->validator($request, $user->id);
 
-        try {
-            if ($user->update($request->all())) {
-                return [
-                    'user' => $user,
-                ];
-            }
-
-            return $this->makeError(
-                'errors.error_updating_user',
-                'database'
-            );
-        } catch (\Exception $e) {
-            return $this->makeError(
-                'errors.fatal_error',
-                'exception'
-            );
-        }
+        return tap($user)->update($request->all());
     }
 
     /**
@@ -97,7 +68,7 @@ class UserController extends Controller
             return [];
         }
 
-        return $this->makeError();
+        return error();
     }
 
     private function validator(Request $request, $id = '')

@@ -160,6 +160,7 @@ export default class Users extends Vue {
 
   modifyUsers(user: User): void {
     if (this.modalData.isAdd) {
+      // Only add the element if it is on the last page
       if (this.currentPage === this.pagination.totalPages) {
         this.users.push(user);
       }

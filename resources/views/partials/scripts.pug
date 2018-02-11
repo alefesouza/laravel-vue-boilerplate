@@ -1,5 +1,5 @@
 script
   | var baseUrl = '#{url('/data')}/';
-script(src=js('app.js'))
+script(src=js('app.js') + '?v=' + rand())
 
 block scripts

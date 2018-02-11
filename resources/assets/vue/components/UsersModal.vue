@@ -64,7 +64,7 @@ export default class UsersModal extends Vue {
       return;
     }
 
-    this.modifyUsers(data.user);
+    this.modifyUsers(data);
   }
 
   @Emit('modify-users')

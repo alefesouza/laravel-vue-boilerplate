@@ -19,3 +19,14 @@ function image($file)
 {
     return asset('images/'.$file);
 }
+
+function error($value = 'errors.generic_error', $about = 'message') {
+    return [
+        'errors' => [
+            $about => [
+                __($value),
+            ],
+        ],
+        'message' => __('errors.generic_error'),
+    ];
+}

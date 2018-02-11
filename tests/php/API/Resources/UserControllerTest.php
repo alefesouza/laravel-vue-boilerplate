@@ -48,20 +48,17 @@ class UserControllerTest extends TestCase
                     'password_confirmation' => 'aaaaaaaa',
                 ]
             );
-            
+
         $json = json_decode($response->getContent());
 
         $response
             ->assertStatus(200)
             ->assertHeader('Content-Type', 'application/json')
             ->assertJson([
-                'user' => 
-                [
-                    'id' => $json->user->id,
-                    'name' => 'Alefe',
-                    'email' => 'test@alefesouza.com',
-                    'type_id' => 2,
-                ],
+                'id' => $json->id,
+                'name' => 'Alefe',
+                'email' => 'test@alefesouza.com',
+                'type_id' => 2,
             ]);
 
         $this->assertDatabaseHas('users', ['email' => 'test@alefesouza.com']);
@@ -82,22 +79,19 @@ class UserControllerTest extends TestCase
                     'password_confirmation' => 'aaaaaaaa',
                 ]
             );
-    
+
         $response
             ->assertStatus(200)
             ->assertHeader('Content-Type', 'application/json')
             ->assertJson([
-                'user' => 
-                [
-                    'id' => $user->id,
-                    'name' => 'Alefe Souza',
-                    'email' => 'contact@alefesouza.com',
-                    'type_id' => 2,
-                ],
+                'id' => $user->id,
+                'name' => 'Alefe Souza',
+                'email' => 'contact@alefesouza.com',
+                'type_id' => 2,
             ]);
 
         $json = json_decode($response->getContent());
-        
+
         $this->assertDatabaseHas('users', ['name' => 'Alefe Souza', 'email' => 'contact@alefesouza.com']);
     }
 
@@ -109,7 +103,7 @@ class UserControllerTest extends TestCase
                 'DELETE',
                 '/data/users/'.$user->id
             );
-        
+
         $response
             ->assertStatus(200)
             ->assertHeader('Content-Type', 'application/json')
@@ -130,7 +124,7 @@ class UserControllerTest extends TestCase
                 'GET',
                 '/data/users'
             );
-        
+
         $response
             ->assertStatus(401)
             ->assertHeader('Content-Type', 'application/json')
