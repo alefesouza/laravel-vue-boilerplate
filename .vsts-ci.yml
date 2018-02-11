@@ -37,7 +37,7 @@ phases:
         Copy-Item .env.vsts-ci .env.testing -Force
 
         php composer.phar install -n --prefer-dist
-        php composer.phar run generate-key
+        php composer.phar run key:generate
         php artisan vue-i18n:generate
 
         New-Item database\database.sqlite -type file
@@ -109,7 +109,7 @@ phases:
         cp .env.vsts-ci .env.testing
 
         composer install -n --prefer-dist
-        composer run generate-key
+        composer run key:generate
         php artisan vue-i18n:generate
 
         touch ./database/database.sqlite
@@ -165,7 +165,7 @@ phases:
         cp .env.vsts-ci .env.testing
 
         composer install -n --prefer-dist
-        composer run generate-key
+        composer run key:generate
         php artisan vue-i18n:generate
 
         touch ./database/database.sqlite

@@ -1,10 +1,9 @@
-// Hide usually unused files
+// Hide usually unused files, I'm commiting it because there's a lot of root directory files, you can delete it if you want.
 {
   "files.exclude": {
     ".env.*": true,
     ".babelrc": true,
     ".editorconfig": true,
-    ".eslintrc": true,
     ".htaccess-novhosts": true,
     ".gitattributes": true,
     ".gitlab-ci.yml": true,
@@ -15,11 +14,13 @@
     "composer.lock": true,
     "docker-compose.yml": true,
     "Dockerfile": true,
+    "LICENSE": true,
     "tslint.json": true,
     "tsconfig.json": true,
     "package-lock.json": true,
     "phpunit-log-junit-fix.php": true,
     "phpunit.xml": true,
+    "tests-jest.xml": true,
     "yarn.lock": true,
     ".circleci/": true,
     "docker/": true,

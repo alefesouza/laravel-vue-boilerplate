@@ -43,7 +43,7 @@ install:
   - composer install -n --prefer-dist
 
 before_test:
-  - composer run generate-key
+  - composer run key:generate
   - php artisan vue-i18n:generate
   - php artisan migrate --seed
 

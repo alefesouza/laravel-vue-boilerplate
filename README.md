@@ -71,18 +71,18 @@ Run:
 
 After it starts, just on the first time, run on another terminal:
 
-    docker exec laravel-vue-boilerplate bash -c "composer run docker && yarn docker"
+    docker exec laravel-vue-boilerplate bash -c "composer start && yarn start"
 
 The application will be available on http://localhost:8000 and the phpMyAdmin on http://localhost:8080
 
 ### Common way
 
-Rename the .env.example to .env, and fill it and the .env.testing with your local info, then:
+Rename the .env.example to .env, and fill it with your local info, then:
 
 Install PHP and JavaScript dependencies:
 
     composer install
-    npm install
+    yarn install
 
 Generate Laravel keys:
 
@@ -99,9 +99,9 @@ Migrate and seed the database:
 
 Compile all the front-end stuff:
 
-    npm run prod
+    yarn prod
 
 Test:
 
     composer test
-    npm test
+    yarn test

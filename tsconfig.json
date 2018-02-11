@@ -1,21 +1,21 @@
 {
   "compilerOptions": {
-    "strict": true,
-    "allowJs": true,
-    "checkJs": true,
-    "noImplicitAny": false,
+    "allowSyntheticDefaultImports": true,
+    "baseUrl": ".",
     "experimentalDecorators": true,
-    "target": "es5",
     "module": "es2015",
     "moduleResolution": "node",
-    "allowSyntheticDefaultImports": true,
+    "noImplicitAny": false,
+    "strict": true,
+    "target": "es2015",
     "lib": [
       "dom",
       "es2017"
     ]
   },
   "include": [
-    "resources/assets/vue/**/*"
+    "resources/assets/vue/**/*.ts",
+    "resources/assets/vue/**/*.vue"
   ],
   "exclude": [
     "node_modules",

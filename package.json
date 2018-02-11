@@ -15,15 +15,14 @@
   ],
   "license": "MIT",
   "scripts": {
-    "start": "npm install && npm run prod && npm test",
-    "dev": "npm run development",
+    "start": "yarn && yarn test && yarn prod",
+    "dev": "yarn development",
     "development": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
     "watch": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --watch --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-    "watch-poll": "npm run watch -- --watch-poll",
+    "watch-poll": "yarn watch -- --watch-poll",
     "hot": "cross-env NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
-    "prod": "npm run production",
+    "prod": "yarn production",
     "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-    "docker": "yarn --pure-lockfile && yarn production && yarn test",
     "test": "cross-env NODE_ENV=test jest"
   },
   "dependencies": {
@@ -44,8 +43,6 @@
     "@vue/test-utils": "^1.0.0-beta.11",
     "babel-preset-env": "^1.6.1",
     "cross-env": "^5.1.3",
-    "eslint": "^4.16.0",
-    "eslint-config-airbnb-base": "^12.1.0",
     "faker": "^4.1.0",
     "jest": "^22.1.4",
     "jest-junit": "^3.4.1",
@@ -99,8 +96,8 @@
     ]
   },
   "jest-junit": {
+    "ancestorSeparator": " › ",
     "suiteName": "Jest Tests",
-    "output": "./tests-jest.xml",
-    "ancestorSeparator": " › "
+    "output": "./tests-jest.xml"
   }
 }

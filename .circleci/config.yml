@@ -6,7 +6,7 @@ jobs:
       # You can use this project Docker image, or uncomment the code on this file
       - image: alefesouza/php7-laravel-node-yarn
       # - image: circleci/php:7.0-node-browsers
-      
+
       - image: circleci/mysql:5.7
         environment:
           - MYSQL_USER=root
@@ -31,11 +31,11 @@ jobs:
       - run:
           name: Run Composer
           command: |
-            cp .env.testing .env
+            cp .env.testing.example .env
 
             composer self-update
             composer install -n --prefer-dist
-            composer run generate-key
+            composer run key:generate
 
             php artisan vue-i18n:generate
             php artisan migrate --seed
@@ -49,7 +49,7 @@ jobs:
           keys:
             - node-v1-{{ checksum "package.json" }}
             - node-v1-
-      
+
       - run:
           name: Run Yarn
           command: |

@@ -11,7 +11,7 @@ const SET_DATA = (state, obj) => {
 
   obj.loaded = true;
 
-  Object.assign(state, ...obj);
+  Object.assign(state, { ...obj });
 };
 
 const SET_MENU = (state, obj) => {

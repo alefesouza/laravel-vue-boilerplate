@@ -59,17 +59,17 @@
       "@php artisan package:discover"
     ],
     "test": "\"vendor/bin/phpunit\"",
-    "copy-env": "cp .env.docker .env && cp .env.docker .env.testing",
-    "generate-key": "php artisan key:generate && php artisan key:generate --env=testing",
+    "env:copy": "cp .env.docker .env && cp .env.docker .env.testing",
+    "key:generate": "php artisan key:generate && php artisan key:generate --env=testing",
     "permissions": "chgrp -R www-data storage bootstrap/cache && chmod -R ug+rwx storage bootstrap/cache",
-    "docker": [
-      "@composer run copy-env",
+    "start": [
+      "@composer run env:copy",
       "@composer install -n --prefer-dist",
-      "@composer run generate-key",
-      "php artisan vue-i18n:generate",
-      "php artisan migrate --seed",
-      "@composer test",
-      "@composer run permissions"
+      "@composer run key:generate",
+      "@php artisan vue-i18n:generate",
+      "@php artisan migrate --seed",
+      "@composer run permissions",
+      "@composer test"
     ]
   },
   "config": {

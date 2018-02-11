@@ -2,6 +2,6 @@
   "extends": "tslint-config-airbnb",
   "rules": {
     "import-name": false,
-    "max-line-length": false
+    "no-increment-decrement": false
   }
 }

@@ -14,9 +14,9 @@ before_install:
   - mysql -e 'CREATE DATABASE laravel_vue_boilerplate_test;'
 
 before_script:
-  - cp .env.testing .env
+  - cp .env.testing.example .env
   - composer install -n --prefer-dist
-  - composer run generate-key
+  - composer run key:generate
   - php artisan vue-i18n:generate
   - php artisan migrate --seed
   - yarn --pure-lockfile
