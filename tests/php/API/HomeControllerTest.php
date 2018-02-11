@@ -26,14 +26,6 @@ class HomeControllerTest extends TestCase
 
     public function testGETVue()
     {
-        $response = $this->actingAs($this->admin)
-            ->call(
-                'GET',
-                '/data/vue'
-            );
-
-        $json = json_decode($response->getContent());
-
         $homeItems = [
             [
                 'name' => trans_choice('strings.users', 2),
@@ -55,7 +47,11 @@ class HomeControllerTest extends TestCase
             $settings = [];
         }
 
-        $response
+        $response = $this->actingAs($this->admin)
+            ->call(
+                'GET',
+                '/data/vue'
+            )
             ->assertStatus(200)
             ->assertHeader('Content-Type', 'application/json')
             ->assertJson([

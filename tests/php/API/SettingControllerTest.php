@@ -33,16 +33,12 @@ class SettingControllerTest extends TestCase
                     'password' => 'aaaaaa',
                     'password_confirmation' => 'aaaaaa',
                 ]
-            );
-
-        $response
+            )
             ->assertStatus(200)
             ->assertHeader('Content-Type', 'application/json')
             ->assertJson([
                 'password' => true,
             ]);
-
-        $json = json_decode($response->getContent());
 
         $password = User::find($this->admin->id)->password;
 
@@ -58,11 +54,7 @@ class SettingControllerTest extends TestCase
                     'password' => 'aaaaaa',
                     'password_confirmation' => 'aaaaaab',
                 ]
-            );
-
-        $response
-            
-        ->assertHeader('Content-Type', 'application/json')
+            )
             ->assertHeader('Content-Type', 'application/json')
             ->assertJson([
                 'message' => __('validation.message'),
@@ -73,27 +65,22 @@ class SettingControllerTest extends TestCase
                 ],
             ]);
 
-        $json = json_decode($response->getContent());
-
         $password = $this->admin->password;
-        
+
         $this->assertFalse(Hash::check('aaaaaa', $password));
     }
 
     public function testPOSTSettingsWithInvalidCharNumber()
     {
-        $response = $this->actingAs($this->admin)->json(
-                    'POST',
-                    '/data/settings',
-                    [
-                        'password' => 'aaaa',
-                        'password_confirmation' => 'aaaa',
-                    ]
-                );
-
-        $json = json_decode($response->getContent());
-
-        $response
+        $this->actingAs($this->admin)
+            ->json(
+                'POST',
+                '/data/settings',
+                [
+                    'password' => 'aaaa',
+                    'password_confirmation' => 'aaaa',
+                ]
+            )
             ->assertStatus(422)
             ->assertHeader('Content-Type', 'application/json')
             ->assertJson([
@@ -113,23 +100,17 @@ class SettingControllerTest extends TestCase
 
     public function testPOSTSettingsWithoutPassword()
     {
-        $response = $this->actingAs($this->admin)->json(
-            'POST',
-            '/data/settings'
-        );
-
-        $response
+        $this->actingAs($this->admin)
+            ->json(
+                'POST',
+                '/data/settings'
+            )
             ->assertStatus(200)
             ->assertHeader('Content-Type', 'application/json')
             ->assertJson([]);
 
-        $json = json_decode($response->getContent());
-        
         $password = User::find($this->admin->id)->password;
 
         $this->assertTrue(Hash::check('secret', $password));
-
-
-        $this->admin->delete();
     }
 }
