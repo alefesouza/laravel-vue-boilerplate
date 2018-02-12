@@ -82,7 +82,7 @@ Rename the .env.example to .env, and fill it with your local info, then:
 Install PHP and JavaScript dependencies:
 
     composer install
-    yarn install
+    yarn
 
 Generate Laravel keys:
 
