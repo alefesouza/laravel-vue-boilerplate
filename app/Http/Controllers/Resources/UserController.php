@@ -18,9 +18,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        return [
-            'users' => User::paginate(5),
-        ];
+        return User::paginate(5);
     }
 
     /**
@@ -71,11 +69,11 @@ class UserController extends Controller
         return error();
     }
 
-    private function validator(Request $request, $id = '')
+    private function validator(Request $request, $id = null)
     {
         $emailValidation = 'required|max:191|email|unique:users';
 
-        if ($id) {
+        if (!empty($id)) {
             $emailValidation .= ',email,'.$id;
         }
 

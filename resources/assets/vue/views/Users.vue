@@ -139,12 +139,12 @@ export default class Users extends Vue {
         }
 
         this.pagination = {
-          perPage: data.users.per_page,
-          totalUsers: data.users.total,
-          totalPages: data.users.last_page,
+          perPage: data.per_page,
+          totalUsers: data.total,
+          totalPages: data.last_page,
         };
 
-        this.users = data.users.data;
+        this.users = data.data;
         break;
       }
       case 401: {

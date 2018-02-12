@@ -28,9 +28,7 @@ jest.mock('axios', () => ({
     status: 200,
     data: {
       error: false,
-      users: {
-        data: mockUsers,
-      },
+      data: mockUsers,
     },
   })),
 }));
