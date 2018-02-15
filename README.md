@@ -15,6 +15,7 @@ A Laravel 5.5 Single Page Application boilerplate using Vue.js 2.5, Bootstrap 4,
 
 * A users CRUD if the current user is an admin.
 * i18n for English and Portuguese, based on browser language settings.
+* Authentication using JWT.
 * Vue component tests using Jest and API tests using PHPUnit.
 * Already configured to run tests on Docker, GitLab CI, Travis CI, CircleCI, AppVeyor and VSTS CI on Windows, Linux and macOS.
 * Dockerfile configured with PHP 7, Node.js 8, Yarn and Composer, with MySQL and phpMyAdmin on Docker Compose.
@@ -40,9 +41,10 @@ Front-end:
 * [Vue](https://github.com/vuejs/vue)
 * [VueRouter](https://github.com/vuejs/vue-router)
 * [Vuex](https://github.com/vuejs/vuex)
+* [Vue Auth](https://github.com/websanova/vue-auth)
 * [vuex-i18n](https://github.com/dkfbasel/vuex-i18n)
 * [Bootstrap 4](https://github.com/twbs/bootstrap)
-* [BootstrapVue](https://github.com/bootstrap-vue/bootstrap-vue/)
+* [BootstrapVue](https://github.com/bootstrap-vue/bootstrap-vue)
 * [Font Awesome](https://github.com/FortAwesome/Font-Awesome)
 * [TypeScript](https://github.com/microsoft/typescript)
 * [Pug](https://github.com/pugjs/pug)
@@ -55,8 +57,9 @@ The TypeScript code tries to follow the [Airbnb JavaScript Style Guide](https://
 Back-end:
 
 * [Laravel](https://github.com/laravel/laravel)
-* [Laravel Pug](https://github.com/bkwld/laravel-pug)
+* [jwt-auth](https://github.com/tymondesigns/jwt-auth)
 * [laravel-vue-i18n-generator](https://github.com/martinlindhe/laravel-vue-i18n-generator)
+* [Laravel Pug](https://github.com/bkwld/laravel-pug)
 * [PHPUnit](https://github.com/sebastianbergmann/phpunit)
 
 ## Steps to run it:
@@ -87,7 +90,10 @@ Install PHP and JavaScript dependencies:
 Generate Laravel keys:
 
     php artisan key:generate
-    php artisan key:generate --env=testing
+
+Generate JWT keys
+
+    php artisan jwt:secret
 
 Generate i18n string for Vue, based on Laravel i18n files:
 

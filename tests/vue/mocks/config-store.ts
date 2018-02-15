@@ -1,5 +1,6 @@
 import Vuex from 'vuex';
 import vuexI18n from 'vuex-i18n';
+import VueAuth from '@websanova/vue-auth';
 
 import Locales from '@/vue-i18n-locales.generated';
 

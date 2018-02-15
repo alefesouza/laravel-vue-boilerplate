@@ -1,23 +1,20 @@
 <script lang="ts">
-import { makeDialog } from 'vue-modal-dialogs';
 import { Component, Vue } from 'vue-property-decorator';
-import { Action, namespace } from 'vuex-class';
-import { mapState } from 'vuex';
+import { Action, State, namespace } from 'vuex-class';
+
+import dialog from '@/utils/dialog';
+import t from '@/utils/translate';
 
 import HomeCard from '@/components/HomeCard.vue';
-import BaseDialog from '@/components/BaseDialog.vue';
-
-const dialog = makeDialog<string, boolean, boolean>(BaseDialog, 'message', 'isConfirm');
 
 const RootAction = namespace('Root', Action);
+const RootState = namespace('Root', State);
+
 
 // TODO change
 @Component({
   components: {
     HomeCard,
-  },
-  computed: {
-    ...mapState('Root', ['homeItems', 'user']),
   },
 })
 export default class Home extends Vue {
@@ -27,20 +24,20 @@ export default class Home extends Vue {
   mounted() {
     this.setBackUrl('/');
     this.setMenu([{
-      text: 'Example 1',
+      text: t('strings.example') + ' 1',
       key: 1,
       handler(evt) {
         evt.preventDefault();
 
-        dialog('Example 1 clicked', false);
+        dialog(t('strings.clicked') + ' 1', false);
       },
     }, {
-      text: 'Example 2',
+      text: t('strings.example') + ' 2',
       key: 2,
       handler(evt) {
         evt.preventDefault();
 
-        dialog('Example 2 clicked', false);
+        dialog(t('strings.clicked') + ' 2', false);
       },
     }]);
   }
@@ -49,5 +46,5 @@ export default class Home extends Vue {
 
 <template lang="pug">
 b-container(tag='main')
-  h1 Example
+  h1 {{ $t('strings.example') }}
 </template>

@@ -15,14 +15,14 @@ class UsersTableSeeder extends Seeder
         User::create([
             'name' => 'Admin',
             'email' => 'admin@example.com',
-            'password' => 'admin',
+            'password' => bcrypt('admin'),
             'type_id' => 1,
         ]);
 
         User::create([
             'name' => 'Normal',
             'email' => 'normal@example.com',
-            'password' => 'normal',
+            'password' => bcrypt('normal'),
             'type_id' => 2,
         ]);
 
@@ -41,7 +41,7 @@ class UsersTableSeeder extends Seeder
             User::create([
                 'name' => $person,
                 'email' => strtolower(str_replace(' ', '.', $person)).'@example.com',
-                'password' => 'secret',
+                'password' => bcrypt('secret'),
                 'type_id' => 2,
             ]);
         }

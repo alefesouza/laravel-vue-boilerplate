@@ -11,22 +11,14 @@
 |
 */
 
-Auth::routes();
-
 Route::group([
-    'middleware' => ['auth']
+    'middleware' => 'guest',
 ], function () {
-    Route::get('/home', 'HomeController@index')->name('home');
-    
-    Route::get('/data/vue', 'HomeController@vue')->name('vue');
-
-    Route::post('/data/settings', 'SettingController@saveSettings')->name('settings.save');
+    Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail');
+    Route::post('password/reset', 'Auth\ResetPasswordController@reset');
 });
 
-Route::group([
-    'middleware' => ['admin'],
-], function () {
-    Route::resource('/data/users', 'Resources\UserController');
-});
+// It's necessary for the reset password e-mail
+Route::get('password/reset/{token}', 'HomeController@index')->name('password.reset');
 
-Route::get('/{any}', 'HomeController@index')->where('any', '.*')->middleware('auth');
+Route::get('/{any}', 'HomeController@index')->where('any', '.*');

@@ -26,11 +26,14 @@
     "test": "cross-env NODE_ENV=test jest"
   },
   "dependencies": {
+    "@websanova/vue-auth": "^2.21.2-beta",
     "axios": "^0.17.1",
     "bootstrap": "^4.0.0",
     "bootstrap-vue": "^2.0.0-rc.1",
     "font-awesome": "^4.7.0",
+    "lodash": "^4.17.5",
     "vue": "^2.5.13",
+    "vue-axios": "^2.0.2",
     "vue-modal-dialogs": "^2.0.0",
     "vue-router": "^3.0.1",
     "vuex": "^3.0.1",

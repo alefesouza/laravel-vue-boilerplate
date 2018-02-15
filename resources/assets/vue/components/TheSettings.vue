@@ -1,29 +1,25 @@
 <script lang="ts">
-import { makeDialog } from 'vue-modal-dialogs';
 import { Component, Provide, Vue } from 'vue-property-decorator';
 import { State, namespace } from 'vuex-class';
-import { mapState } from 'vuex';
 
-import axios, { AxiosResponse } from 'axios';
+import { AxiosResponse } from 'axios';
 import { find } from 'lodash';
 
 import t from '@/utils/translate';
-
-import BaseDialog from './BaseDialog.vue';
-
-declare const baseUrl;
-
-const dialog = makeDialog<string, boolean, boolean>(BaseDialog, 'message', 'isConfirm');
+import dialog from '@/utils/dialog';
 
 const RootState = namespace('Root', State);
 
 @Component
 export default class TheSettings extends Vue {
   @RootState('settings') settings;
-  @RootState('user') user;
 
   @Provide() isSending = false;
   @Provide() okText = t('buttons.save');
+
+  get userType() {
+    return this.$auth.user().type_id;
+  }
 
   checkPassword() {
     if (this.settings.password !== this.settings.password_confirmation) {
@@ -85,7 +81,7 @@ export default class TheSettings extends Vue {
     let response: AxiosResponse<any>;
 
     try {
-      response = await axios.post(`${baseUrl}settings`, this.settings);
+      response = await this.axios.post('settings', this.settings);
     } catch {
       this.resetState();
 
@@ -120,7 +116,7 @@ b-modal(
   b-form
     //- TODO change
     b-form-group(
-      v-if='user.type_id === 1',
+      v-if='userType === 1',
       label='Example'
       label-for='example',
     )
@@ -132,18 +128,18 @@ b-modal(
       )
     b-form-group(
       :label='$t("settings.new_password")'
-      label-for='password',
+      label-for='settings-password',
     )
-      b-form-input#password(
+      b-form-input#settings-password(
         type='password',
         v-model='settings.password',
         maxlength=191,
       )
     b-form-group(
       :label='$t("settings.password_confirmation")'
-      label-for='password_confirmation',
+      label-for='settings-password_confirmation',
     )
-      b-form-input#password_confirmation(
+      b-form-input#settings-password_confirmation(
         type='password',
         v-model='settings.password_confirmation',
         maxlength=191,

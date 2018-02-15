@@ -23,4 +23,7 @@ return [
     'users' => 'User|Users',
     'settings' => 'Settings',
 
+    // Example page click message
+    'clicked' => 'You clicked on',
+
 ];

@@ -32,7 +32,7 @@ install:
   - mysqladmin --host=%MYSQL_HOST% --user=%MYSQL_USER% --password=%MYSQL_PASSWORD% create %MYSQL_DATABASE%
 
   - ps: Install-Product node $env:NODEJS_VERSION
-  
+
   - IF EXIST %PHP_CACHE_DIR% (SET PHP=1)
   - IF %PHP%==0 cinst php -y --version %PHP_CHOCO_VERSION%  --params "/InstallDir:%PHP_CACHE_DIR%"
   - IF %PHP%==0 cinst composer -y --ia "/DEV=%PHP_CACHE_DIR%"
@@ -44,6 +44,7 @@ install:
 
 before_test:
   - composer run key:generate
+  - composer run jwt:generate
   - php artisan vue-i18n:generate
   - php artisan migrate --seed
 
@@ -56,9 +57,9 @@ test_script:
 
 after_test:
   - php phpunit-log-junit-fix.php tests-phpunit.xml
-  - ps: >- 
+  - ps: >-
       $wc = New-Object 'System.Net.WebClient'
 
       $wc.UploadFile("https://ci.appveyor.com/api/testresults/junit/$($env:APPVEYOR_JOB_ID)", (Resolve-Path .\tests-phpunit.xml))
-      
+
       $wc.UploadFile("https://ci.appveyor.com/api/testresults/junit/$($env:APPVEYOR_JOB_ID)", (Resolve-Path .\tests-jest.xml))

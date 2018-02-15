@@ -26,12 +26,12 @@ class SettingController extends Controller
         }
 
         $data = [];
-        
+
         $password = $request['password'];
 
         if (!empty($password)) {
             $data['password'] = $request->user()->update([
-                'password' => $password,
+                'password' => bcrypt($password),
             ]);
         }
 

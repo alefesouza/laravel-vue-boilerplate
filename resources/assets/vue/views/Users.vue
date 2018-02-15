@@ -1,20 +1,14 @@
 <script lang="ts">
-import { makeDialog } from 'vue-modal-dialogs';
 import { Component, Provide, Vue } from 'vue-property-decorator';
 import { Action, State, namespace } from 'vuex-class';
 
-import axios from 'axios';
 import { clone, find } from 'lodash';
 
+import dialog from '@/utils/dialog';
 import t from '@/utils/translate';
 
-import BaseDialog from '@/components/BaseDialog.vue';
 import UsersCard from '@/components/UsersCard.vue';
 import UsersModal from '@/components/UsersModal.vue';
-
-declare const baseUrl: string;
-
-const dialog = makeDialog<string, boolean, boolean>(BaseDialog, 'message', 'isConfirm');
 
 const RootAction = namespace('Root', Action);
 const RootState = namespace('Root', State);
@@ -47,7 +41,7 @@ export default class Users extends Vue {
 
   @RootState('homePath') homePath;
 
-  readonly endpoint = `${baseUrl}users`;
+  readonly endpoint = `users`;
 
   async mounted() {
     await this.getUsers(1);
@@ -92,7 +86,7 @@ export default class Users extends Vue {
     const message = t(
       'front.delete_confirmation',
       {
-        name: (<string>Vue.i18n.translate('strings.users', null, 1)).toLowerCase(),
+        name: (<string>this.$i18n.translate('strings.users', null, 1)).toLowerCase(),
       },
     );
 
@@ -101,7 +95,7 @@ export default class Users extends Vue {
     }
 
     try {
-      const response = await axios.delete(`${this.endpoint}/${user.id}`);
+      const response = await this.axios.delete(`${this.endpoint}/${user.id}`);
       const { status, data } = response;
 
       if (status !== 200 || data.errors) {
@@ -121,7 +115,7 @@ export default class Users extends Vue {
     let response;
 
     try {
-      response = await axios.get(`${this.endpoint}?page=${page}`);
+      response = await this.axios.get(`${this.endpoint}?page=${page}`);
     } catch (e) {
       dialog(t('errors.generic_error'), false);
     }
@@ -186,11 +180,11 @@ b-container(tag='main')
 
   .users(v-if='users.length > 0')
     users-card(
-      v-for='(user, index) in users',
+      v-for='user, i in users',
       :key='user.id',
       :user='user',
-      @edit-user='editUser(user, index)',
-      @delete-user='deleteUser(user, index)',
+      @edit-user='editUser(user, i)',
+      @delete-user='deleteUser(user, i)',
     )
 
   div(v-else-if='loading') {{ $t('strings.loading') }}...

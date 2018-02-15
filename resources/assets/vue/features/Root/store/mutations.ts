@@ -9,8 +9,6 @@ const SET_DATA = (state, obj) => {
     obj.csrfToken = (<HTMLMetaElement>token).content;
   }
 
-  obj.loaded = true;
-
   Object.assign(state, { ...obj });
 };
 

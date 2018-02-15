@@ -1,19 +1,13 @@
 <script lang="ts">
-import { makeDialog } from 'vue-modal-dialogs';
 import { Component, Emit, Prop, Provide, Vue } from 'vue-property-decorator';
-import { mapState } from 'vuex';
 
-import axios, { AxiosResponse } from 'axios';
+import { AxiosResponse } from 'axios';
 import { find } from 'lodash';
 
 import t from '@/utils/translate';
+import dialog from '@/utils/dialog';
 
-import BaseDialog from './BaseDialog.vue';
 import TheSettings from './TheSettings.vue';
-
-declare const baseUrl;
-
-const dialog = makeDialog<string, boolean, boolean>(BaseDialog, 'message', 'isConfirm');
 
 @Component
 export default class UsersModal extends Vue {
@@ -24,7 +18,7 @@ export default class UsersModal extends Vue {
 
   initialOkText: string;
 
-  readonly endpoint = `${baseUrl}users`;
+  readonly endpoint = `users`;
 
   checkPassword() {
     if (this.form.password !== this.form.password_confirmation) {
@@ -86,9 +80,9 @@ export default class UsersModal extends Vue {
 
     try {
       if (this.modalData.isAdd) {
-        response = await axios.post(url, this.form);
+        response = await this.axios.post(url, this.form);
       } else {
-        response = await axios.put(url, this.form);
+        response = await this.axios.put(url, this.form);
       }
     } catch {
       this.resetState();

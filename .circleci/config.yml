@@ -36,6 +36,7 @@ jobs:
             composer self-update
             composer install -n --prefer-dist
             composer run key:generate
+            composer run jwt:generate
 
             php artisan vue-i18n:generate
             php artisan migrate --seed

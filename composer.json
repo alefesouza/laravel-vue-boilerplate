@@ -17,7 +17,8 @@
     "bkwld/laravel-pug": "^1.5",
     "fideloper/proxy": "~3.3",
     "laravel/framework": "5.5.*",
-    "martinlindhe/laravel-vue-i18n-generator": "^0.1.20"
+    "martinlindhe/laravel-vue-i18n-generator": "^0.1.20",
+    "tymon/jwt-auth": "1.0.0-rc.2"
   },
   "require-dev": {
     "filp/whoops": "~2.0",
@@ -61,11 +62,13 @@
     "test": "\"vendor/bin/phpunit\"",
     "env:copy": "cp .env.docker .env && cp .env.docker .env.testing",
     "key:generate": "php artisan key:generate && php artisan key:generate --env=testing",
+    "jwt:generate": "php artisan jwt:secret && php artisan jwt:secret --env=testing",
     "permissions": "chgrp -R www-data storage bootstrap/cache && chmod -R ug+rwx storage bootstrap/cache",
     "start": [
       "@composer run env:copy",
       "@composer install -n --prefer-dist",
       "@composer run key:generate",
+      "@composer run jwt:generate",
       "@php artisan vue-i18n:generate",
       "@php artisan migrate --seed",
       "@composer run permissions",

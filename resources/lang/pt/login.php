@@ -11,4 +11,6 @@ return [
     'reset_password' => 'Redefinir senha',
     'send_reset_link' => 'Enviar link de recuperação',
 
+    'account_created' => 'Sua conta foi criada com sucesso.',
+
 ];

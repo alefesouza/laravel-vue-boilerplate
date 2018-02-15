@@ -14,6 +14,7 @@ class SettingControllerTest extends TestCase
     use DatabaseTransactions;
 
     protected $admin;
+    protected $adminToken;
 
     public function setUp()
     {
@@ -22,13 +23,18 @@ class SettingControllerTest extends TestCase
         $this->admin = factory(User::class)->create([
             'type_id' => 1
         ]);
+
+        $this->adminToken = \JWTAuth::fromUser($this->admin);
     }
 
     public function testPOSTSettingsWithValidForm()
     {
-        $response = $this->actingAs($this->admin)->json(
+        $response = $this->withHeaders([
+                'Authorization' => 'Bearer '.$this->adminToken,
+            ])
+            ->json(
                 'POST',
-                '/data/settings',
+                '/api/settings',
                 [
                     'password' => 'aaaaaa',
                     'password_confirmation' => 'aaaaaa',
@@ -47,9 +53,12 @@ class SettingControllerTest extends TestCase
 
     public function testPOSTSettingsWithInvalidConfirmation()
     {
-        $response = $this->actingAs($this->admin)->json(
+        $response = $this->withHeaders([
+                'Authorization' => 'Bearer '.$this->adminToken,
+            ])
+            ->json(
                 'POST',
-                '/data/settings',
+                '/api/settings',
                 [
                     'password' => 'aaaaaa',
                     'password_confirmation' => 'aaaaaab',
@@ -72,10 +81,12 @@ class SettingControllerTest extends TestCase
 
     public function testPOSTSettingsWithInvalidCharNumber()
     {
-        $this->actingAs($this->admin)
+        $this->withHeaders([
+                'Authorization' => 'Bearer '.$this->adminToken,
+            ])
             ->json(
                 'POST',
-                '/data/settings',
+                '/api/settings',
                 [
                     'password' => 'aaaa',
                     'password_confirmation' => 'aaaa',
@@ -100,10 +111,12 @@ class SettingControllerTest extends TestCase
 
     public function testPOSTSettingsWithoutPassword()
     {
-        $this->actingAs($this->admin)
+        $this->withHeaders([
+                'Authorization' => 'Bearer '.$this->adminToken,
+            ])
             ->json(
                 'POST',
-                '/data/settings'
+                '/api/settings'
             )
             ->assertStatus(200)
             ->assertHeader('Content-Type', 'application/json')

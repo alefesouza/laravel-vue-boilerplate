@@ -3,11 +3,6 @@ export default {
   backUrl: '',
   csrfToken: '',
   homeItems: [],
-  homePath: '',
-  loaded: false,
-  logo: '',
-  logoutUrl: '',
   menu: [],
   settings: {},
-  user: {},
 };

@@ -13,15 +13,17 @@ class HomeControllerTest extends TestCase
 {
     use DatabaseTransactions;
 
-    protected $admin;
+    protected $adminToken;
 
     public function setUp()
     {
         parent::setUp();
 
-        $this->admin = factory(User::class)->create([
+        $admin = factory(User::class)->create([
             'type_id' => 1
         ]);
+
+        $this->adminToken = \JWTAuth::fromUser($admin);
     }
 
     public function testGETVue()
@@ -47,24 +49,16 @@ class HomeControllerTest extends TestCase
             $settings = [];
         }
 
-        $response = $this->actingAs($this->admin)
-            ->call(
+        $response = $this->withHeaders([
+                'Authorization' => 'Bearer '.$this->adminToken,
+            ])
+            ->json(
                 'GET',
-                '/data/vue'
+                '/api/vue'
             )
             ->assertStatus(200)
             ->assertHeader('Content-Type', 'application/json')
             ->assertJson([
-                'appName' => config('app.name', 'Laravel'),
-                'homePath' => '/',
-                'logo' => image('logo.png'),
-                'logoutUrl' => route('logout'),
-                'user' => [
-                    'name' => $this->admin->name,
-                    'email' => $this->admin->email,
-                    'type_id' => $this->admin->type_id,
-                    'id' => $this->admin->id,
-                ],
                 'homeItems' => $homeItems,
                 'settings' => $settings,
             ]);

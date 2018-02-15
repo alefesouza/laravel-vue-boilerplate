@@ -11,7 +11,7 @@ class UserControllerValidationTest extends TestCase
 {
     use DatabaseTransactions;
 
-    protected $admin;
+    protected $adminToken;
     protected $factory;
     protected $user;
 
@@ -19,9 +19,11 @@ class UserControllerValidationTest extends TestCase
     {
         parent::setUp();
 
-        $this->admin = factory(User::class)->create([
-            'type_id' => 1,
+        $admin = factory(User::class)->create([
+            'type_id' => 1
         ]);
+
+        $this->adminToken = \JWTAuth::fromUser($admin);
 
         $this->factory = factory(User::class)->make();
         $this->user = factory(User::class)->create();
@@ -31,10 +33,12 @@ class UserControllerValidationTest extends TestCase
     {
         $factory = $this->factory;
 
-        $this->actingAs($this->admin)
+        $this->withHeaders([
+                'Authorization' => 'Bearer '.$this->adminToken,
+            ])
             ->json(
                 'POST',
-                '/data/users',
+                '/api/users',
                 [
                     'name' => '',
                     'email' => $factory->email,
@@ -60,10 +64,12 @@ class UserControllerValidationTest extends TestCase
     {
         $factory = $this->factory;
 
-        $this->actingAs($this->admin)
+        $this->withHeaders([
+                'Authorization' => 'Bearer '.$this->adminToken,
+            ])
             ->json(
                 'POST',
-                '/data/users',
+                '/api/users',
                 [
                     'name' => $factory->name,
                     'email' => 'test@example',
@@ -89,10 +95,12 @@ class UserControllerValidationTest extends TestCase
     {
         $factory = $this->factory;
 
-        $this->actingAs($this->admin)
+        $this->withHeaders([
+                'Authorization' => 'Bearer '.$this->adminToken,
+            ])
             ->json(
                 'POST',
-                '/data/users',
+                '/api/users',
                 [
                     'name' => $factory->name,
                     'email' => $factory->email,
@@ -116,10 +124,12 @@ class UserControllerValidationTest extends TestCase
     {
         $factory = $this->factory;
 
-        $this->actingAs($this->admin)
+        $this->withHeaders([
+                'Authorization' => 'Bearer '.$this->adminToken,
+            ])
             ->json(
                 'POST',
-                '/data/users',
+                '/api/users',
                 [
                     'name' => $factory->name,
                     'email' => $factory->email,
@@ -143,10 +153,12 @@ class UserControllerValidationTest extends TestCase
     {
         $factory = $this->factory;
 
-        $this->actingAs($this->admin)
+        $this->withHeaders([
+                'Authorization' => 'Bearer '.$this->adminToken,
+            ])
             ->json(
                 'POST',
-                '/data/users',
+                '/api/users',
                 [
                     'name' => $factory->name,
                     'email' => $factory->email,
@@ -173,10 +185,12 @@ class UserControllerValidationTest extends TestCase
     {
         $factory = $this->factory;
 
-        $this->actingAs($this->admin)
+        $this->withHeaders([
+                'Authorization' => 'Bearer '.$this->adminToken,
+            ])
             ->json(
                 'PUT',
-                '/data/users/'.$this->user->id,
+                '/api/users/'.$this->user->id,
                 [
                     'name' => '',
                     'email' => $factory->email,
@@ -202,10 +216,12 @@ class UserControllerValidationTest extends TestCase
     {
         $factory = $this->factory;
 
-        $this->actingAs($this->admin)
+        $this->withHeaders([
+                'Authorization' => 'Bearer '.$this->adminToken,
+            ])
             ->json(
                 'PUT',
-                '/data/users/'.$this->user->id,
+                '/api/users/'.$this->user->id,
                 [
                     'name' => $factory->name,
                     'email' => 'test@example',
@@ -231,10 +247,12 @@ class UserControllerValidationTest extends TestCase
     {
         $factory = $this->factory;
 
-        $this->actingAs($this->admin)
+        $this->withHeaders([
+                'Authorization' => 'Bearer '.$this->adminToken,
+            ])
             ->json(
                 'PUT',
-                '/data/users/'.$this->user->id,
+                '/api/users/'.$this->user->id,
                 [
                     'name' => $factory->name,
                     'email' => $factory->email,
@@ -258,10 +276,12 @@ class UserControllerValidationTest extends TestCase
     {
         $factory = $this->factory;
 
-        $this->actingAs($this->admin)
+        $this->withHeaders([
+                'Authorization' => 'Bearer '.$this->adminToken,
+            ])
             ->json(
                 'PUT',
-                '/data/users/'.$this->user->id,
+                '/api/users/'.$this->user->id,
                 [
                     'name' => $factory->name,
                     'email' => $factory->email,
@@ -285,10 +305,12 @@ class UserControllerValidationTest extends TestCase
     {
         $factory = $this->factory;
 
-        $this->actingAs($this->admin)
+        $this->withHeaders([
+                'Authorization' => 'Bearer '.$this->adminToken,
+            ])
             ->json(
                 'PUT',
-                '/data/users/'.$this->user->id,
+                '/api/users/'.$this->user->id,
                 [
                     'name' => $factory->name,
                     'email' => $factory->email,

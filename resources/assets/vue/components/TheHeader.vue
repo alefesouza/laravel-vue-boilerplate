@@ -5,8 +5,6 @@ import { mapState } from 'vuex';
 import BaseDialog from './BaseDialog.vue';
 import TheSettings from './TheSettings.vue';
 
-declare const baseUrl;
-
 const dialog = makeDialog<string, boolean, boolean>(BaseDialog, 'message', 'isConfirm');
 
 @Component({
@@ -17,17 +15,24 @@ const dialog = makeDialog<string, boolean, boolean>(BaseDialog, 'message', 'isCo
     ...mapState('Root', [
       'backUrl',
       'csrfToken',
-      'logo',
-      'logoutUrl',
-      'homePath',
       'menu',
-      'user',
     ]),
   },
 })
 export default class TheHeader extends Vue {
+  get homePath() {
+    return this.$auth.user().home_path;
+  }
+
   get path(): string {
     return this.$route.path;
+  }
+
+  logout() {
+    this.$auth.logout({
+      makeRequest: true,
+      redirect: { name: 'auth.login' },
+    });
   }
 
   showSettings(): void {
@@ -45,8 +50,7 @@ div
 
       b-navbar-brand(:to='homePath', :class='{"has-back": path !== homePath}')
         img.d-inline-block.align-top(
-          v-if='logo',
-          :src='logo',
+          src='images/logo.png',
           alt='Logo',
           height=36,
         )
@@ -69,32 +73,18 @@ div
             | &nbsp;
             i.fa.fa-github(aria-hidden='true')
 
-          b-nav-item-dropdown(:text='user.name')
+          b-nav-item-dropdown(:text='$auth.user().name')
             b-dropdown-item(
               @click='showSettings',
             ) {{ $t('strings.settings') }}
 
             b-dropdown-item(
-              :href='logoutUrl',
-              onclick='event.preventDefault(); document.getElementById("logout-form").submit();',
+              @click='logout',
             ) {{ $t('home.logout') }}
-
-            form#logout-form(
-              :action='logoutUrl',
-              method='POST',
-              style={ display: none },
-            )
-              input(
-                :value='csrfToken',
-                name='_token',
-                type='hidden',
-              )
   the-settings(ref='the_settings')
 </template>
 
 <style lang="scss">
-@import "~styles/_variables";
-
 .top-bar {
   .has-back {
     padding-left: 15px;

@@ -179,6 +179,8 @@ return [
 
         MartinLindhe\VueInternationalizationGenerator\GeneratorProvider::class,
 
+        Tymon\JWTAuth\Providers\LaravelServiceProvider::class,
+
     ],
 
     /*

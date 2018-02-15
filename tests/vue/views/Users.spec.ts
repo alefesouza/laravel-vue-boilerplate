@@ -23,15 +23,20 @@ for (let i = 0; i < 10; i++) {
   });
 }
 
-jest.mock('axios', () => ({
+Vue.prototype.$auth = {
+  user: jest.fn(() => ({
+    name,
+  })),
+};
+
+Vue.prototype.axios = {
   get: jest.fn(() => Promise.resolve({
     status: 200,
     data: {
-      error: false,
       data: mockUsers,
     },
   })),
-}));
+};
 
 const localState = {
   homePath: '/',

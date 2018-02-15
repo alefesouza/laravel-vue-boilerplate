@@ -45,25 +45,31 @@ class Handler extends ExceptionHandler
      * Render an exception into an HTTP response.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \Exception  $exception
+     * @param  \Exception  $e
      * @return \Illuminate\Http\Response
      */
-    public function render($request, Exception $exception)
+    public function render($request, Exception $e)
     {
-        if ($exception instanceof ValidationException && $request->ajax()) {
+        if ($e instanceof ValidationException && $request->ajax()) {
             return response()->json([
                 'message' => __('validation.message'),
-                'errors' => $exception->validator->getMessageBag(),
+                'errors' => $e->validator->getMessageBag(),
             ], 422);
         }
 
-        if ($exception instanceof QueryException && $request->wantsJson()) {
+        if ($e instanceof QueryException && $request->wantsJson()) {
             return response()->json(error(
                 'errors.fatal_error',
                 'database'
             ), 422);
         }
 
-        return parent::render($request, $exception);
+        if ($e instanceof Tymon\JWTAuth\Exceptions\TokenExpiredException) {
+            return response()->json(['token_expired'], $e->getStatusCode());
+        } elseif ($e instanceof Tymon\JWTAuth\Exceptions\TokenInvalidException) {
+            return response()->json(['token_invalid'], $e->getStatusCode());
+        }
+
+        return parent::render($request, $e);
     }
 }

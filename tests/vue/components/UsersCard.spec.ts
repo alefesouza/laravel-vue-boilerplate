@@ -10,14 +10,14 @@ import storeMock from '../mocks/store-mock';
 
 import UsersCard from '@/components/UsersCard.vue';
 
-const localState = {
-  user: {
-    id: 1,
-    name: faker.name.findName(),
-  },
+const user = {
+  id: 1,
+  name: faker.name.findName(),
 };
 
-storeMock.modules.Root.state = localState;
+Vue.prototype.$auth = {
+  user: jest.fn(() => user),
+};
 
 describe('UsersCard.vue', () => {
   const store = configStore(Vue, storeMock);

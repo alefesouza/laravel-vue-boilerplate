@@ -15,9 +15,6 @@ import TheHeader from '@/components/TheHeader.vue';
 Vue.use(Router);
 
 const localState = {
-  user: {
-    name: faker.name.findName(),
-  },
   settings: {
     example: 'test',
   },
@@ -32,7 +29,15 @@ const localState = {
   }],
   csrfToken: faker.random.uuid(),
   backUrl: faker.internet.domainWord(),
-  homePath: faker.internet.domainWord(),
+};
+
+const user = {
+  name: faker.name.findName(),
+  home_path: faker.internet.domainWord(),
+};
+
+Vue.prototype.$auth = {
+  user: jest.fn(() => user),
 };
 
 storeMock.modules.Root.state = localState;
@@ -47,10 +52,9 @@ describe('TheHeader.vue', () => {
       router,
     });
 
-    expect(wrapper.find('b-nav-item-dropdown').element.getAttribute('text')).toEqual(localState.user.name);
-    expect(wrapper.find('.back-button').element.getAttribute('to')).toEqual(`${localState.backUrl}`);
-    expect(wrapper.find('.has-back').element.getAttribute('to')).toEqual(`${localState.homePath}`);
-    expect(wrapper.find('[name="_token"]').element.getAttribute('value')).toEqual(localState.csrfToken);
+    expect(wrapper.find('b-nav-item-dropdown').element.getAttribute('text')).toEqual(user.name);
+    expect(wrapper.find('.back-button').element.getAttribute('to')).toEqual(localState.backUrl);
+    expect(wrapper.find('.has-back').element.getAttribute('to')).toEqual(user.home_path);
 
     expect(wrapper.findAll('.menu')).toHaveLength(localState.menu.length);
     expect(wrapper.findAll('.menu').at(0).text()).toEqual(localState.menu[0].text);

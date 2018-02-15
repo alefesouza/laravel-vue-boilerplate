@@ -20,7 +20,8 @@ function image($file)
     return asset('images/'.$file);
 }
 
-function error($value = 'errors.generic_error', $about = 'message') {
+function error($value = 'errors.generic_error', $about = 'message')
+{
     return [
         'errors' => [
             $about => [

@@ -2,12 +2,21 @@
 
 namespace App;
 
+use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class User extends Authenticatable
+class User extends Authenticatable implements JWTSubject
 {
     use Notifiable;
+
+    protected $appends = [
+        'home_path',
+    ];
+
+    protected $casts = [
+        'type_id' => 'integer',
+    ];
 
     protected $fillable = [
         'name', 'email', 'password', 'type_id',
@@ -16,15 +25,6 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token', 'created_at', 'updated_at',
     ];
-
-    protected $casts = [
-        'type_id' => 'integer',
-    ];
-    
-    public function setPasswordAttribute($value)
-    {
-      $this->attributes['password'] = bcrypt($value);
-    }
 
     public function isAdmin()
     {
@@ -46,7 +46,7 @@ class User extends Authenticatable
         }
     }
 
-    public function getHomePath()
+    public function getHomePathAttribute()
     {
         switch ($this->type_id) {
             case 1:
@@ -54,5 +54,25 @@ class User extends Authenticatable
             default:
             return '/example'; // TODO change
         }
+    }
+
+    /**
+     * Get the identifier that will be stored in the subject claim of the JWT.
+     *
+     * @return mixed
+     */
+    public function getJWTIdentifier()
+    {
+        return $this->getKey();
+    }
+
+    /**
+     * Return a key value array, containing any custom claims to be added to the JWT.
+     *
+     * @return array
+     */
+    public function getJWTCustomClaims()
+    {
+        return [];
     }
 }

@@ -8,14 +8,14 @@ phases:
       displayName: Use Node.js 8
       inputs:
         versionSpec: 8
-        
+
     - powershell: |
         iex (new-object net.webclient).downloadstring('https://get.scoop.sh')
 
-        scoop bucket add versions 
+        scoop bucket add versions
 
         scoop install php70 yarn
-        
+
         echo extension=php_pdo_sqlite.dll | Add-Content $env:PHPIni
         echo extension=php_intl.dll | Add-Content $env:PHPIni
         echo extension=php_openssl.dll | Add-Content $env:PHPIni
@@ -38,6 +38,7 @@ phases:
 
         php composer.phar install -n --prefer-dist
         php composer.phar run key:generate
+        php composer.phar run jwt:generate
         php artisan vue-i18n:generate
 
         New-Item database\database.sqlite -type file
@@ -60,7 +61,7 @@ phases:
 
         php composer.phar test -- --log-junit tests-phpunit.xml
         php phpunit-log-junit-fix.php tests-phpunit.xml
-        
+
         yarn test
       displayName: Test
       env:
@@ -80,7 +81,7 @@ phases:
         testRunner: JUnit
         testResultsFiles: tests-jest.xml
         testRunTitle: Jest Tests
-  
+
   - phase: test_on_linux
     displayName: Test on Linux
     queue: Hosted Linux Preview
@@ -110,6 +111,7 @@ phases:
 
         composer install -n --prefer-dist
         composer run key:generate
+        composer run jwt:generate
         php artisan vue-i18n:generate
 
         touch ./database/database.sqlite
@@ -124,7 +126,7 @@ phases:
     - script: |
         composer test -- --log-junit tests-phpunit.xml
         php phpunit-log-junit-fix.php tests-phpunit.xml
-        
+
         yarn test
       displayName: Test
 
@@ -166,6 +168,7 @@ phases:
 
         composer install -n --prefer-dist
         composer run key:generate
+        composer run jwt:generate
         php artisan vue-i18n:generate
 
         touch ./database/database.sqlite

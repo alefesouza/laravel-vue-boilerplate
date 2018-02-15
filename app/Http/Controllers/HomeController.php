@@ -9,23 +9,13 @@ use Auth;
 class HomeController extends Controller
 {
     /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
-    /**
      * Show the application dashboard.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        return view('layouts.app');
+        return view('app');
     }
 
     /**
@@ -33,8 +23,6 @@ class HomeController extends Controller
      */
     public function vue()
     {
-        $user = Auth::user();
-
         $homeItems = [
             [
                 'name' => trans_choice('strings.users', 2),
@@ -57,11 +45,6 @@ class HomeController extends Controller
         }
 
         $data = [
-            'appName' => config('app.name', 'Laravel'),
-            'homePath' => $user->getHomePath(),
-            'logo' => image('logo.png'),
-            'logoutUrl' => route('logout'),
-            'user' => $user,
             'homeItems' => $homeItems,
             'settings' => $settings,
         ];

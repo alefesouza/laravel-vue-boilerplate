@@ -11,26 +11,30 @@ class UserControllerTest extends TestCase
 {
     use DatabaseTransactions;
 
-    protected $admin;
+    protected $adminToken;
     protected $factory;
 
     public function setUp()
     {
         parent::setUp();
 
-        $this->admin = factory(User::class)->create([
-            'type_id' => 1,
+        $admin = factory(User::class)->create([
+            'type_id' => 1
         ]);
+
+        $this->adminToken = \JWTAuth::fromUser($admin);
 
         $this->factory = factory(User::class)->make();
     }
 
     public function testGETAll()
     {
-        $this->actingAs($this->admin)
-            ->call(
+        $this->withHeaders([
+                'Authorization' => 'Bearer '.$this->adminToken,
+            ])
+            ->json(
                 'GET',
-                '/data/users'
+                '/api/users'
             )
             ->assertStatus(200)
             ->assertHeader('Content-Type', 'application/json');
@@ -40,10 +44,12 @@ class UserControllerTest extends TestCase
     {
         $factory = $this->factory;
 
-        $response = $this->actingAs($this->admin)
+        $response = $this->withHeaders([
+                'Authorization' => 'Bearer '.$this->adminToken,
+            ])
             ->json(
                 'POST',
-                '/data/users',
+                '/api/users',
                 [
                     'name' => $factory->name,
                     'email' => $factory->email,
@@ -73,10 +79,12 @@ class UserControllerTest extends TestCase
         $factory = $this->factory;
         $user = factory(User::class)->create();
 
-        $this->actingAs($this->admin)
+        $this->withHeaders([
+                'Authorization' => 'Bearer '.$this->adminToken,
+            ])
             ->json(
                 'PUT',
-                '/data/users/'.$user->id,
+                '/api/users/'.$user->id,
                 [
                     'name' => $factory->name,
                     'email' => $factory->email,
@@ -104,10 +112,12 @@ class UserControllerTest extends TestCase
     {
         $user = factory(User::class)->create();
 
-        $this->actingAs($this->admin)
-            ->call(
+        $this->withHeaders([
+                'Authorization' => 'Bearer '.$this->adminToken,
+            ])
+            ->json(
                 'DELETE',
-                '/data/users/'.$user->id
+                '/api/users/'.$user->id
             )
             ->assertStatus(200)
             ->assertHeader('Content-Type', 'application/json')
@@ -125,7 +135,7 @@ class UserControllerTest extends TestCase
         $this->actingAs($user)
             ->json(
                 'GET',
-                '/data/users'
+                '/api/users'
             )
             ->assertStatus(401)
             ->assertHeader('Content-Type', 'application/json')

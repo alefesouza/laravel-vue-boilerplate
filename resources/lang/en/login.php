@@ -11,4 +11,6 @@ return [
     'reset_password' => 'Reset password',
     'send_reset_link' => 'Send the reset link',
 
+    'account_created' => 'Your account has been created successfully.',
+
 ];

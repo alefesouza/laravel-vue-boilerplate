@@ -1,13 +1,14 @@
 @import 'variables';
 @import '~bootstrap/scss/bootstrap';
 @import '~font-awesome/scss/font-awesome.scss';
-.login {
+html {
   height: 100%;
-  @import 'login';
 }
 
 body {
   background: #eeeeee;
+  height: 100%;
+  overflow-x: hidden;
   h1 {
     font-size: 35px;
   }
