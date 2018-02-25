@@ -20,28 +20,28 @@ const RootState = namespace('Root', State);
   },
 })
 export default class Users extends Vue {
-  @Provide() currentPage = 1;
-  @Provide() form: User = {};
-  @Provide() loading = true;
-  @Provide() users: User[] = [];
-
-  @Provide() modalData = {
-    editIndex: 0,
-    isAdd: true,
-    okText: '',
-  };
-  @Provide() pagination = {
-    perPage: 5,
-    totalUsers: 0,
-    totalPages: 0,
-  };
-
   @RootAction('setBackUrl') setBackUrl;
   @RootAction('setMenu') setMenu;
 
   @RootState('homePath') homePath;
 
-  readonly endpoint = `users`;
+  readonly endpoint = 'users';
+
+  currentPage = 1;
+  form: User = {};
+  loading = true;
+  users: User[] = [];
+
+  modalData = {
+    editIndex: 0,
+    isAdd: true,
+    okText: '',
+  };
+  pagination = {
+    perPage: 5,
+    totalUsers: 0,
+    totalPages: 0,
+  };
 
   async mounted() {
     await this.getUsers(1);

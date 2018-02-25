@@ -9,8 +9,8 @@ import t from '@/utils/translate';
 
 @Component
 export default class AuthRegister extends Vue {
-  @Provide() form = {};
-  @Provide() isSending = false;
+  form = {};
+  isSending = false;
 
   async doRegister() {
     await this.$auth.register({

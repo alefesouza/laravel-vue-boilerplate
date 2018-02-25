@@ -25,7 +25,7 @@ export default class App extends Vue {
    * Yeah, I will use emoji here.
    * I recommend Noto Color Emoji font if you use Linux.
   */
-  @Provide() locales = [
+  locales = [
     { flag: '🇺🇸', name: 'en', title: 'Switch to English' },
     { flag: '🇧🇷', name: 'pt', title: 'Mudar para português' },
   ];

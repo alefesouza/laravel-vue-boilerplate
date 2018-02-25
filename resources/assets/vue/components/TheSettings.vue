@@ -14,8 +14,8 @@ const RootState = namespace('Root', State);
 export default class TheSettings extends Vue {
   @RootState('settings') settings;
 
-  @Provide() isSending = false;
-  @Provide() okText = t('buttons.save');
+  isSending = false;
+  okText = t('buttons.save');
 
   get userType() {
     return this.$auth.user().type_id;

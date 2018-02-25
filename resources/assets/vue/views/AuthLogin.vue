@@ -8,12 +8,12 @@ import t from '@/utils/translate';
 
 @Component
 export default class AuthLogin extends Vue {
-  @Provide() form = {};
-  @Provide() authError = false;
-  @Provide() isSending = false;
-  @Provide() rememberMe = false;
-
   @Action('Root/setData') setData;
+
+  form = {};
+  authError = false;
+  isSending = false;
+  rememberMe = false;
 
   async doLogin() {
     await this.$auth.login({

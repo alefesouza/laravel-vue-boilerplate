@@ -7,8 +7,8 @@ import t from '@/utils/translate';
 
 @Component
 export default class AuthResetLink extends Vue {
-  @Provide() form = {};
-  @Provide() isSending = false;
+  form = {};
+  isSending = false;
 
   async doSubmit() {
     const response = await this.axios.post('../password/email', this.form);

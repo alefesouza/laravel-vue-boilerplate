@@ -9,11 +9,11 @@ import { find } from 'lodash';
 
 @Component
 export default class AuthResetForm extends Vue {
-  @Provide() form = {
+  form = {
     token: '',
   };
-  @Provide() isSending = false;
-  @Provide() validToken = false;
+  isSending = false;
+  validToken = false;
 
   async mounted() {
     this.form.token = this.$router.currentRoute.params.token;

@@ -14,7 +14,7 @@ export default class UsersModal extends Vue {
   @Prop() form;
   @Prop() modalData;
 
-  @Provide() isSending = false;
+  isSending = false;
 
   initialOkText: string;
 
