@@ -3,7 +3,7 @@ import axios from 'axios';
 import { Action, State, namespace } from 'vuex-class';
 import { Component, Provide, Vue } from 'vue-property-decorator';
 
-import AuthBase from './components/AuthBase.vue';
+import BaseAuth from './components/BaseAuth.vue';
 import TheHeader from './components/TheHeader.vue';
 
 import userTypes from '@/utils/userTypes';
@@ -14,7 +14,7 @@ const RootState = namespace('Root', State);
 
 @Component({
   components: {
-    AuthBase,
+    BaseAuth,
     TheHeader,
   },
 })
@@ -54,7 +54,7 @@ div.app(v-show='$auth.ready()')
   div(v-if='$auth.check()')
     the-header
     router-view(v-if='$auth.ready()')
-  auth-base(v-else)
+  base-auth(v-else)
   .languages
     b-button(
       v-for='locale, i in locales',

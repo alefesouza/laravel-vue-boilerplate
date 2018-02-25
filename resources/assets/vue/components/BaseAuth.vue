@@ -2,12 +2,12 @@
 import { Component, Vue } from 'vue-property-decorator';
 
 @Component
-export default class AuthBase extends Vue {
+export default class BaseAuth extends Vue {
 }
 </script>
 
 <template lang="pug">
-.auth-base.container-fluid
+.base-auth.container-fluid
   .login-row.row
     .login-col.col-12.col-md-6.col-sm-12.col-lg-4
       router-link(to='/login')
@@ -36,7 +36,7 @@ export default class AuthBase extends Vue {
 </template>
 
 <style lang="scss">
-.auth-base {
+.base-auth {
   height: 100%;
   form {
     margin-left: auto;
