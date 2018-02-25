@@ -5,8 +5,8 @@ import { State, namespace } from 'vuex-class';
 import { AxiosResponse } from 'axios';
 import { find } from 'lodash';
 
-import t from '@/utils/translate';
 import dialog from '@/utils/dialog';
+import checkPassword from '@/utils/checkPassword';
 
 const RootState = namespace('Root', State);
 
@@ -15,31 +15,16 @@ export default class TheSettings extends Vue {
   @RootState('settings') settings;
 
   isSending = false;
-  okText = t('buttons.save');
+  okText = 'buttons.save';
 
   get userType() {
     return this.$auth.user().type_id;
   }
 
-  checkPassword() {
-    if (this.settings.password !== this.settings.password_confirmation) {
-      dialog(
-        t('validation.confirmed', {
-          attribute: t('strings.password').toLowerCase(),
-        }),
-        false,
-      );
-
-      return true;
-    }
-
-    return false;
-  }
-
   async handleOk(evt: Event) {
     evt.preventDefault();
 
-    if (this.checkPassword()) {
+    if (!checkPassword(this.settings)) {
       return;
     }
 
@@ -59,11 +44,11 @@ export default class TheSettings extends Vue {
 
     if ('password' in data) {
       if (!data.password) {
-        dialog(t('errors.generic_error'), false);
+        dialog('errors.generic_error', false);
         return;
       }
 
-      dialog(t('front.password_changed_successfully'), false);
+      dialog('front.password_changed_successfully', false);
     }
 
     (<any>this.$refs.modal).hide();
@@ -76,7 +61,7 @@ export default class TheSettings extends Vue {
 
   async postData(): Promise<any> {
     this.isSending = true;
-    this.okText = t('buttons.sending') + '...';
+    this.okText = 'buttons.sending';
 
     let response: AxiosResponse<any>;
 
@@ -85,7 +70,7 @@ export default class TheSettings extends Vue {
     } catch {
       this.resetState();
 
-      dialog(t('errors.generic_error'), false);
+      dialog('errors.generic_error', false);
 
       return null;
     }
@@ -97,7 +82,7 @@ export default class TheSettings extends Vue {
 
   resetState() {
     this.isSending = false;
-    this.okText = t('buttons.save');
+    this.okText = 'buttons.save';
   }
 }
 </script>
@@ -108,7 +93,7 @@ b-modal(
   ref='modal',
   :cancel-title='$t("buttons.cancel")',
   :ok-disabled='isSending',
-  :ok-title='okText',
+  :ok-title='$t(okText)',
   :title='$t("strings.settings")',
   @hidden='onModalHidden',
   @ok='handleOk'

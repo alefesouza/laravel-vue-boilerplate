@@ -17,6 +17,7 @@
     "bkwld/laravel-pug": "^1.5",
     "fideloper/proxy": "~3.3",
     "laravel/framework": "5.5.*",
+    "laravel/tinker": "~1.0",
     "martinlindhe/laravel-vue-i18n-generator": "^0.1.20",
     "tymon/jwt-auth": "1.0.0-rc.2"
   },

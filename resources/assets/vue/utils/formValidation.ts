@@ -1,7 +1,7 @@
 const formValidation = (evt: Event) => {
-  const loginForm = <HTMLFormElement>evt.target;
+  const form = <HTMLFormElement>evt.target;
 
-  if (!loginForm.checkValidity()) {
+  if (!form.checkValidity()) {
     return false;
   }
 

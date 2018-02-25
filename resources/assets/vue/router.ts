@@ -40,7 +40,7 @@ const router = new Router({
     name: 'users',
     component: Users,
     meta: {
-      title: Vue.i18n.translate('strings.users', null, 2),
+      title: Vue.i18n.translate('strings.users', null),
       auth: {
         roles: userTypes.ADMIN,
         forbiddenRedirect: '/example',

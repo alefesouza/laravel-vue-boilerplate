@@ -25,12 +25,12 @@ class HomeController extends Controller
     {
         $homeItems = [
             [
-                'name' => trans_choice('strings.users', 2),
+                'name' => 'strings.users',
                 'icon' => 'fa-users',
                 'link' => 'users',
             ],
             [
-                'name' => __('strings.example'),
+                'name' => 'strings.example',
                 'icon' => 'fa-lightbulb-o',
                 'link' => 'example',
             ],

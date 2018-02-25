@@ -64,7 +64,7 @@ div
             :key='item.key',
             @click='item.handler($event)',
             href='#',
-          ) {{ item.text }}
+          ) {{ $t(item.text) }}
 
           b-nav-item(
             href='https://github.com/alefesouza/laravel-vue-boilerplate',

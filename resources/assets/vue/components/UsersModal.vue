@@ -4,8 +4,8 @@ import { Component, Emit, Prop, Provide, Vue } from 'vue-property-decorator';
 import { AxiosResponse } from 'axios';
 import { find } from 'lodash';
 
-import t from '@/utils/translate';
 import dialog from '@/utils/dialog';
+import checkPassword from '@/utils/checkPassword';
 
 import TheSettings from './TheSettings.vue';
 
@@ -20,27 +20,12 @@ export default class UsersModal extends Vue {
 
   readonly endpoint = `users`;
 
-  checkPassword() {
-    if (this.form.password !== this.form.password_confirmation) {
-      dialog(
-        t('validation.confirmed', {
-          attribute: t('strings.password').toLowerCase(),
-        }),
-        false,
-      );
-
-      return true;
-    }
-
-    return false;
-  }
-
   async handleOk(evt: Event): Promise<void> {
     evt.preventDefault();
 
     this.initialOkText = this.modalData.okText;
 
-    if (this.checkPassword()) {
+    if (!checkPassword(this.form)) {
       return;
     }
 
@@ -74,7 +59,7 @@ export default class UsersModal extends Vue {
     }
 
     this.isSending = true;
-    this.modalData.okText = t('buttons.sending') + '...';
+    this.modalData.okText = 'buttons.sending';
 
     let response;
 
@@ -87,7 +72,7 @@ export default class UsersModal extends Vue {
     } catch {
       this.resetState();
 
-      dialog(t('errors.generic_error'), false);
+      dialog('errors.generic_error', false);
 
       return null;
     }
@@ -110,7 +95,7 @@ b-modal(
   ref='modal',
   :cancel-title='$t("buttons.cancel")',
   :ok-disabled='isSending',
-  :ok-title='modalData.okText',
+  :ok-title='$t(modalData.okText)',
   :title='modalData.isAdd ? $t("users.add_user") : $t("users.edit_user")',
   @ok='handleOk',
 )

@@ -30,12 +30,12 @@ class HomeControllerTest extends TestCase
     {
         $homeItems = [
             [
-                'name' => trans_choice('strings.users', 2),
+                'name' => 'strings.users',
                 'link' => 'users',
                 'icon' => 'fa-users',
             ],
             [
-                'name' => __('strings.example'),
+                'name' => 'strings.example',
                 'icon' => 'fa-lightbulb-o',
                 'link' => 'example',
             ],

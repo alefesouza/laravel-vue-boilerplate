@@ -3,7 +3,6 @@ import { Component, Provide, Vue } from 'vue-property-decorator';
 
 import dialog from '@/utils/dialog';
 import formValidation from '@/utils/formValidation';
-import t from '@/utils/translate';
 
 @Component
 export default class AuthResetLink extends Vue {
@@ -15,11 +14,11 @@ export default class AuthResetLink extends Vue {
     const { data, status } = response;
 
     if (status !== 200) {
-      dialog(t('errors.generic_error'), false);
+      dialog('errors.generic_error', false);
       return;
     }
 
-    dialog(t('passwords.sent'), false);
+    dialog('passwords.sent', false);
   }
 
   async submitForm(evt: Event) {
@@ -30,7 +29,7 @@ export default class AuthResetLink extends Vue {
     try {
       await this.doSubmit();
     } catch {
-      dialog(t('errors.generic_error'), false);
+      dialog('errors.generic_error', false);
     }
 
     this.isSending = false;

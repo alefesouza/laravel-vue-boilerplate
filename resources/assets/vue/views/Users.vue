@@ -5,7 +5,6 @@ import { Action, State, namespace } from 'vuex-class';
 import { clone, find } from 'lodash';
 
 import dialog from '@/utils/dialog';
-import t from '@/utils/translate';
 
 import UsersCard from '@/components/UsersCard.vue';
 import UsersModal from '@/components/UsersModal.vue';
@@ -49,7 +48,7 @@ export default class Users extends Vue {
     this.setBackUrl('/');
     this.setMenu([{
       key: 'add_user',
-      text: t('users.add_user'),
+      text: 'users.add_user',
       handler: this.addUser,
     }]);
   }
@@ -60,7 +59,7 @@ export default class Users extends Vue {
     this.modalData = {
       editIndex: 0,
       isAdd: true,
-      okText: t('buttons.add'),
+      okText: 'buttons.add',
     };
 
     this.form = {
@@ -74,7 +73,7 @@ export default class Users extends Vue {
     this.modalData = {
       editIndex: index,
       isAdd: false,
-      okText: t('buttons.update'),
+      okText: 'buttons.update',
     };
 
     this.form = clone(user);
@@ -83,14 +82,7 @@ export default class Users extends Vue {
   }
 
   async deleteUser(user: User, index: number): Promise<void> {
-    const message = t(
-      'front.delete_confirmation',
-      {
-        name: (<string>this.$i18n.translate('strings.users', null, 1)).toLowerCase(),
-      },
-    );
-
-    if (!await dialog(message, true)) {
+    if (!await dialog('front.delete_user_confirmation', true)) {
       return;
     }
 
@@ -105,9 +97,9 @@ export default class Users extends Vue {
 
       this.users.splice(index, 1);
 
-      dialog(t('front.deleted_successfully'), false);
+      dialog('front.deleted_successfully', false);
     } catch {
-      dialog(t('errors.generic_error'), false);
+      dialog('errors.generic_error', false);
     }
   }
 
@@ -117,7 +109,7 @@ export default class Users extends Vue {
     try {
       response = await this.axios.get(`${this.endpoint}?page=${page}`);
     } catch (e) {
-      dialog(t('errors.generic_error'), false);
+      dialog('errors.generic_error', false);
     }
 
     this.loading = false;
@@ -127,7 +119,7 @@ export default class Users extends Vue {
     switch (status) {
       case 200: {
         if (data.errors) {
-          dialog(t('errors.generic_error'), false);
+          dialog('errors.generic_error', false);
 
           return;
         }
@@ -146,7 +138,7 @@ export default class Users extends Vue {
         return;
       }
       default: {
-        dialog(t('errors.generic_error'), false);
+        dialog('errors.generic_error', false);
         return;
       }
     }

@@ -13,7 +13,7 @@ b-col.home-card(:to='item.link', tag='b-link', cols=12, md=6, sm=12, lg=3)
     i.fa.text-primary.icon(:class='item.icon', aria-hidden='true')
     .card-text
       span.manage {{ $t('home.manage') }}
-      div.name {{ item.name }}
+      div.name {{ $t(item.name) }}
 </template>
 
 <style lang="scss">

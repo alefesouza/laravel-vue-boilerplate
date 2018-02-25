@@ -3,7 +3,6 @@ import { Component, Vue } from 'vue-property-decorator';
 import { Action, State, namespace } from 'vuex-class';
 
 import dialog from '@/utils/dialog';
-import t from '@/utils/translate';
 
 import HomeCard from '@/components/HomeCard.vue';
 
@@ -24,20 +23,20 @@ export default class Home extends Vue {
   mounted() {
     this.setBackUrl('/');
     this.setMenu([{
-      text: t('strings.example') + ' 1',
+      text: 'strings.example',
       key: 1,
       handler(evt) {
         evt.preventDefault();
 
-        dialog(t('strings.clicked') + ' 1', false);
+        dialog('strings.clicked', false);
       },
     }, {
-      text: t('strings.example') + ' 2',
+      text: 'strings.example2',
       key: 2,
       handler(evt) {
         evt.preventDefault();
 
-        dialog(t('strings.clicked') + ' 2', false);
+        dialog('strings.clicked2', false);
       },
     }]);
   }

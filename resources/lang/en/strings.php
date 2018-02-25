@@ -20,10 +20,12 @@ return [
     // Pages
     'example' => 'Example',
     'home' => 'Home',
-    'users' => 'User|Users',
+    'users' => 'Users',
     'settings' => 'Settings',
 
     // Example page click message
-    'clicked' => 'You clicked on',
+    'clicked' => 'You\'ve clicked on example 1',
+    'example2' => 'Example 2',
+    'clicked2' => 'You\'ve clicked on example 2',
 
 ];

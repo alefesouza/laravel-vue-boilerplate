@@ -21,7 +21,7 @@ export default class BaseDialog extends DialogComponent<boolean> {
 .message-wrapper
   .modal-dialog.modal-sm
     .modal-content
-      .modal-body {{ message }}
+      .modal-body {{ $t(message) }}
       .modal-footer
         b-button(@click='ok', variant='primary') {{ $t('buttons.ok') }}
         b-button(

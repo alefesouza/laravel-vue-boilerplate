@@ -3,7 +3,6 @@ import { Component, Provide, Vue } from 'vue-property-decorator';
 
 import dialog from '@/utils/dialog';
 import formValidation from '@/utils/formValidation';
-import t from '@/utils/translate';
 
 import { find } from 'lodash';
 
@@ -29,7 +28,7 @@ export default class AuthResetForm extends Vue {
       return;
     }
 
-    dialog(t('passwords.reset'), false);
+    dialog('passwords.reset', false);
 
     this.$router.push({ name: 'auth.login' });
   }
@@ -42,7 +41,7 @@ export default class AuthResetForm extends Vue {
     try {
       await this.doSubmit();
     } catch {
-      dialog(t('errors.generic_error'), false);
+      dialog('errors.generic_error', false);
     }
 
     this.isSending = false;

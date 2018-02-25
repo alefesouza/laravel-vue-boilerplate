@@ -5,7 +5,6 @@ import { find } from 'lodash';
 
 import dialog from '@/utils/dialog';
 import formValidation from '@/utils/formValidation';
-import t from '@/utils/translate';
 
 @Component
 export default class AuthRegister extends Vue {
@@ -25,7 +24,7 @@ export default class AuthRegister extends Vue {
           return;
         }
 
-        dialog(t('login.account_created'), false);
+        dialog('login.account_created', false);
 
         this.$router.push({ name: 'auth.login' });
       },
@@ -40,7 +39,7 @@ export default class AuthRegister extends Vue {
     try {
       await this.doRegister();
     } catch {
-      dialog(t('errors.generic_error'), false);
+      dialog('errors.generic_error', false);
     }
 
     this.isSending = false;

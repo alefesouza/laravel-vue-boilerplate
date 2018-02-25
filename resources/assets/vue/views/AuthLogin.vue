@@ -4,7 +4,6 @@ import { Action } from 'vuex-class';
 
 import dialog from '@/utils/dialog';
 import formValidation from '@/utils/formValidation';
-import t from '@/utils/translate';
 
 @Component
 export default class AuthLogin extends Vue {
@@ -39,7 +38,7 @@ export default class AuthLogin extends Vue {
     try {
       await this.doLogin();
     } catch {
-      dialog(t('errors.generic_error'), false);
+      dialog('errors.generic_error', false);
     }
 
     this.isSending = false;
