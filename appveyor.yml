@@ -27,7 +27,7 @@ install:
   - ps: Start-Service MySQL57
 
   - copy .env.appveyor .env
-  - copy .env.appveyor .env.testing /Y
+  - copy .env.appveyor .env.testing
 
   - mysqladmin --host=%MYSQL_HOST% --user=%MYSQL_USER% --password=%MYSQL_PASSWORD% create %MYSQL_DATABASE%
 
@@ -39,6 +39,7 @@ install:
   - IF %PHP%==0 (composer --version) ELSE (composer self-update)
   - IF %PHP%==0 echo extension=pdo_mysql >> C:\tools\php\php.ini
   - IF %PHP%==0 echo extension=intl >> C:\tools\php\php.ini
+  - IF %PHP%==0 echo extension=curl >> C:\tools\php\php.ini
   - cd %APPVEYOR_BUILD_FOLDER%
   - composer install -n --prefer-dist
 

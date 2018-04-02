@@ -10,16 +10,44 @@ variables:
   DB_USERNAME: root
   DB_PASSWORD: ''
 
+before_script:
+  - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
+  - eval $(ssh-agent -s)
+  - ssh-add <(echo "$SSH_PRIVATE_KEY")
+  - mkdir -p ~/.ssh
+  - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+
 cache:
   paths:
-  - node_modules/
-  - vendor/
+    - node_modules/
+    - vendor/
 
 stages:
   - test
+  - deploy
 
 unit_test:
   stage: test
+  except:
+    - deploy
   script:
     - composer start
     - yarn start
+
+deploy_production:
+  stage: deploy
+  environment:
+    name: production
+    url: $PRODUCTION_URL
+  only:
+    - master
+  script:
+    # Comment the following two lines if you can
+    # compile front-end stuff on your webserver,
+    # otherwise it will compile on GitLab CI and
+    # push it to a deploy branch, also remove the
+    # deploy branch on the Envoy.blade.php file
+    - chmod +x ./build/deploy.sh
+    - ./build/deploy.sh
+    # Run Envoy via composer to pull the changes on the deploy server
+    - composer run deploy

@@ -17,7 +17,7 @@ A Laravel 5.5 Single Page Application boilerplate using Vue.js 2.5, Bootstrap 4,
 * i18n for English and Portuguese, based on browser language settings.
 * Authentication using JWT.
 * Vue component tests using Jest and API tests using PHPUnit.
-* Already configured to run tests on Docker, GitLab CI, Travis CI, CircleCI, AppVeyor and VSTS CI on Windows, Linux and macOS.
+* Already configured to run tests on Docker, GitLab CI ([with continuous deploy](./DEPLOY.md)), Travis CI, CircleCI, AppVeyor and VSTS CI on Windows, Linux and macOS.
 * Dockerfile configured with PHP 7, Node.js 8, Yarn and Composer, with MySQL and phpMyAdmin on Docker Compose.
 
 You can check it live [on this website](https://alefesouza.com/github/laravel-vue-boilerplate), with the credentials:
@@ -61,6 +61,7 @@ Back-end:
 * [laravel-vue-i18n-generator](https://github.com/martinlindhe/laravel-vue-i18n-generator)
 * [Laravel Pug](https://github.com/bkwld/laravel-pug)
 * [PHPUnit](https://github.com/sebastianbergmann/phpunit)
+* [Laravel Envoy](https://github.com/laravel/envoy)
 
 ## Steps to run it:
 
