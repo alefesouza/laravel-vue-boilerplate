@@ -20,7 +20,7 @@ A Laravel 5.5 Single Page Application boilerplate using Vue.js 2.5, Bootstrap 4,
 * Already configured to run tests on Docker, GitLab CI ([with continuous deploy](./DEPLOY.md)), Travis CI, CircleCI, AppVeyor and VSTS CI on Windows, Linux and macOS.
 * Dockerfile configured with PHP 7, Node.js 8, Yarn and Composer, with MySQL and phpMyAdmin on Docker Compose.
 
-You can check it live [on this website](https://alefesouza.com/github/laravel-vue-boilerplate), with the credentials:
+You can check it live [on this website](http://lvb.alefe.io), with the credentials:
 
 Admin user
 
@@ -81,7 +81,7 @@ The application will be available on http://localhost:8000 and the phpMyAdmin on
 
 ### Common way
 
-Rename the .env.example to .env, and fill it with your local info, then:
+Rename the .env.example file to .env, and fill it with your local info, then:
 
 Install PHP and JavaScript dependencies:
 

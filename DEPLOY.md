@@ -11,7 +11,7 @@ I've created some secret variables to use on it:
 * REMOTE_REPOSITORY - The SSH link to the remote repository you're working.
 * PRODUCTION_URL - To use on GitLab CI Environments.
 
-And of course, the SSH_SECRET_KEY variable.
+And of course, the SSH_PRIVATE_KEY variable.
 
 Laravel Envoy:
 
@@ -21,9 +21,9 @@ Laravel Envoy:
 
 Environment:
 
-I use a shared host, it has an old PHP version by default and cannot have composer on PATH, so I created more two secret variables to run PHP 7 and execute composer file, it is:
+I use a shared host, it has an old PHP version by default and cannot have composer on PATH, so I've created more two secret variables to run PHP 7 and execute composer file, it is:
 
-* PHP_COMMAND - To me it's like "/opt/php70/bin/php", because the default PHP version on my HostGator account is PHP 5.2 (yeah).
-* COMPOSER_COMMAND - To me it's like "/opt/php70/bin/php ~/composer.phar", because I can't have add composer on PATH on my HostGator account.
+* PHP_COMMAND - To me it's like "/opt/php70/bin/php", because the default PHP version on my shared host account is PHP 5.2 (yeah).
+* COMPOSER_COMMAND - To me it's like "/opt/php70/bin/php ~/composer.phar", because I can't add composer on PATH.
 
 If you don't set these variable, it will execute the default "php" and "composer" command.
