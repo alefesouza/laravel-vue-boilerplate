@@ -2,32 +2,27 @@
 import { makeDialog } from 'vue-modal-dialogs';
 import { Component, Vue } from 'vue-property-decorator';
 import { mapState } from 'vuex';
+
 import BaseDialog from './BaseDialog.vue';
+import TheMessageBadge from './TheMessageBadge.vue';
 import TheSettings from './TheSettings.vue';
 
-const dialog = makeDialog<string, boolean, boolean>(BaseDialog, 'message', 'isConfirm');
+const dialog = makeDialog<string, boolean, boolean>(
+  BaseDialog,
+  'message',
+  'isConfirm',
+);
 
 @Component({
   components: {
     TheSettings,
+    TheMessageBadge,
   },
   computed: {
-    ...mapState('Root', [
-      'backUrl',
-      'csrfToken',
-      'menu',
-    ]),
+    ...mapState('Root', ['backUrl', 'csrfToken', 'menu']),
   },
 })
 export default class TheHeader extends Vue {
-  get homePath() {
-    return this.$auth.user().home_path;
-  }
-
-  get path(): string {
-    return this.$route.path;
-  }
-
   logout() {
     this.$auth.logout({
       makeRequest: true,
@@ -37,6 +32,14 @@ export default class TheHeader extends Vue {
 
   showSettings(): void {
     (<any>this.$refs.the_settings).$refs.modal.show();
+  }
+
+  get homePath() {
+    return this.$auth.user().home_path;
+  }
+
+  get path(): string {
+    return this.$route.path;
   }
 }
 </script>
@@ -65,6 +68,11 @@ div
             @click='item.handler($event)',
             href='#',
           ) {{ $t(item.text) }}
+
+          b-nav-item(
+            to='/messages'
+          ) {{ $t('strings.messages') }}&nbsp;
+            the-message-badge
 
           b-nav-item(
             href='https://github.com/alefesouza/laravel-vue-boilerplate',

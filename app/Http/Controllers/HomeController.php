@@ -30,6 +30,11 @@ class HomeController extends Controller
                 'link' => 'users',
             ],
             [
+                'name' => 'strings.messages',
+                'icon' => 'fa-envelope',
+                'link' => 'messages',
+            ],
+            [
                 'name' => 'strings.example',
                 'icon' => 'fa-lightbulb-o',
                 'link' => 'example',

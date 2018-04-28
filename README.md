@@ -16,6 +16,7 @@ A Laravel 5.5 Single Page Application boilerplate using Vue.js 2.5, Bootstrap 4,
 * A users CRUD if the current user is an admin.
 * i18n for English and Portuguese, based on browser language settings.
 * Authentication using JWT.
+* WebSockets with Laravel Echo and Pusher.
 * Vue component tests using Jest and API tests using PHPUnit.
 * Already configured to run tests on Docker, GitLab CI ([with continuous deploy](./DEPLOY.md)), Travis CI, CircleCI, AppVeyor and VSTS CI on Windows, Linux and macOS.
 * Dockerfile configured with PHP 7, Node.js 8, Yarn and Composer, with MySQL and phpMyAdmin on Docker Compose.
@@ -49,6 +50,7 @@ Front-end:
 * [TypeScript](https://github.com/microsoft/typescript)
 * [Pug](https://github.com/pugjs/pug)
 * [Sass](https://github.com/sass/node-sass)
+* [Laravel Echo](https://github.com/laravel/echo)
 * [Laravel Mix](https://github.com/JeffreyWay/laravel-mix)
 * [Jest](https://github.com/facebook/jest)
 

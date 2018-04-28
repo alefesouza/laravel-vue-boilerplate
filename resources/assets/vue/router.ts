@@ -8,6 +8,7 @@ import AuthResetForm from './views/AuthResetForm.vue';
 
 import Example from './views/Example.vue';
 import Home from './views/Home.vue';
+import Messages from './views/Messages.vue';
 import Users from './views/Users.vue';
 
 import userTypes from '@/utils/userTypes';
@@ -33,6 +34,14 @@ const router = new Router({
     component: Example,
     meta: {
       title: Vue.i18n.translate('strings.example', null),
+      auth: true,
+    },
+  }, {
+    path: '/messages',
+    name: 'messages',
+    component: Messages,
+    meta: {
+      title: Vue.i18n.translate('strings.messages', null),
       auth: true,
     },
   }, {

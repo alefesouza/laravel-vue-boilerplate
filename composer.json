@@ -31,6 +31,7 @@
     "laravel/framework": "5.5.*",
     "laravel/tinker": "~1.0",
     "martinlindhe/laravel-vue-i18n-generator": "^0.1.20",
+    "pusher/pusher-php-server": "~3.0",
     "tymon/jwt-auth": "1.0.0-rc.2"
   },
   "require-dev": {

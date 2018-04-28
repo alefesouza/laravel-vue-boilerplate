@@ -20,6 +20,7 @@ return [
     // Pages
     'example' => 'Example',
     'home' => 'Home',
+    'messages' => 'Messages',
     'users' => 'Users',
     'settings' => 'Settings',
 

@@ -39,3 +39,19 @@ Route::group([
 ], function () {
     Route::resource('users', 'Resources\UserController');
 });
+
+Route::any('messages/{type}/{id}', function ($type, $id) {
+    $data = array(
+       'text' => rand(),
+       'message' => 'When you reload this page, it will send a broadcast notification via Pusher, adding a random number on the other tab.',
+    );
+
+    if ($type === 'private') {
+        $user = \App\User::findOrFail($id);
+        $user->notify(new \App\Notifications\PrivateMessageNotification($data));
+    } else {
+        event(new \App\Events\PublicMessagePusherEvent($data));
+    }
+
+    return response()->json($data);
+});
