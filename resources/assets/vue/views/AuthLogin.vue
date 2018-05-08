@@ -9,15 +9,16 @@ import formValidation from '@/utils/formValidation';
 export default class AuthLogin extends Vue {
   @Action('Root/setData') setData;
 
-  form = {};
+  form = {
+    rememberMe: false,
+  };
   authError = false;
   isSending = false;
-  rememberMe = false;
 
   async doLogin() {
     await this.$auth.login({
       data: this.form,
-      rememberMe: this.rememberMe,
+      rememberMe: this.form.rememberMe,
       success(response) {
         const { status } = response;
 
@@ -76,8 +77,8 @@ b-form#login(@submit='login')
   b-form-group#boxes
     .d-flex.justify-content-between
       b-form-checkbox(
-        v-model='rememberMe',
-        value=true,
+        v-model='form.rememberMe',
+        checked-value=true,
         unchecked-value=false,
       ) {{ $t('login.keep_connected') }}
 

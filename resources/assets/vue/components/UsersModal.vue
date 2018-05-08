@@ -1,13 +1,11 @@
 <script lang="ts">
 import { Component, Emit, Prop, Provide, Vue } from 'vue-property-decorator';
 
-import { AxiosResponse } from 'axios';
-import { find } from 'lodash';
-
 import dialog from '@/utils/dialog';
 import checkPassword from '@/utils/checkPassword';
 
 import TheSettings from './TheSettings.vue';
+import checkResponse from '@/utils/checkResponse';
 
 @Component
 export default class UsersModal extends Vue {
@@ -35,15 +33,11 @@ export default class UsersModal extends Vue {
       return;
     }
 
-    const { status, data }: AxiosResponse<any> = response;
-
-    if (status !== 200 || data.errors) {
-      dialog(find(data.errors)[0], false);
-
+    if (checkResponse(response)) {
       return;
     }
 
-    this.modifyUsers(data);
+    this.modifyUsers(response.data);
   }
 
   @Emit('modify-users')

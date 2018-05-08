@@ -3,6 +3,7 @@ import { Component, Provide, Vue } from 'vue-property-decorator';
 
 import dialog from '@/utils/dialog';
 import formValidation from '@/utils/formValidation';
+import checkResponse from '@/utils/checkResponse';
 
 @Component
 export default class AuthResetLink extends Vue {
@@ -11,10 +12,8 @@ export default class AuthResetLink extends Vue {
 
   async doSubmit() {
     const response = await this.axios.post('../password/email', this.form);
-    const { data, status } = response;
 
-    if (status !== 200) {
-      dialog('errors.generic_error', false);
+    if (checkResponse(response)) {
       return;
     }
 

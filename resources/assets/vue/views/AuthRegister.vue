@@ -5,6 +5,7 @@ import { find } from 'lodash';
 
 import dialog from '@/utils/dialog';
 import formValidation from '@/utils/formValidation';
+import checkResponse from '@/utils/checkResponse';
 
 @Component
 export default class AuthRegister extends Vue {
@@ -16,11 +17,7 @@ export default class AuthRegister extends Vue {
       params: this.form,
       redirect: false,
       success(response) {
-        const { data, status } = response;
-
-        if (status !== 200 || data.errors) {
-          dialog(find(data.errors)[0], false);
-
+        if (checkResponse(response)) {
           return;
         }
 

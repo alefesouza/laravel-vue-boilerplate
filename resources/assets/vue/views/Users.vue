@@ -2,8 +2,9 @@
 import { Component, Provide, Vue } from 'vue-property-decorator';
 import { Action, State, namespace } from 'vuex-class';
 
-import { clone, find } from 'lodash';
+import { clone } from 'lodash';
 
+import checkResponse from '@/utils/checkResponse';
 import dialog from '@/utils/dialog';
 
 import UsersCard from '@/components/UsersCard.vue';
@@ -46,11 +47,13 @@ export default class Users extends Vue {
     await this.getUsers(1);
 
     this.setBackUrl('/');
-    this.setMenu([{
-      key: 'add_user',
-      text: 'users.add_user',
-      handler: this.addUser,
-    }]);
+    this.setMenu([
+      {
+        key: 'add_user',
+        text: 'users.add_user',
+        handler: this.addUser,
+      },
+    ]);
   }
 
   addUser(evt: Event): void {
@@ -82,16 +85,14 @@ export default class Users extends Vue {
   }
 
   async deleteUser(user: User, index: number): Promise<void> {
-    if (!await dialog('front.delete_user_confirmation', true)) {
+    if (!(await dialog('front.delete_user_confirmation', true))) {
       return;
     }
 
     try {
       const response = await this.axios.delete(`${this.endpoint}/${user.id}`);
-      const { status, data } = response;
 
-      if (status !== 200 || data.errors) {
-        dialog(find(data.errors)[0], false);
+      if (checkResponse(response)) {
         return;
       }
 

@@ -29,6 +29,10 @@ class AuthController extends Controller
     {
         $credentials = $request->only('email', 'password');
 
+        if ($request->rememberMe) {
+            $this->guard()->factory()->setTTL(30 * 24 * 60);
+        }
+
         if ($token = $this->guard()->attempt($credentials)) {
             return $this->respondWithToken($token);
         }

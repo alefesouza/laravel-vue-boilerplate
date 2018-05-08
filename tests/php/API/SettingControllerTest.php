@@ -42,9 +42,7 @@ class SettingControllerTest extends TestCase
             )
             ->assertStatus(200)
             ->assertHeader('Content-Type', 'application/json')
-            ->assertJson([
-                'password' => true,
-            ]);
+            ->assertJson([]);
 
         $password = User::find($this->admin->id)->password;
 

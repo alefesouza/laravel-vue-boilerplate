@@ -19,22 +19,20 @@ class SettingController extends Controller
             $settingsFile = Utils::getSettingsFile();
 
             $settings = json_encode([ // TODO change
-                'example' => $request['example'] ?? '',
+                'example' => $request->input('example', ''),
             ]);
 
             file_put_contents($settingsFile, $settings);
         }
 
-        $data = [];
-
         $password = $request['password'];
 
         if (!empty($password)) {
-            $data['password'] = $request->user()->update([
+            $request->user()->update([
                 'password' => bcrypt($password),
             ]);
         }
 
-        return $data;
+        return [];
     }
 }

@@ -3,10 +3,10 @@ import { Component, Provide, Vue } from 'vue-property-decorator';
 import { State, namespace } from 'vuex-class';
 
 import { AxiosResponse } from 'axios';
-import { find } from 'lodash';
 
-import dialog from '@/utils/dialog';
 import checkPassword from '@/utils/checkPassword';
+import checkResponse from '@/utils/checkResponse';
+import dialog from '@/utils/dialog';
 
 const RootState = namespace('Root', State);
 
@@ -34,20 +34,17 @@ export default class TheSettings extends Vue {
       return;
     }
 
-    const { status, data } = response;
-
-    if (status !== 200 || data.errors) {
-      dialog(find(data.errors)[0], false);
-
+    if (checkResponse(response)) {
       return;
     }
 
-    if ('password' in data) {
-      if (!data.password) {
-        dialog('errors.generic_error', false);
-        return;
-      }
+    const { password, password_confirmation } = this.settings;
 
+    if (
+      password === password_confirmation &&
+      password !== '' &&
+      password != null
+    ) {
       dialog('front.password_changed_successfully', false);
     }
 

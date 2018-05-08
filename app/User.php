@@ -26,24 +26,17 @@ class User extends Authenticatable implements JWTSubject
         'password', 'remember_token', 'created_at', 'updated_at',
     ];
 
+    const USER_ADMIN = 1;
+    const USER_NORMAL = 2;
+
     public function isAdmin()
     {
-        return $this->type_id === 1;
+        return $this->type_id === self::USER_ADMIN;
     }
 
     public function isNormal()
     {
-        return $this->type_id === 2;
-    }
-
-    public function getTypeText()
-    {
-        switch ($this->type_id) {
-            case 1:
-            return __('strings.admin');
-            case 2:
-            return __('strings.normal');
-        }
+        return $this->type_id === self::USER_NORMALs;
     }
 
     public function getHomePathAttribute()

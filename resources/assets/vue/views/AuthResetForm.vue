@@ -5,6 +5,7 @@ import dialog from '@/utils/dialog';
 import formValidation from '@/utils/formValidation';
 
 import { find } from 'lodash';
+import checkResponse from '@/utils/checkResponse';
 
 @Component
 export default class AuthResetForm extends Vue {
@@ -20,11 +21,8 @@ export default class AuthResetForm extends Vue {
 
   async doSubmit() {
     const response = await this.axios.post('../password/reset', this.form);
-    const { data, status } = response;
 
-    if (status !== 200 || data.errors) {
-      dialog(find(data.errors)[0], false);
-
+    if (checkResponse(response)) {
       return;
     }
 
