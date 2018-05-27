@@ -1,7 +1,10 @@
 import Vue from 'vue';
 import {
-  shallow,
+  mount,
 } from '@vue/test-utils';
+import {
+  createRenderer
+} from 'vue-server-renderer';
 
 import faker from 'faker';
 
@@ -29,7 +32,7 @@ describe('UsersCard.vue', () => {
   let wrapper;
 
   beforeEach(() => {
-    wrapper = shallow(UsersCard, {
+    wrapper = mount(UsersCard, {
       store,
       propsData: {
         user,

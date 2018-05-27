@@ -35,7 +35,7 @@ Vue.prototype.$auth = {
   })),
 };
 
-storeMock.modules.Root.state = localState;
+storeMock.state = localState;
 
 describe('Home.vue', () => {
   const store = configStore(Vue, storeMock);

@@ -1,6 +1,6 @@
 <script lang="ts">
-import { Component, Provide, Vue } from 'vue-property-decorator';
-import { Action, State, namespace } from 'vuex-class';
+import { Component, Vue } from 'vue-property-decorator';
+import { Action, State } from 'vuex-class';
 
 import { clone } from 'lodash';
 
@@ -10,9 +10,6 @@ import dialog from '@/utils/dialog';
 import UsersCard from '@/components/UsersCard.vue';
 import UsersModal from '@/components/UsersModal.vue';
 
-const RootAction = namespace('Root', Action);
-const RootState = namespace('Root', State);
-
 @Component({
   components: {
     UsersCard,
@@ -20,10 +17,10 @@ const RootState = namespace('Root', State);
   },
 })
 export default class Users extends Vue {
-  @RootAction('setBackUrl') setBackUrl;
-  @RootAction('setMenu') setMenu;
+  @Action setBackUrl;
+  @Action setMenu;
 
-  @RootState('homePath') homePath;
+  @State homePath;
 
   readonly endpoint = 'users';
 

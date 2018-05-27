@@ -1,11 +1,8 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import { Action, State, namespace } from 'vuex-class';
+import { Action, State } from 'vuex-class';
 
 import HomeCard from '@/components/HomeCard.vue';
-
-const RootAction = namespace('Root', Action);
-const RootState = namespace('Root', State);
 
 @Component({
   components: {
@@ -13,8 +10,8 @@ const RootState = namespace('Root', State);
   },
 })
 export default class Home extends Vue {
-  @RootAction('setMenu') setMenu;
-  @RootState('homeItems') homeItems;
+  @Action setMenu;
+  @State homeItems;
 
   mounted() {
     this.setMenu([]);

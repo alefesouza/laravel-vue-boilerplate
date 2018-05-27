@@ -1,8 +1,9 @@
 import Vue from 'vue';
 import {
-  shallow,
+  mount,
 } from '@vue/test-utils';
 import Router from 'vue-router';
+import Pusher from 'pusher-js';
 
 import faker from 'faker';
 
@@ -36,25 +37,29 @@ const user = {
   home_path: faker.internet.domainWord(),
 };
 
+(<any>window).Pusher = Pusher,
+
 Vue.prototype.$auth = {
   user: jest.fn(() => user),
+  token: jest.fn(),
 };
 
-storeMock.modules.Root.state = localState;
+storeMock.state = localState;
 
 describe('TheHeader.vue', () => {
   const store = configStore(Vue, storeMock);
   const router = new Router(<any>routerMock);
 
   it('should fill information', () => {
-    const wrapper = shallow(TheHeader, {
+    const wrapper = mount(TheHeader, {
       store,
       router,
     });
 
-    expect(wrapper.find('b-nav-item-dropdown').element.getAttribute('text')).toEqual(user.name);
-    expect(wrapper.find('.back-button').element.getAttribute('to')).toEqual(localState.backUrl);
-    expect(wrapper.find('.has-back').element.getAttribute('to')).toEqual(user.home_path);
+    expect(wrapper.find('.dropdown-toggle span').text()).toEqual(user.name);
+    expect(wrapper.find('.back-button').element.getAttribute('href'))
+      .toEqual('/' + localState.backUrl);
+    expect(wrapper.find('.has-back').element.getAttribute('href')).toEqual('/' + user.home_path);
 
     expect(wrapper.findAll('.menu')).toHaveLength(localState.menu.length);
     expect(wrapper.findAll('.menu').at(0).text()).toEqual(localState.menu[0].text);

@@ -1,6 +1,6 @@
 <script lang="ts">
-import { Component, Provide, Vue } from 'vue-property-decorator';
-import { State, namespace } from 'vuex-class';
+import { Component, Vue } from 'vue-property-decorator';
+import { State } from 'vuex-class';
 
 import { AxiosResponse } from 'axios';
 
@@ -8,11 +8,9 @@ import checkPassword from '@/utils/checkPassword';
 import checkResponse from '@/utils/checkResponse';
 import dialog from '@/utils/dialog';
 
-const RootState = namespace('Root', State);
-
 @Component
 export default class TheSettings extends Vue {
-  @RootState('settings') settings;
+  @State('settings') settings;
 
   isSending = false;
   okText = 'buttons.save';
@@ -30,11 +28,7 @@ export default class TheSettings extends Vue {
 
     const response = await this.postData();
 
-    if (!response) {
-      return;
-    }
-
-    if (checkResponse(response)) {
+    if (!response || checkResponse(response)) {
       return;
     }
 

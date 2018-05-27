@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import {
-  shallow,
+  mount,
 } from '@vue/test-utils';
 
 import faker from 'faker';
@@ -20,7 +20,7 @@ describe('HomeCard.vue', () => {
       icon: faker.lorem.word(),
     };
 
-    const wrapper = shallow(HomeCard, {
+    const wrapper = mount(HomeCard, {
       store,
       propsData: {
         item,
@@ -28,7 +28,7 @@ describe('HomeCard.vue', () => {
     });
 
     expect(wrapper.find('.name').text()).toEqual(item.name);
-    expect(wrapper.find('.home-card').element.getAttribute('to')).toEqual(item.link);
+    expect(wrapper.find('.home-card').element.getAttribute('href')).toEqual(item.link);
     expect(wrapper.find('.home-card i').classes()).toContain(item.icon);
   });
 });

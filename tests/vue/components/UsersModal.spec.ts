@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import {
-  shallow,
+  mount,
 } from '@vue/test-utils';
 
 import faker from 'faker';
@@ -10,7 +10,7 @@ import storeMock from '../mocks/store-mock';
 
 import UsersModal from '@/components/UsersModal.vue';
 
-storeMock.modules.Root.state = {};
+storeMock.state = {};
 
 describe('UsersModal.vue', () => {
   const store = configStore(Vue, storeMock);
@@ -20,7 +20,7 @@ describe('UsersModal.vue', () => {
       name: faker.name.findName(),
     };
 
-    const wrapper = shallow(UsersModal, {
+    const wrapper = mount(UsersModal, {
       propsData: {
         form,
         modalData: {
@@ -30,7 +30,8 @@ describe('UsersModal.vue', () => {
       },
     });
 
-    expect(wrapper.find('b-modal').element.getAttribute('ok-title')).toEqual('test');
-    expect(wrapper.find('b-modal').element.getAttribute('title')).toEqual(Vue.i18n.translate('users.edit_user', null));
+    expect(wrapper.find('.modal-footer .btn-primary').text()).toEqual('test');
+    expect(wrapper.find('.modal-title').text())
+      .toEqual(Vue.i18n.translate('users.edit_user', null));
   });
 });

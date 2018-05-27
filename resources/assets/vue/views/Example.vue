@@ -1,14 +1,10 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import { Action, State, namespace } from 'vuex-class';
+import { Action } from 'vuex-class';
 
 import dialog from '@/utils/dialog';
 
 import HomeCard from '@/components/HomeCard.vue';
-
-const RootAction = namespace('Root', Action);
-const RootState = namespace('Root', State);
-
 
 // TODO change
 @Component({
@@ -17,8 +13,8 @@ const RootState = namespace('Root', State);
   },
 })
 export default class Home extends Vue {
-  @RootAction('setBackUrl') setBackUrl;
-  @RootAction('setMenu') setMenu;
+  @Action setBackUrl;
+  @Action setMenu;
 
   mounted() {
     this.setBackUrl('/');

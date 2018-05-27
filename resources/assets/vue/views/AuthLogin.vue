@@ -1,5 +1,5 @@
 <script lang="ts">
-import { Component, Provide, Vue } from 'vue-property-decorator';
+import { Component, Vue } from 'vue-property-decorator';
 import { Action } from 'vuex-class';
 
 import dialog from '@/utils/dialog';
@@ -7,7 +7,7 @@ import formValidation from '@/utils/formValidation';
 
 @Component
 export default class AuthLogin extends Vue {
-  @Action('Root/setData') setData;
+  @Action setData;
 
   form = {
     rememberMe: false,

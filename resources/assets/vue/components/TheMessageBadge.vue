@@ -1,36 +1,28 @@
 <script lang="ts">
-import { Component, Provide, Vue } from 'vue-property-decorator';
-import { Action, State, namespace } from 'vuex-class';
+import { Component, Vue } from 'vue-property-decorator';
+import { namespace } from 'vuex-class';
 
 import Echo from 'laravel-echo';
 
-const MessagesAction = namespace('Messages', Action);
-const MessagesState = namespace('Messages', State);
+const mStore = namespace('messages');
 
 declare const baseUrl: string;
 
 @Component
 export default class TheMessageBadge extends Vue {
-  @MessagesAction('addPublicMessage') addPublicMessage;
-  @MessagesAction('addPrivateMessage') addPrivateMessage;
-  @MessagesAction('incrementUnreadMessages') incrementUnreadMessages;
+  @mStore.Action addPublicMessage;
+  @mStore.Action addPrivateMessage;
+  @mStore.Action incrementUnreadMessages;
 
-  @MessagesState('unread') unreadMessages;
+  @mStore.State unreadMessages;
 
   echo: any = null;
-
-  callApis() {
-    const userId = this.$auth.user().id;
-
-    this.axios.get('messages/private/' + userId);
-    this.axios.get('messages/public/' + userId);
-  }
 
   mounted() {
     if (!this.echo) {
       this.echo = new Echo({
         broadcaster: 'pusher',
-        csrfToken: this.$store.state.Root.csrfToken,
+        csrfToken: this.$store.state.csrfToken,
         encrypted: true,
         // TODO change
         cluster: '',
@@ -60,6 +52,13 @@ export default class TheMessageBadge extends Vue {
     }
 
     this.echo.connector.pusher.connect();
+  }
+
+  callApis() {
+    const userId = this.$auth.user().id;
+
+    this.axios.get('messages/private/' + userId);
+    this.axios.get('messages/public/' + userId);
   }
 
   increment() {

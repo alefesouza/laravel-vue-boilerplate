@@ -1,17 +1,9 @@
 <script lang="ts">
-import { makeDialog } from 'vue-modal-dialogs';
 import { Component, Vue } from 'vue-property-decorator';
 import { mapState } from 'vuex';
 
-import BaseDialog from './BaseDialog.vue';
 import TheMessageBadge from './TheMessageBadge.vue';
 import TheSettings from './TheSettings.vue';
-
-const dialog = makeDialog<string, boolean, boolean>(
-  BaseDialog,
-  'message',
-  'isConfirm',
-);
 
 @Component({
   components: {
@@ -19,7 +11,7 @@ const dialog = makeDialog<string, boolean, boolean>(
     TheMessageBadge,
   },
   computed: {
-    ...mapState('Root', ['backUrl', 'csrfToken', 'menu']),
+    ...mapState(['backUrl', 'csrfToken', 'menu']),
   },
 })
 export default class TheHeader extends Vue {

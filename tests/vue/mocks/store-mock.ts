@@ -12,11 +12,11 @@ const mutations = {
 const state = {};
 
 export default {
+  actions,
+  mutations,
+  state,
   modules: {
-    Root: {
-      actions,
-      mutations,
-      state,
+    messages: {
       namespaced: true,
     },
   },

@@ -46,7 +46,7 @@ const localState = {
   },
 };
 
-storeMock.modules.Root.state = localState;
+storeMock.state = localState;
 
 describe('Users.vue', () => {
   const store = configStore(Vue, storeMock);

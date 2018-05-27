@@ -1,5 +1,5 @@
 <script lang="ts">
-import { Component, Provide, Vue } from 'vue-property-decorator';
+import { Component, Vue } from 'vue-property-decorator';
 
 import dialog from '@/utils/dialog';
 import formValidation from '@/utils/formValidation';

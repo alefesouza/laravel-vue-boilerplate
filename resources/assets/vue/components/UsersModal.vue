@@ -1,11 +1,11 @@
 <script lang="ts">
-import { Component, Emit, Prop, Provide, Vue } from 'vue-property-decorator';
+import { Component, Emit, Prop, Vue } from 'vue-property-decorator';
 
 import dialog from '@/utils/dialog';
 import checkPassword from '@/utils/checkPassword';
+import checkResponse from '@/utils/checkResponse';
 
 import TheSettings from './TheSettings.vue';
-import checkResponse from '@/utils/checkResponse';
 
 @Component
 export default class UsersModal extends Vue {
@@ -14,7 +14,7 @@ export default class UsersModal extends Vue {
 
   isSending = false;
 
-  initialOkText: string;
+  initialOkText: string = '';
 
   readonly endpoint = `users`;
 

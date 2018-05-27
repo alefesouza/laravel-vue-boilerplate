@@ -1,16 +1,12 @@
 <script lang="ts">
 import axios from 'axios';
-import { Action, State, namespace } from 'vuex-class';
-import { Component, Provide, Vue } from 'vue-property-decorator';
+import { Component, Vue } from 'vue-property-decorator';
+import { Action } from 'vuex-class';
 
 import BaseAuth from './components/BaseAuth.vue';
 import TheHeader from './components/TheHeader.vue';
 
 import userTypes from '@/utils/userTypes';
-import { setInterval } from 'timers';
-
-const RootAction = namespace('Root', Action);
-const RootState = namespace('Root', State);
 
 @Component({
   components: {
@@ -19,7 +15,7 @@ const RootState = namespace('Root', State);
   },
 })
 export default class App extends Vue {
-  @RootAction('setData') setData;
+  @Action setData;
 
   /**
    * Yeah, I will use emoji here.

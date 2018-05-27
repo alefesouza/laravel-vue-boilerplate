@@ -1,5 +1,5 @@
 <script lang="ts">
-import { Component, Provide, Vue } from 'vue-property-decorator';
+import { Component, Vue } from 'vue-property-decorator';
 
 import { find } from 'lodash';
 

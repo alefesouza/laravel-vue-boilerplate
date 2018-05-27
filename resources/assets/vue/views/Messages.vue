@@ -1,23 +1,25 @@
 <script lang="ts">
-import { Component, Provide, Vue } from 'vue-property-decorator';
-import { Action, State, namespace } from 'vuex-class';
+import { Component, Vue } from 'vue-property-decorator';
+import { Action, namespace } from 'vuex-class';
 
 import Echo from 'laravel-echo';
 
-const MessagesAction = namespace('Messages', Action);
-const MessagesState = namespace('Messages', State);
+const mStore = namespace('messages');
 
 declare const baseUrl: string;
 
 @Component
 export default class Messages extends Vue {
-  @MessagesAction('clearUnreadMessages') clearUnreadMessages;
+  @Action setBackUrl;
+  @mStore.Action clearUnreadMessages;
 
-  @MessagesState('publicMessages') publicMessages;
-  @MessagesState('privateMessages') privateMessages;
+  @mStore.State publicMessages;
+  @mStore.State privateMessages;
 
   mounted() {
     this.clearUnreadMessages();
+
+    this.setBackUrl('/');
   }
 
   makeLink(type: string) {
