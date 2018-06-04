@@ -79,7 +79,7 @@ After it starts, just on the first time, run on another terminal:
 
     docker exec laravel-vue-boilerplate bash -c "composer start && yarn start"
 
-The application will be available on http://localhost:8000 and the phpMyAdmin on http://localhost:8080
+The application will be available on http://localhost:8000 and the phpMyAdmin on http://localhost:8081
 
 ### Common way
 

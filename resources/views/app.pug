@@ -27,4 +27,4 @@ html(lang=app()->getLocale())
 
   script.
     var baseUrl = '#{url('/api')}';
-  script(src=js('app.js') + '?v=' + rand())
+  script(src=mix('js/app.js'))
