@@ -18,7 +18,7 @@ class UserModelTest extends TestCase
 
         $this->user = factory(User::class)->create();
     }
-    
+
     public function testUser()
     {
         $this->assertDatabaseHas('users', ['id' => $this->user->id]);
@@ -49,6 +49,6 @@ class UserModelTest extends TestCase
     {
         $this->user->delete();
 
-        $this->assertDatabaseMissing('users', ['id' => $this->user->id]);
+        $this->assertSoftDeleted('users', ['id' => $this->user->id]);
     }
 }

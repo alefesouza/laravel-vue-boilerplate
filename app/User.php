@@ -3,12 +3,14 @@
 namespace App;
 
 use Tymon\JWTAuth\Contracts\JWTSubject;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable implements JWTSubject
 {
     use Notifiable;
+    use SoftDeletes;
 
     protected $appends = [
         'home_path',

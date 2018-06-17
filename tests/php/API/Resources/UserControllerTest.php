@@ -123,7 +123,7 @@ class UserControllerTest extends TestCase
             ->assertHeader('Content-Type', 'application/json')
             ->assertJson([]);
 
-        $this->assertDatabaseMissing('users', [ 'name' => $user->name ]);
+        $this->assertSoftDeleted('users', [ 'name' => $user->name ]);
     }
 
     public function testDisallowAccessToNormalUser()

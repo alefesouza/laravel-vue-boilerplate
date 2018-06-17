@@ -21,7 +21,7 @@ class AddTypeIdToUsers extends Migration
             } else {
                 $table->unsignedSmallInteger('type_id')->after('id');
             }
-            
+
             $table->foreign('type_id')->references('id')->on('user_types');
         });
     }
@@ -34,6 +34,7 @@ class AddTypeIdToUsers extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
+            $table->dropForeign(['type_id']);
             $table->dropColumn('type_id');
         });
     }
