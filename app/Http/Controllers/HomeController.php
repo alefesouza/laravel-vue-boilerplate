@@ -26,17 +26,17 @@ class HomeController extends Controller
         $homeItems = [
             [
                 'name' => 'strings.users',
-                'icon' => 'fa-users',
+                'icon' => 'users',
                 'link' => 'users',
             ],
             [
                 'name' => 'strings.messages',
-                'icon' => 'fa-envelope',
+                'icon' => 'envelope',
                 'link' => 'messages',
             ],
             [
                 'name' => 'strings.example',
-                'icon' => 'fa-lightbulb-o',
+                'icon' => 'lightbulb-o',
                 'link' => 'example',
             ],
         ];

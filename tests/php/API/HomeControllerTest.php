@@ -32,16 +32,16 @@ class HomeControllerTest extends TestCase
             [
                 'name' => 'strings.users',
                 'link' => 'users',
-                'icon' => 'fa-users',
+                'icon' => 'users',
             ],
             [
                 'name' => 'strings.messages',
                 'link' => 'messages',
-                'icon' => 'fa-envelope',
+                'icon' => 'envelope',
             ],
             [
                 'name' => 'strings.example',
-                'icon' => 'fa-lightbulb-o',
+                'icon' => 'lightbulb-o',
                 'link' => 'example',
             ],
         ];

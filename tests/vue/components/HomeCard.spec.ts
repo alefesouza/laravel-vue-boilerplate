@@ -29,6 +29,6 @@ describe('HomeCard.vue', () => {
 
     expect(wrapper.find('.name').text()).toEqual(item.name);
     expect(wrapper.find('.home-card').element.getAttribute('href')).toEqual(item.link);
-    expect(wrapper.find('.home-card i').classes()).toContain(item.icon);
+    expect(wrapper.find('.home-card icon').element.getAttribute('name')).toEqual(item.icon);
   });
 });

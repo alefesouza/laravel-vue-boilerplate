@@ -24,14 +24,27 @@ b-card.users-card.mb-3(no-body)
       | &nbsp;{{ user.type_id === 1 ? $t('strings.admin') : $t('strings.normal') }}
 
   b-card-footer
-    b-button.float-right.text-danger(
+    b-button(@click='$emit("edit-user")', variant='link')
+      icon(name='pencil-square-o')
+      | &nbsp;{{ $t('buttons.edit') }}
+
+    b-button.text-danger(
       @click='$emit("delete-user")',
       v-if='user.id !== actualUser.id',
       variant='link')
-      i.fa.fa-trash-o(aria-hidden='true')
+      icon(name='trash')
       | &nbsp;{{ $t('buttons.delete') }}
-
-    b-button.float-right(@click='$emit("edit-user")', variant='link')
-      i.fa.fa-pencil-square-o(aria-hidden='true')
-      | &nbsp;{{ $t('buttons.edit') }}
 </template>
+
+<style lang="scss">
+.users-card {
+  .card-footer {
+    display: flex;
+    justify-content: flex-end;
+    button {
+      display: flex;
+      align-items: center;
+    }
+  }
+}
+</style>

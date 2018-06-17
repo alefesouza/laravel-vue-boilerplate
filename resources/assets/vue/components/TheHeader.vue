@@ -37,11 +37,11 @@ export default class TheHeader extends Vue {
 </script>
 
 <template lang="pug">
-div
-  b-navbar.navbar-expand-lg.bg-light.top-bar(type='light')
+.the-header
+  b-navbar.navbar-expand-lg.bg-light(type='light')
     b-container
       b-link.back-button.text-secondary(v-show='path !== homePath', :to='backUrl')
-        i.fa.fa-arrow-left(aria-hidden='true')
+        icon(name='arrow-left')
 
       b-navbar-brand(:to='homePath', :class='{"has-back": path !== homePath}')
         img.d-inline-block.align-top(
@@ -66,12 +66,12 @@ div
           ) {{ $t('strings.messages') }}&nbsp;
             the-message-badge
 
-          b-nav-item(
+          b-nav-item.github-link(
             href='https://github.com/alefesouza/laravel-vue-boilerplate',
             target='_blank',
           ) GitHub
             | &nbsp;
-            i.fa.fa-github(aria-hidden='true')
+            icon(name='github')
 
           b-nav-item-dropdown(:text='$auth.user().name')
             b-dropdown-item(
@@ -85,9 +85,13 @@ div
 </template>
 
 <style lang="scss">
-.top-bar {
+.the-header {
   .has-back {
     padding-left: 15px;
+  }
+  .github-link a {
+    display: flex;
+    align-items: center;
   }
 }
 </style>

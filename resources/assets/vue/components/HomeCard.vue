@@ -10,7 +10,7 @@ export default class DashboardItem extends Vue {
 <template lang="pug">
 b-col.home-card(:to='item.link', tag='b-link', cols=12, md=6, sm=12, lg=3)
   b-card.mb-3
-    i.fa.text-primary.icon(:class='item.icon', aria-hidden='true')
+    icon(:name='item.icon')
     .card-text
       span.manage {{ $t('home.manage') }}
       div.name {{ $t(item.name) }}
@@ -29,12 +29,14 @@ b-col.home-card(:to='item.link', tag='b-link', cols=12, md=6, sm=12, lg=3)
     .card-body {
       align-items: flex-end;
       display: flex;
-      .icon {
-        font-size: 45px;
+      .fa-icon {
+        color: #132a97;
         margin: 30px;
+        height: 45px;
         position: absolute;
         right: 0;
         top: 0px;
+        width: 45px;
       }
       .manage {
         color: #b0b2c2;

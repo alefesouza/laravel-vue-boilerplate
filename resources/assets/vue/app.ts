@@ -10,12 +10,16 @@ import store from './store';
 // Import it before vue-router because it uses i18n strings
 import './utils/i18n';
 import './utils/axios';
+import './utils/icons';
 
 import router from './router';
 
 import App from './App.vue';
 
 (<any>window).Pusher = Pusher;
+
+const Icon = require('vue-awesome/components/Icon');
+Vue.component('icon', Icon);
 
 Vue.config.productionTip = false;
 

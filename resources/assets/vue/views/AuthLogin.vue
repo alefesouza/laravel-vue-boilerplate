@@ -82,8 +82,8 @@ b-form#login(@submit='login')
         unchecked-value=false,
       ) {{ $t('login.keep_connected') }}
 
-      b-button(variant='link').reset.text-secondary(to='/password/reset')
-        i.fa.fa-question-circle(aria-hidden='true')
+      b-button.content-vertical.text-secondary(variant='link', to='/password/reset')
+        icon(name='question-circle')
         | &nbsp;{{ $t('login.forgot_password') }}
 
   b-form-group
