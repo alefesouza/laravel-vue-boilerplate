@@ -99,7 +99,7 @@ b-form#login(@submit='login')
     ) {{ $t('login.register') }}
 </template>
 
-<style lang="scss">
+<style scoped>
 #login {
   margin-top: 150px;
 }

@@ -97,7 +97,7 @@
       ".*\\.ts$": "ts-jest"
     },
     "transformIgnorePatterns": [
-      "node_modules/(?!(vue-modal-dialogs|vuex-i18n))"
+      "node_modules/(?!(vue-modal-dialogs|vuex-i18n|vue-awesome))"
     ]
   },
   "jest-junit": {

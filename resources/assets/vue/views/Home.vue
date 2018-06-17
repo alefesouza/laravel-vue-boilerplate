@@ -20,14 +20,14 @@ export default class Home extends Vue {
 </script>
 
 <template lang="pug">
-b-container.home(tag='main')
+b-container#home(tag='main')
   h1 {{ $t('strings.welcome') }}, {{ $auth.user().name }}
   b-row
     home-card(v-for='item in homeItems', :key='item.name', :item='item')
 </template>
 
-<style lang="scss">
-.home {
+<style scoped>
+#home {
   padding-top: 70px;
 }
 </style>

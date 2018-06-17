@@ -4,6 +4,7 @@ import VueAuth from '@websanova/vue-auth';
 import BootstrapVue from 'bootstrap-vue';
 
 import Locales from '@/vue-i18n-locales.generated';
+import '@/utils/icons';
 
 export default function configStore(Vue, storeMock) {
   Vue.use(Vuex);
@@ -17,6 +18,9 @@ export default function configStore(Vue, storeMock) {
   Vue.i18n.add('pt', Locales.pt);
 
   Vue.i18n.set('en');
+
+  const Icon = require('vue-awesome/components/Icon');
+  Vue.component('icon', Icon);
 
   return store;
 }

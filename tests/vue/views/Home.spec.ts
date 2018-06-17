@@ -14,15 +14,15 @@ const localState = {
   homeItems: [{
     name: faker.lorem.word(),
     link: faker.internet.url(),
-    icon: faker.lorem.word(),
+    icon: 'users',
   }, {
     name: faker.lorem.word(),
     link: faker.internet.url(),
-    icon: faker.lorem.word(),
+    icon: 'envelope',
   }, {
     name: faker.lorem.word(),
     link: faker.internet.url(),
-    icon: faker.lorem.word(),
+    icon: 'github',
   }],
   homePath: '/',
 };
@@ -51,7 +51,7 @@ describe('Home.vue', () => {
     const welcome = 'Welcome';
 
     expect(wrapper.find('h1').text()).toEqual(`${welcome}, ${name}`);
-    expect(wrapper.findAll('.home-card')).toHaveLength(localState.homeItems.length);
+    expect(wrapper.findAll('.col-12')).toHaveLength(localState.homeItems.length);
 
     Vue.i18n.set('pt');
   });

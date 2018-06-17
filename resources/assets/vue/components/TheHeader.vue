@@ -37,7 +37,7 @@ export default class TheHeader extends Vue {
 </script>
 
 <template lang="pug">
-.the-header
+div
   b-navbar.navbar-expand-lg.bg-light(type='light')
     b-container
       b-link.back-button.text-secondary(v-show='path !== homePath', :to='backUrl')
@@ -84,14 +84,13 @@ export default class TheHeader extends Vue {
   the-settings(ref='the_settings')
 </template>
 
-<style lang="scss">
-.the-header {
-  .has-back {
-    padding-left: 15px;
-  }
-  .github-link a {
-    display: flex;
-    align-items: center;
-  }
+<style scoped>
+.has-back {
+  padding-left: 15px;
+}
+
+.github-link a {
+  display: flex;
+  align-items: center;
 }
 </style>

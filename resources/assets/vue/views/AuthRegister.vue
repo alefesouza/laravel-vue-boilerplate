@@ -1,8 +1,6 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 
-import { find } from 'lodash';
-
 import dialog from '@/utils/dialog';
 import formValidation from '@/utils/formValidation';
 import checkResponse from '@/utils/checkResponse';

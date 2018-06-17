@@ -36,15 +36,13 @@ b-card.users-card.mb-3(no-body)
       | &nbsp;{{ $t('buttons.delete') }}
 </template>
 
-<style lang="scss">
-.users-card {
-  .card-footer {
+<style lang="scss" scoped>
+.card-footer {
+  display: flex;
+  justify-content: flex-end;
+  button {
     display: flex;
-    justify-content: flex-end;
-    button {
-      display: flex;
-      align-items: center;
-    }
+    align-items: center;
   }
 }
 </style>

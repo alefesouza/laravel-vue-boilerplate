@@ -31,7 +31,7 @@ export default class BaseDialog extends DialogComponent<boolean> {
         ) {{ $t('buttons.cancel') }}
 </template>
 
-<style lang="scss">
+<style>
 .message-wrapper {
   background-color: rgba(0, 0, 0, 0.5);
   height: 100%;

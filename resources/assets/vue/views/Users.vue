@@ -165,7 +165,7 @@ b-container(tag='main')
     v-model='currentPage',
     :per-page='pagination.perPage',
     :total-rows='pagination.totalUsers',
-    @input='getUsers',
+    @change='getUsers',
   )
 
   .users(v-if='users.length > 0')
@@ -187,7 +187,7 @@ b-container(tag='main')
     v-model='currentPage',
     :per-page='pagination.perPage',
     :total-rows='pagination.totalUsers',
-    @input='getUsers',
+    @change='getUsers',
   )
 
   users-modal(

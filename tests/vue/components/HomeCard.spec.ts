@@ -17,7 +17,7 @@ describe('HomeCard.vue', () => {
     const item = {
       name: faker.name.findName(),
       link: faker.internet.url(),
-      icon: faker.lorem.word(),
+      icon: 'github',
     };
 
     const wrapper = mount(HomeCard, {
@@ -28,7 +28,6 @@ describe('HomeCard.vue', () => {
     });
 
     expect(wrapper.find('.name').text()).toEqual(item.name);
-    expect(wrapper.find('.home-card').element.getAttribute('href')).toEqual(item.link);
-    expect(wrapper.find('.home-card icon').element.getAttribute('name')).toEqual(item.icon);
+    expect(wrapper.find('a').element.getAttribute('href')).toEqual(item.link);
   });
 });

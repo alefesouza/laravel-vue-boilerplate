@@ -16,7 +16,7 @@ export default class AuthResetForm extends Vue {
   validToken = false;
 
   async mounted() {
-    this.form.token = this.$router.currentRoute.params.token;
+    this.form.token = this.$route.params.token;
   }
 
   async doSubmit() {
