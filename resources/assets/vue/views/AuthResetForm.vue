@@ -4,7 +4,6 @@ import { Component, Vue } from 'vue-property-decorator';
 import dialog from '@/utils/dialog';
 import formValidation from '@/utils/formValidation';
 
-import { find } from 'lodash';
 import checkResponse from '@/utils/checkResponse';
 
 @Component

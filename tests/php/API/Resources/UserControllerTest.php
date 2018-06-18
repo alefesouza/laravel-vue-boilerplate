@@ -19,12 +19,12 @@ class UserControllerTest extends TestCase
         parent::setUp();
 
         $admin = factory(User::class)->create([
-            'type_id' => 1
+            'type_id' => User::TYPE_ADMIN,
         ]);
 
         $this->adminToken = \JWTAuth::fromUser($admin);
 
-        $this->factory = factory(User::class)->make();
+        $this->factory = factory(User::class)->make()->toArray();
     }
 
     public function testGETAll()
@@ -43,6 +43,8 @@ class UserControllerTest extends TestCase
     public function testPOST()
     {
         $factory = $this->factory;
+        $factory['password'] = 'secret';
+        $factory['password_confirmation'] = 'secret';
 
         $response = $this->withHeaders([
                 'Authorization' => 'Bearer '.$this->adminToken,
@@ -50,61 +52,46 @@ class UserControllerTest extends TestCase
             ->json(
                 'POST',
                 '/api/users',
-                [
-                    'name' => $factory->name,
-                    'email' => $factory->email,
-                    'type_id' => 2,
-                    'password' => $factory->password,
-                    'password_confirmation' => $factory->password,
-                ]
+                $factory
             )
-            ->assertStatus(200)
+            ->assertStatus(201)
             ->assertHeader('Content-Type', 'application/json');
 
         $json = json_decode($response->getContent());
+        $factory['id'] = $json->id;
 
-        $response
-            ->assertJson([
-                'id' => $json->id,
-                'name' => $factory->name,
-                'email' => $factory->email,
-                'type_id' => 2,
-            ]);
+        unset($factory['password']);
+        unset($factory['password_confirmation']);
 
-        $this->assertDatabaseHas('users', [ 'email' => $factory->email ]);
+        $response->assertJson($factory);
+
+        $this->assertDatabaseHas('users', [
+            'name' => $factory['name'],
+            'email' => $factory['email'],
+        ]);
     }
 
     public function testPUT()
     {
         $factory = $this->factory;
         $user = factory(User::class)->create();
+        $factory['id'] = $user->id;
 
-        $this->withHeaders([
+        $response = $this->withHeaders([
                 'Authorization' => 'Bearer '.$this->adminToken,
             ])
             ->json(
                 'PUT',
                 '/api/users/'.$user->id,
-                [
-                    'name' => $factory->name,
-                    'email' => $factory->email,
-                    'type_id' => 2,
-                    'password' => $factory->password,
-                    'password_confirmation' => $factory->password,
-                ]
+                $factory
             )
             ->assertStatus(200)
             ->assertHeader('Content-Type', 'application/json')
-            ->assertJson([
-                'id' => $user->id,
-                'name' => $factory->name,
-                'email' => $factory->email,
-                'type_id' => 2,
-            ]);
+            ->assertJson($factory);
 
         $this->assertDatabaseHas('users', [
-            'name' => $factory->name,
-            'email' => $factory->email,
+            'name' => $factory['name'],
+            'email' => $factory['email'],
         ]);
     }
 
@@ -119,9 +106,7 @@ class UserControllerTest extends TestCase
                 'DELETE',
                 '/api/users/'.$user->id
             )
-            ->assertStatus(200)
-            ->assertHeader('Content-Type', 'application/json')
-            ->assertJson([]);
+            ->assertStatus(204);
 
         $this->assertSoftDeleted('users', [ 'name' => $user->name ]);
     }
@@ -129,11 +114,27 @@ class UserControllerTest extends TestCase
     public function testDisallowAccessToNormalUser()
     {
         $user = factory(User::class)->create([
-            'type_id' => '2',
+            'type_id' => User::TYPE_NORMAL,
         ]);
 
         $this->actingAs($user)
             ->json(
+                'GET',
+                '/api/users'
+            )
+            ->assertStatus(403)
+            ->assertHeader('Content-Type', 'application/json')
+            ->assertJson([
+                'message' => __('errors.forbidden'),
+                'errors' => [
+                    'message' => [ __('errors.forbidden') ],
+                ],
+            ]);
+    }
+
+    public function testDisallowAccessToGuestUser()
+    {
+        $this->json(
                 'GET',
                 '/api/users'
             )

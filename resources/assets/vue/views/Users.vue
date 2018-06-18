@@ -2,8 +2,6 @@
 import { Component, Vue } from 'vue-property-decorator';
 import { Action, State } from 'vuex-class';
 
-import { clone } from 'lodash';
-
 import checkResponse from '@/utils/checkResponse';
 import dialog from '@/utils/dialog';
 
@@ -76,7 +74,7 @@ export default class Users extends Vue {
       okText: 'buttons.update',
     };
 
-    this.form = clone(user);
+    this.form = JSON.parse(JSON.stringify(user));
 
     (<any>this.$refs.users_modal).$refs.modal.show();
   }

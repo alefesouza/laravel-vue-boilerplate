@@ -37,7 +37,9 @@ Route::group([
 Route::group([
     'middleware' => ['admin'],
 ], function () {
-    Route::resource('users', 'Resources\UserController');
+    Route::resource('users', 'Resources\UserController', [
+        'except' => ['create', 'edit', 'show'],
+    ]);
 });
 
 Route::any('messages/{type}/{id}', function ($type, $id) {

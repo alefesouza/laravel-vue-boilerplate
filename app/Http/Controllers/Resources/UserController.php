@@ -31,9 +31,9 @@ class UserController extends Controller
     {
         $this->validator($request);
 
-        return tap(new User($request->all()), function ($user) {
+        return response()->json(tap(new User($request->all()), function ($user) {
             $user->save();
-        });
+        }), 201);
     }
 
     /**
@@ -62,11 +62,9 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        if ($user->delete()) {
-            return [];
-        }
+        $user->delete();
 
-        return error();
+        return response()->json(null, 204);
     }
 
     private function validator(Request $request, $id = null)

@@ -61,7 +61,7 @@ class Handler extends ExceptionHandler
             return response()->json(error(
                 'errors.fatal_error',
                 'database'
-            ), 422);
+            ));
         }
 
         if ($e instanceof Tymon\JWTAuth\Exceptions\TokenExpiredException) {

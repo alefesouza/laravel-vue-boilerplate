@@ -1,33 +1,30 @@
 <?php
 
-function css($file)
-{
-    return asset('css/'.$file);
-}
+use Illuminate\Support\Facades\Auth;
 
-function icon($file)
+function error($value = 'errors.generic_error', $about = 'message', $code = 500)
 {
-    return asset('images/icons/'.$file);
-}
-
-function js($file)
-{
-    return asset('js/'.$file);
-}
-
-function image($file)
-{
-    return asset('images/'.$file);
-}
-
-function error($value = 'errors.generic_error', $about = 'message')
-{
-    return [
+    return response()->json([
         'errors' => [
             $about => [
                 __($value),
             ],
         ],
-        'message' => __('errors.generic_error'),
-    ];
+        'message' => __($value),
+    ], $code);
+}
+
+function middlewareError()
+{
+    $code = Auth::guest() ? 401 : 403;
+    $value = Auth::guest() ? 'errors.unauthorized' : 'errors.forbidden';
+
+    return response()->json([
+        'errors' => [
+            'message' => [
+                __($value),
+            ],
+        ],
+        'message' => __($value),
+    ], $code);
 }
