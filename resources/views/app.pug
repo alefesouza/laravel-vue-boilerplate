@@ -25,6 +25,6 @@ html(lang=app()->getLocale())
     #app
       #vue-loading #{__('strings.loading')}...
 
-  script.
-    var baseUrl = '#{url('/api')}';
-  script(src=mix('js/app.js'))
+    script.
+      var baseUrl = '#{url('/api')}';
+    script(src=mix('js/app.js'))

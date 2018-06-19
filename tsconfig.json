@@ -8,7 +8,7 @@
     "noImplicitAny": false,
     "strict": true,
     "strictPropertyInitialization": false,
-    "target": "es2015",
+    "target": "es5",
     "lib": [
       "dom",
       "es2017"

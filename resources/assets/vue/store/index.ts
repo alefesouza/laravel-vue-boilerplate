@@ -1,4 +1,6 @@
 import Vue from 'vue';
+
+import 'promise-polyfill/src/polyfill';
 import Vuex from 'vuex';
 
 import actions from './actions';

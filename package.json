@@ -31,6 +31,7 @@
     "bootstrap": "^4.1.1",
     "bootstrap-vue": "^2.0.0-rc.11",
     "laravel-echo": "^1.4.0",
+    "promise-polyfill": "^8.0.0",
     "pusher-js": "^4.2.2",
     "vue": "^2.5.13",
     "vue-awesome": "^2.3.7",
