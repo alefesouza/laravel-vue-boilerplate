@@ -9,6 +9,7 @@ Vue.use(vuexI18n.plugin, store);
 
 Vue.i18n.add('en', Locales.en);
 Vue.i18n.add('pt', Locales.pt);
+Vue.i18n.add('es', Locales.es);
 
 const htmlTag = document.documentElement;
 let lang = 'en';

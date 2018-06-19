@@ -16,7 +16,7 @@ class Language
      *
      * @array $languages
      */
-    protected $languages = ['en','pt'];
+    protected $languages = ['es','en','pt'];
 
     /**
      * Handle an incoming request.

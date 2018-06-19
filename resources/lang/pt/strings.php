@@ -29,4 +29,10 @@ return [
     'example2' => 'Exemplo 2',
     'clicked2' => 'Você clicou no exemplo 2',
 
+    // Messages
+    'private_channel' => 'Private Channel',
+    'new_private_message' => 'New Private Message',
+    'public_channel' => 'Public Channel',
+    'new_public_message' => 'New Public Message',    
+
 ];
