@@ -30,9 +30,9 @@ return [
     'clicked2' => 'Você clicou no exemplo 2',
 
     // Messages
-    'private_channel' => 'Private Channel',
-    'new_private_message' => 'New Private Message',
-    'public_channel' => 'Public Channel',
-    'new_public_message' => 'New Public Message',    
+    'private_channel' => 'Canal privado',
+    'new_private_message' => 'Nova mensagem privada',
+    'public_channel' => 'Canal público',
+    'new_public_message' => 'Nova mensagem pública',
 
 ];

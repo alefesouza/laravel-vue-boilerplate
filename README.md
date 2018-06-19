@@ -14,7 +14,7 @@
 A Laravel 5.5 Single Page Application boilerplate using Vue.js 2.5, Bootstrap 4, TypeScript, Sass and Pug with:
 
 * A users CRUD if the current user is an admin.
-* i18n for English and Portuguese, based on browser language settings.
+* i18n for English, Portuguese and Spanish, based on browser language settings.
 * Authentication using JWT.
 * WebSockets with Laravel Echo and Pusher.
 * Vue component tests using Jest and API tests using PHPUnit.
