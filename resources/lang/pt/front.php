@@ -8,4 +8,6 @@ return [
     'settings' => 'Configurações',
 
     'delete_user_confirmation' => 'Tem certeza que deseja apagar esse usuário?',
+    'language' => 'Português',
+    
 ];

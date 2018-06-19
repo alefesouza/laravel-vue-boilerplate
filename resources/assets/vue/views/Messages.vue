@@ -34,12 +34,12 @@ b-container.messages
   b-row
     b-col(sm='6')
       .d-lg-flex.align-content-lg-center.justify-content-lg-between
-        h2 Private Channel
+        h2 {{ $t('strings.private_channel') }}
         b-button.mb-2(
           variant='primary',
           :href='makeLink("private")',
           target='_blank',
-        ) New Private Message
+        ) {{ $t('strings.new_private_message') }}
       b-list-group
         b-list-group-item(
           v-for='message, i in privateMessages',
@@ -47,12 +47,12 @@ b-container.messages
         ) {{ message.text }}
     b-col(sm='6')
       .d-lg-flex.align-content-lg-center.justify-content-lg-between
-        h2 Public Channel
+        h2 {{ $t('strings.public_channel') }}
         b-button.mb-2(
           variant='primary',
           :href='makeLink("public")',
           target='_blank',
-        ) New Public Message
+        ) {{ $t('strings.new_public_message') }}
       b-list-group
         b-list-group-item(
           v-for='message, i in publicMessages',

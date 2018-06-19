@@ -93,7 +93,7 @@ b-modal(
     //- TODO change
     b-form-group(
       v-if='userType === 1',
-      label='Example'
+      :label='$t("strings.example")'
       label-for='example',
     )
       b-form-input#example(
