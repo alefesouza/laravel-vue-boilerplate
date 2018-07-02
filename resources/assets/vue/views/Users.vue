@@ -23,7 +23,7 @@ export default class Users extends Vue {
   readonly endpoint = 'users';
 
   currentPage = 1;
-  form: User = {};
+  form: Partial<User> = {};
   loading = true;
   users: User[] = [];
 
