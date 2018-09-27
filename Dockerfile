@@ -4,7 +4,7 @@ LABEL maintainer="Alefe Souza <contact@alefesouza.com>"
 RUN a2enmod rewrite
 
 RUN apt-get update \
-  && apt-get install -y zlib1g-dev libicu-dev g++ git openssh-client libpng-dev \
+  && apt-get install -y zlib1g-dev libicu-dev wget gnupg g++ git openssh-client libpng-dev \
   && docker-php-ext-configure intl \
   && docker-php-ext-install intl pdo_mysql zip
 
