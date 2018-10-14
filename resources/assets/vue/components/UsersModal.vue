@@ -3,7 +3,6 @@ import { Component, Emit, Prop, Vue } from 'vue-property-decorator';
 import { Action, State, namespace } from 'vuex-class';
 
 import checkPassword from '@/utils/checkPassword';
-import checkResponse from '@/utils/checkResponse';
 
 const uStore = namespace('users');
 

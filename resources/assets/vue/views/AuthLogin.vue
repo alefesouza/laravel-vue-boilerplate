@@ -8,6 +8,7 @@ import formValidation from '@/utils/formValidation';
 @Component
 export default class AuthLogin extends Vue {
   @Action loadData;
+  @Action setDialogMessage;
 
   form = {
     rememberMe: false,
@@ -39,7 +40,7 @@ export default class AuthLogin extends Vue {
     try {
       await this.doLogin();
     } catch {
-      dialog('errors.generic_error', false);
+      this.setDialogMessage('errors.generic_error');
     }
 
     this.isSending = false;

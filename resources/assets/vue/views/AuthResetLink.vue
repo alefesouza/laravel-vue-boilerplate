@@ -1,5 +1,6 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
+import { Action } from 'vuex-class';
 
 import dialog from '@/utils/dialog';
 import formValidation from '@/utils/formValidation';
@@ -7,17 +8,21 @@ import checkResponse from '@/utils/checkResponse';
 
 @Component
 export default class AuthResetLink extends Vue {
+  @Action setDialogMessage;
+
   form = {};
   isSending = false;
 
   async doSubmit() {
     const response = await this.axios.post('../password/email', this.form);
+    const checkErrors = checkResponse(response);
 
-    if (checkResponse(response)) {
+    if (checkErrors) {
+      this.setDialogMessage(checkErrors.message);
       return;
     }
 
-    dialog('passwords.sent', false);
+    this.setDialogMessage('passwords.sent');
   }
 
   async submitForm(evt: Event) {
@@ -28,7 +33,7 @@ export default class AuthResetLink extends Vue {
     try {
       await this.doSubmit();
     } catch {
-      dialog('errors.generic_error', false);
+      this.setDialogMessage('errors.generic_error');
     }
 
     this.isSending = false;

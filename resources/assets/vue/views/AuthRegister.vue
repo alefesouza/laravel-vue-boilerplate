@@ -1,5 +1,6 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
+import { Action } from 'vuex-class';
 
 import dialog from '@/utils/dialog';
 import formValidation from '@/utils/formValidation';
@@ -7,6 +8,8 @@ import checkResponse from '@/utils/checkResponse';
 
 @Component
 export default class AuthRegister extends Vue {
+  @Action setDialogMessage;
+
   form = {};
   isSending = false;
 
@@ -14,12 +17,15 @@ export default class AuthRegister extends Vue {
     await this.$auth.register({
       params: this.form,
       redirect: false,
-      success(response) {
-        if (checkResponse(response)) {
+      success: (response) => {
+        const checkErrors = checkResponse(response);
+
+        if (checkErrors) {
+          this.setDialogMessage(checkErrors.message);
           return;
         }
 
-        dialog('login.account_created', false);
+        this.setDialogMessage('login.account_created');
 
         this.$router.push({ name: 'auth.login' });
       },
@@ -34,7 +40,7 @@ export default class AuthRegister extends Vue {
     try {
       await this.doRegister();
     } catch {
-      dialog('errors.generic_error', false);
+      this.setDialogMessage('errors.generic_error');
     }
 
     this.isSending = false;

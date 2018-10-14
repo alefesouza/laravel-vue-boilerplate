@@ -1,6 +1,6 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import { State } from 'vuex-class';
+import { State, Action } from 'vuex-class';
 
 import { AxiosResponse } from 'axios';
 
@@ -10,7 +10,8 @@ import dialog from '@/utils/dialog';
 
 @Component
 export default class TheSettings extends Vue {
-  @State('settings') settings;
+  @State settings;
+  @Action setDialogMessage;
 
   isSending = false;
   okText = 'buttons.save';
@@ -19,16 +20,16 @@ export default class TheSettings extends Vue {
     return this.$auth.user().type_id;
   }
 
-  async handleOk(evt: Event) {
-    evt.preventDefault();
-
+  async handleOk() {
     if (!checkPassword(this.settings)) {
       return;
     }
 
     const response = await this.postData();
+    const checkErrors = checkResponse(response);
 
-    if (!response || checkResponse(response)) {
+    if (checkErrors) {
+      this.setDialogMessage(checkErrors.message);
       return;
     }
 
@@ -39,7 +40,7 @@ export default class TheSettings extends Vue {
       password !== '' &&
       password != null
     ) {
-      dialog('front.password_changed_successfully', false);
+      this.setDialogMessage('front.password_changed_successfully');
     }
 
     (<any>this.$refs.modal).hide();
@@ -61,7 +62,7 @@ export default class TheSettings extends Vue {
     } catch {
       this.resetState();
 
-      dialog('errors.generic_error', false);
+      this.setDialogMessage('errors.generic_error');
 
       return null;
     }
@@ -87,7 +88,7 @@ b-modal(
   :ok-title='$t(okText)',
   :title='$t("strings.settings")',
   @hidden='onModalHidden',
-  @ok='handleOk'
+  @ok.prevent='handleOk'
 )
   b-form
     //- TODO change

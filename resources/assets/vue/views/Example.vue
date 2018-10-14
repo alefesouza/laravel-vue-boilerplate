@@ -15,24 +15,21 @@ import HomeCard from '@/components/HomeCard.vue';
 export default class Home extends Vue {
   @Action setBackUrl;
   @Action setMenu;
+  @Action setDialogMessage;
 
   mounted() {
     this.setBackUrl('/');
     this.setMenu([{
       text: 'strings.example',
       key: 1,
-      handler(evt) {
-        evt.preventDefault();
-
-        dialog('strings.clicked', false);
+      handler: () => {
+        this.setDialogMessage('strings.clicked');
       },
     }, {
       text: 'strings.example2',
       key: 2,
-      handler(evt) {
-        evt.preventDefault();
-
-        dialog('strings.clicked2', false);
+      handler: () => {
+        this.setDialogMessage('strings.clicked2');
       },
     }]);
   }

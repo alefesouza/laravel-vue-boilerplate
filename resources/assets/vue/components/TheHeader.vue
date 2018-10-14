@@ -57,7 +57,7 @@ div
           b-nav-item.menu(
             v-for='item in menu',
             :key='item.key',
-            @click='item.handler($event)',
+            @click.prevent='item.handler',
             href='#',
           ) {{ $t(item.text) }}
 

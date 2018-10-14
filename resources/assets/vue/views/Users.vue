@@ -47,9 +47,7 @@ export default class Users extends Vue {
     }
   }
 
-  addUser(evt: Event): void {
-    evt.preventDefault();
-
+  addUser(): void {
     this.isModalAdd = true;
     this.setModalVisible(true);
 
