@@ -21,16 +21,18 @@ describe('UsersModal.vue', () => {
     };
 
     const wrapper = mount(UsersModal, {
+      store,
       propsData: {
         form,
-        modalData: {
-          isAdd: false,
-          okText: 'test',
-        },
+        isAdd: false,
+        isVisible: true,
       },
     });
 
-    expect(wrapper.find('.modal-footer .btn-primary').text()).toEqual('test');
+    expect((<HTMLInputElement>wrapper.find('#name').element).value)
+      .toEqual(form.name);
+    expect(wrapper.find('.modal-footer .btn-primary').text())
+      .toEqual(Vue.i18n.translate('buttons.update', null));
     expect(wrapper.find('.modal-title').text())
       .toEqual(Vue.i18n.translate('users.edit_user', null));
   });

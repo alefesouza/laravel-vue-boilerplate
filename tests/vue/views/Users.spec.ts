@@ -29,16 +29,18 @@ Vue.prototype.$auth = {
   })),
 };
 
-Vue.prototype.axios = {
-  get: jest.fn(() => Promise.resolve({
-    status: 200,
-    data: {
-      data: mockUsers,
-    },
-  })),
-};
+jest.doMock('axios', () => {
+  return {
+    get: jest.fn(() => Promise.resolve({
+      status: 200,
+      data: {
+        data: mockUsers,
+      },
+    })),
+  };
+});
 
-const localState = {
+storeMock.state = {
   homePath: '/',
   user: {
     name: faker.name.findName(),
@@ -46,7 +48,7 @@ const localState = {
   },
 };
 
-storeMock.state = localState;
+storeMock.modules.users.state.users = mockUsers;
 
 describe('Users.vue', () => {
   const store = configStore(Vue, storeMock);

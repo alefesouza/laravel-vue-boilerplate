@@ -1,7 +1,7 @@
 import messagesState from '@/store/messages/state';
 import usersState from '@/store/users/state';
 
-const actions = {
+const actions: any = {
   setBackUrl: jest.fn(),
   loadData: jest.fn(),
   setMenu: jest.fn(),
@@ -29,6 +29,9 @@ export default {
       namespaced: true,
       state: {
         ...usersState,
+      },
+      actions: {
+        loadUsers: jest.fn(),
       },
     },
   },
