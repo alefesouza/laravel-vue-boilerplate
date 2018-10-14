@@ -7,7 +7,7 @@ import formValidation from '@/utils/formValidation';
 
 @Component
 export default class AuthLogin extends Vue {
-  @Action setData;
+  @Action loadData;
 
   form = {
     rememberMe: false,
@@ -26,7 +26,7 @@ export default class AuthLogin extends Vue {
           this.authError = true;
         }
 
-        this.setData();
+        this.loadData();
       },
     });
   }

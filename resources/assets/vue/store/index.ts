@@ -9,11 +9,13 @@ import mutations from './mutations';
 import state from './state';
 
 import messages from './messages';
+import users from './users';
 
 Vue.use(Vuex);
 
 const modules = {
   messages,
+  users,
 };
 
 const store = new Vuex.Store({

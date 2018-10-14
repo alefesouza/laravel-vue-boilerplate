@@ -1,12 +1,13 @@
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
-import { Action, State } from 'vuex-class';
+import { Component, Vue, Watch } from 'vue-property-decorator';
+import { Action, State, namespace } from 'vuex-class';
 
-import checkResponse from '@/utils/checkResponse';
 import dialog from '@/utils/dialog';
 
 import UsersCard from '@/components/UsersCard.vue';
 import UsersModal from '@/components/UsersModal.vue';
+
+const uStore = namespace('users');
 
 @Component({
   components: {
@@ -17,30 +18,19 @@ import UsersModal from '@/components/UsersModal.vue';
 export default class Users extends Vue {
   @Action setBackUrl;
   @Action setMenu;
-
-  @State homePath;
-
-  readonly endpoint = 'users';
+  @uStore.State users;
+  @uStore.State pagination;
+  @uStore.State isLoading;
+  @uStore.State isModalVisible;
+  @uStore.Action deleteUser;
+  @uStore.Action loadUsers;
+  @uStore.Action setModalVisible;
 
   currentPage = 1;
   form: Partial<User> = {};
-  loading = true;
-  users: User[] = [];
+  isModalAdd = true;
 
-  modalData = {
-    editIndex: 0,
-    isAdd: true,
-    okText: '',
-  };
-  pagination = {
-    perPage: 5,
-    totalUsers: 0,
-    totalPages: 0,
-  };
-
-  async mounted() {
-    await this.getUsers(1);
-
+  async created() {
     this.setBackUrl('/');
     this.setMenu([
       {
@@ -49,108 +39,42 @@ export default class Users extends Vue {
         handler: this.addUser,
       },
     ]);
+
+    this.currentPage = this.pagination.currentPage;
+
+    if (this.users.length == 0) {
+      await this.getUsers(1);
+    }
   }
 
   addUser(evt: Event): void {
     evt.preventDefault();
 
-    this.modalData = {
-      editIndex: 0,
-      isAdd: true,
-      okText: 'buttons.add',
-    };
+    this.isModalAdd = true;
+    this.setModalVisible(true);
 
     this.form = {
       type_id: 2,
     };
-
-    (<any>this.$refs.users_modal).$refs.modal.show();
   }
 
   editUser(user: User, index: number): void {
-    this.modalData = {
-      editIndex: index,
-      isAdd: false,
-      okText: 'buttons.update',
-    };
+    this.isModalAdd = false;
+    this.setModalVisible(true);
 
-    this.form = JSON.parse(JSON.stringify(user));
-
-    (<any>this.$refs.users_modal).$refs.modal.show();
+    this.form = { ...user };
   }
 
-  async deleteUser(user: User, index: number): Promise<void> {
+  async deleteUserConfirm(user: User): Promise<void> {
     if (!(await dialog('front.delete_user_confirmation', true))) {
       return;
     }
 
-    try {
-      const response = await this.axios.delete(`${this.endpoint}/${user.id}`);
-
-      if (checkResponse(response)) {
-        return;
-      }
-
-      this.users.splice(index, 1);
-
-      dialog('front.deleted_successfully', false);
-    } catch {
-      dialog('errors.generic_error', false);
-    }
+    this.deleteUser(user);
   }
 
   async getUsers(page: number): Promise<void> {
-    let response;
-
-    try {
-      response = await this.axios.get(`${this.endpoint}?page=${page}`);
-    } catch (e) {
-      dialog('errors.generic_error', false);
-    }
-
-    this.loading = false;
-
-    const { status, data } = response;
-
-    switch (status) {
-      case 200: {
-        if (data.errors) {
-          dialog('errors.generic_error', false);
-
-          return;
-        }
-
-        this.pagination = {
-          perPage: data.per_page,
-          totalUsers: data.total,
-          totalPages: data.last_page,
-        };
-
-        this.users = data.data;
-        break;
-      }
-      case 401: {
-        this.$router.push(this.homePath);
-        return;
-      }
-      default: {
-        dialog('errors.generic_error', false);
-        return;
-      }
-    }
-  }
-
-  modifyUsers(user: User): void {
-    if (this.modalData.isAdd) {
-      // Only add the element if it is on the last page
-      if (this.currentPage === this.pagination.totalPages) {
-        this.users.push(user);
-      }
-    } else {
-      this.users[this.modalData.editIndex] = user;
-    }
-
-    this.$forceUpdate();
+    this.loadUsers({ page });
   }
 }
 </script>
@@ -172,10 +96,10 @@ b-container(tag='main')
       :key='user.id',
       :user='user',
       @edit-user='editUser(user, i)',
-      @delete-user='deleteUser(user, i)',
+      @delete-user='deleteUserConfirm(user)',
     )
 
-  div(v-else-if='loading') {{ $t('strings.loading') }}...
+  div(v-else-if='isLoading') {{ $t('strings.loading') }}...
 
   div(v-else) {{ $t('users.no_users') }}
 
@@ -191,7 +115,7 @@ b-container(tag='main')
   users-modal(
     ref='users_modal',
     :form='form',
-    :modal-data='modalData',
-    @modify-users='modifyUsers',
+    :is-add='isModalAdd',
+    :is-visible='isModalVisible',
   )
 </template>

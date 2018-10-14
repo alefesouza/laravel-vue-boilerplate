@@ -1,11 +1,12 @@
 <script lang="ts">
 import axios from 'axios';
-import { Component, Vue } from 'vue-property-decorator';
-import { Action } from 'vuex-class';
+import { Component, Vue, Watch } from 'vue-property-decorator';
+import { Action, State } from 'vuex-class';
 
 import BaseAuth from './components/BaseAuth.vue';
 import TheHeader from './components/TheHeader.vue';
 
+import dialog from '@/utils/dialog';
 import userTypes from '@/utils/userTypes';
 
 @Component({
@@ -15,7 +16,8 @@ import userTypes from '@/utils/userTypes';
   },
 })
 export default class App extends Vue {
-  @Action setData;
+  @Action loadData;
+  @State dialogMessage;
 
   /**
    * Yeah, I will use emoji here.
@@ -30,7 +32,7 @@ export default class App extends Vue {
   mounted() {
     this.$auth.ready(async () => {
       if (this.$auth.check()) {
-        await this.setData();
+        await this.loadData();
       }
     });
   }
@@ -41,6 +43,11 @@ export default class App extends Vue {
 
   changeLocale(locale: string) {
     this.$i18n.set(locale);
+  }
+
+  @Watch('dialogMessage')
+  onDialogMessageChange(newVal) {
+    dialog(newVal, false);
   }
 }
 </script>

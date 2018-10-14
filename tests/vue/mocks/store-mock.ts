@@ -1,6 +1,9 @@
+import messagesState from '@/store/messages/state';
+import usersState from '@/store/users/state';
+
 const actions = {
   setBackUrl: jest.fn(),
-  setData: jest.fn(),
+  loadData: jest.fn(),
   setMenu: jest.fn(),
 };
 
@@ -18,6 +21,15 @@ export default {
   modules: {
     messages: {
       namespaced: true,
+      state: {
+        ...messagesState,
+      },
+    },
+    users: {
+      namespaced: true,
+      state: {
+        ...usersState,
+      },
     },
   },
 };

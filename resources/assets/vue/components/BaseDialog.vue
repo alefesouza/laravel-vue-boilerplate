@@ -23,12 +23,12 @@ export default class BaseDialog extends DialogComponent<boolean> {
     .modal-content
       .modal-body {{ $t(message) }}
       .modal-footer
-        b-button(@click='ok', variant='primary') {{ $t('buttons.ok') }}
         b-button(
           v-if='isConfirm',
           @click='cancel',
           variant='secondary'
         ) {{ $t('buttons.cancel') }}
+        b-button(@click='ok', variant='primary') {{ $t('buttons.ok') }}
 </template>
 
 <style>

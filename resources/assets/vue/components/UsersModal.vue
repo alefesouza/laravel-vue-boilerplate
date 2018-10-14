@@ -1,84 +1,36 @@
 <script lang="ts">
 import { Component, Emit, Prop, Vue } from 'vue-property-decorator';
+import { Action, State, namespace } from 'vuex-class';
 
-import dialog from '@/utils/dialog';
 import checkPassword from '@/utils/checkPassword';
 import checkResponse from '@/utils/checkResponse';
 
-import TheSettings from './TheSettings.vue';
+const uStore = namespace('users');
 
 @Component
 export default class UsersModal extends Vue {
   @Prop() form;
-  @Prop() modalData;
+  @Prop() isAdd;
+  @Prop() isVisible;
+  @uStore.Action addUser;
+  @uStore.Action editUser;
+  @uStore.Action setModalVisible;
+  @uStore.State isModalLoading;
 
-  isSending = false;
-
-  initialOkText: string = '';
-
-  readonly endpoint = `users`;
-
-  async handleOk(evt: Event): Promise<void> {
-    evt.preventDefault();
-
-    this.initialOkText = this.modalData.okText;
-
+  handleOk() {
     if (!checkPassword(this.form)) {
       return;
     }
 
-    const response = await this.postData();
-
-    if (!response) {
-      return;
+    if (this.isAdd) {
+      this.addUser(this.form);
+    } else {
+      this.editUser(this.form);
     }
-
-    if (checkResponse(response)) {
-      return;
-    }
-
-    this.modifyUsers(response.data);
   }
 
-  @Emit('modify-users')
-  modifyUsers(user: User): void {
-    (<any>this.$refs.modal).hide();
-  }
-
-  async postData(): Promise<any> {
-    let url = this.endpoint;
-
-    if (!this.modalData.isAdd) {
-      url += `/${this.form.id}`;
-    }
-
-    this.isSending = true;
-    this.modalData.okText = 'buttons.sending';
-
-    let response;
-
-    try {
-      if (this.modalData.isAdd) {
-        response = await this.axios.post(url, this.form);
-      } else {
-        response = await this.axios.put(url, this.form);
-      }
-    } catch {
-      this.resetState();
-
-      dialog('errors.generic_error', false);
-
-      return null;
-    }
-
-    this.resetState();
-
-    return response;
-  }
-
-  resetState(): void {
-    this.isSending = false;
-    this.modalData.okText = this.initialOkText;
+  handleClose() {
+    this.setModalVisible(false);
   }
 }
 </script>
@@ -86,12 +38,13 @@ export default class UsersModal extends Vue {
 <template lang="pug">
 b-modal(
   hide-header-close=true,
-  ref='modal',
+  :visible='isVisible',
   :cancel-title='$t("buttons.cancel")',
-  :ok-disabled='isSending',
-  :ok-title='$t(modalData.okText)',
-  :title='modalData.isAdd ? $t("users.add_user") : $t("users.edit_user")',
-  @ok='handleOk',
+  :ok-disabled='isModalLoading',
+  :ok-title='isModalLoading ? $t("buttons.sending") : isAdd ? $t("buttons.add") : $t("buttons.update")',
+  :title='isAdd ? $t("users.add_user") : $t("users.edit_user")',
+  @hide='handleClose',
+  @ok.prevent='handleOk',
 )
   b-form
     b-form-group(

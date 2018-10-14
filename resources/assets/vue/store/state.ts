@@ -5,4 +5,5 @@ export default {
   homeItems: [],
   menu: [],
   settings: {},
+  dialogMessage: '',
 };

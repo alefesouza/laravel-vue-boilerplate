@@ -2,11 +2,11 @@ import Vue from 'vue';
 
 import { AxiosResponse } from 'axios';
 
-const setBackUrl = ({ commit }, obj) => {
-  commit('SET_BACK_URL', obj);
+const setBackUrl = ({ commit }, payload) => {
+  commit('SET_BACK_URL', payload);
 };
 
-const setData = async ({ commit }, obj) => {
+const loadData = async ({ commit }) => {
   let response: AxiosResponse<any>;
 
   try {
@@ -25,12 +25,17 @@ const setData = async ({ commit }, obj) => {
   }
 };
 
-const setMenu = ({ commit }, obj) => {
-  commit('SET_MENU', obj);
+const setMenu = ({ commit }, payload) => {
+  commit('SET_MENU', payload);
+};
+
+const setDialogMessage = ({ commit }, payload) => {
+  commit('SET_DIALOG_MESSAGE', payload);
 };
 
 export default {
   setBackUrl,
-  setData,
+  loadData,
   setMenu,
+  setDialogMessage,
 };
