@@ -1,7 +1,5 @@
 import Vue from 'vue';
-import {
-  mount,
-} from '@vue/test-utils';
+import { mount } from '@vue/test-utils';
 
 import faker from 'faker';
 
@@ -17,7 +15,7 @@ describe('HomeCard.vue', () => {
     const item = {
       name: faker.name.findName(),
       link: faker.internet.url(),
-      icon: 'github',
+      icon: 'brands/github',
     };
 
     const wrapper = mount(HomeCard, {

@@ -30,6 +30,9 @@ mix
           appendTsSuffixTo: [/\.vue$/],
         },
         exclude: /node_modules/,
+      }, {
+        test: /\.pug$/,
+        loader: 'pug-plain-loader'
       }],
     },
     resolve: {
@@ -40,3 +43,19 @@ mix
       },
     },
   });
+
+// Thanks https://github.com/JeffreyWay/laravel-mix/issues/1483#issuecomment-366685986
+Mix.listen('configReady', (webpackConfig) => {
+  if (Mix.isUsing('hmr')) {
+    webpackConfig.entry = Object.keys(webpackConfig.entry).reduce((entries, entry) => {
+      entries[entry.replace(/^\//, '')] = webpackConfig.entry[entry];
+      return entries;
+    }, {});
+
+    webpackConfig.plugins.forEach((plugin) => {
+      if (plugin.constructor.name === 'ExtractTextPlugin') {
+        plugin.filename = plugin.filename.replace(/^\//, '');
+      }
+    });
+  }
+});

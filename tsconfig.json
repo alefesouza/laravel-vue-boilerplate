@@ -9,6 +9,7 @@
     "strict": true,
     "strictPropertyInitialization": false,
     "target": "es5",
+    "esModuleInterop": true,
     "lib": [
       "dom",
       "es2017"

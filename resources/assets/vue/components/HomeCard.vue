@@ -10,7 +10,7 @@ export default class DashboardItem extends Vue {
 <template lang="pug">
 b-col(:to='item.link', tag='b-link', cols=12, md=6, sm=12, lg=3)
   b-card.mb-3
-    icon(:name='item.icon')
+    v-icon(:name='item.icon')
     .card-text
       span.manage {{ $t('home.manage') }}
       div.name {{ $t(item.name) }}

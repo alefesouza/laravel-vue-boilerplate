@@ -36,7 +36,7 @@ class HomeController extends Controller
             ],
             [
                 'name' => 'strings.example',
-                'icon' => 'lightbulb-o',
+                'icon' => 'lightbulb',
                 'link' => 'example',
             ],
         ];

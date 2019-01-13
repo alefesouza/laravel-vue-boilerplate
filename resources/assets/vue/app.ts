@@ -4,6 +4,7 @@ import BootstrapVue from 'bootstrap-vue';
 import * as ModalDialogs from 'vue-modal-dialogs';
 import Pusher from 'pusher-js';
 import VueAuth from '@websanova/vue-auth';
+import Icon from 'vue-awesome/components/Icon.vue';
 
 import store from './store';
 
@@ -18,8 +19,7 @@ import App from './App.vue';
 
 (<any>window).Pusher = Pusher;
 
-const Icon = require('vue-awesome/components/Icon');
-Vue.component('icon', Icon);
+Vue.component('v-icon', Icon);
 
 Vue.config.productionTip = false;
 
@@ -31,12 +31,12 @@ Vue.use(VueAuth, {
   http: require('@websanova/vue-auth/drivers/http/axios.1.x.js'),
   router: require('@websanova/vue-auth/drivers/router/vue-router.2.x.js'),
   rolesVar: 'type_id',
-  parseUserData: user => user,
+  parseUserData: (user) => user,
 });
 
 new Vue({
   store,
   router,
   el: '#app',
-  render: h => h(App),
+  render: (h) => h(App),
 });

@@ -41,7 +41,7 @@ div
   b-navbar.navbar-expand-lg.bg-light(type='light')
     b-container
       b-link.back-button.text-secondary(v-show='path !== homePath', :to='backUrl')
-        icon(name='arrow-left')
+        v-icon(name='arrow-left')
 
       b-navbar-brand(:to='homePath', :class='{"has-back": path !== homePath}')
         img.d-inline-block.align-top(
@@ -71,7 +71,7 @@ div
             target='_blank',
           ) GitHub
             | &nbsp;
-            icon(name='github')
+            v-icon(name='brands/github')
 
           b-nav-item-dropdown(:text='$auth.user().name')
             b-dropdown-item(

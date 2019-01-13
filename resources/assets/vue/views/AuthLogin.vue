@@ -84,7 +84,7 @@ b-form#login(@submit='login')
       ) {{ $t('login.keep_connected') }}
 
       b-button.content-vertical.text-secondary(variant='link', to='/password/reset')
-        icon(name='question-circle')
+        v-icon(name='question-circle')
         | &nbsp;{{ $t('login.forgot_password') }}
 
   b-form-group

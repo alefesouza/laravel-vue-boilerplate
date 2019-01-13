@@ -25,14 +25,14 @@ b-card.users-card.mb-3(no-body)
 
   b-card-footer
     b-button(@click='$emit("edit-user")', variant='link')
-      icon(name='pencil-square-o')
+      v-icon(name='pencil-alt')
       | &nbsp;{{ $t('buttons.edit') }}
 
     b-button.text-danger(
       @click='$emit("delete-user")',
       v-if='user.id !== actualUser.id',
       variant='link')
-      icon(name='trash')
+      v-icon(name='trash')
       | &nbsp;{{ $t('buttons.delete') }}
 </template>
 

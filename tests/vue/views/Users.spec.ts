@@ -1,7 +1,5 @@
 import Vue from 'vue';
-import {
-  mount,
-} from '@vue/test-utils';
+import { mount } from '@vue/test-utils';
 
 import faker from 'faker';
 
@@ -10,7 +8,7 @@ import storeMock from '../mocks/store-mock';
 
 import Users from '@/views/Users.vue';
 
-const mockUsers = [];
+const mockUsers: any[] = [];
 
 for (let i = 0; i < 10; i++) {
   mockUsers.push({
@@ -31,12 +29,14 @@ Vue.prototype.$auth = {
 
 jest.doMock('axios', () => {
   return {
-    get: jest.fn(() => Promise.resolve({
-      status: 200,
-      data: {
-        data: mockUsers,
-      },
-    })),
+    get: jest.fn(() =>
+      Promise.resolve({
+        status: 200,
+        data: {
+          data: mockUsers,
+        },
+      }),
+    ),
   };
 });
 
@@ -48,7 +48,7 @@ storeMock.state = {
   },
 };
 
-storeMock.modules.users.state.users = mockUsers;
+(<any>storeMock.modules.users.state).users = mockUsers;
 
 describe('Users.vue', () => {
   const store = configStore(Vue, storeMock);
@@ -65,8 +65,18 @@ describe('Users.vue', () => {
 
     setTimeout(() => {
       expect(wrapper.findAll('.users-card')).toHaveLength(mockUsers.length);
-      expect(wrapper.findAll('.users-card h4').at(0).text()).toEqual(mockUsers[0].name);
-      expect(wrapper.findAll('.users-card h4').at(5).text()).toEqual(mockUsers[5].name);
+      expect(
+        wrapper
+          .findAll('.users-card h4')
+          .at(0)
+          .text(),
+      ).toEqual(mockUsers[0].name);
+      expect(
+        wrapper
+          .findAll('.users-card h4')
+          .at(5)
+          .text(),
+      ).toEqual(mockUsers[5].name);
       done();
     }, 150);
   });
