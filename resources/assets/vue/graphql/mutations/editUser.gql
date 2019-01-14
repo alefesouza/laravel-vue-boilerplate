@@ -1,0 +1,9 @@
+mutation EditUser($input: UserInput!) {
+  editUser(input: $input) {
+    id
+    name
+    email
+    type
+    type_id
+  }
+}

@@ -22,7 +22,13 @@ return [
     'home' => 'Início',
     'messages' => 'Mensagens',
     'users' => 'Usuários',
+    'users_graphql' => 'Usuários (GraphQL)',
     'settings' => 'Configurações',
+
+    'error_occurred' => 'Ocorreu um erro.',
+    'items_to_show' => 'Itens a exibir por página:',
+    'showing_results' => 'Exibindo resultados :from-:to de :total.',
+    'search' => 'Pesquisar',
 
     // Example page click message
     'clicked' => 'Você clicou no exemplo 1',

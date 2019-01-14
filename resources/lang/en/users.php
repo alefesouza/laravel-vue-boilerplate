@@ -7,4 +7,6 @@ return [
     'no_users' => 'There are no registered users.',
     'user_type' => 'User type',
 
+    'search' => 'Users Search',
+
 ];

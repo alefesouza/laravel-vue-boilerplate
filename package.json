@@ -27,13 +27,16 @@
   },
   "dependencies": {
     "@websanova/vue-auth": "^2.21.14-beta",
+    "apollo-boost": "^0.1.23",
     "axios": "^0.18.0",
     "bootstrap": "^4.2.1",
     "bootstrap-vue": "^2.0.0-rc.11",
+    "graphql": "^14.0.2",
     "laravel-echo": "^1.5.2",
     "promise-polyfill": "^8.1.0",
     "pusher-js": "^4.3.1",
     "vue": "^2.5.22",
+    "vue-apollo": "^3.0.0-beta.27",
     "vue-awesome": "^3.3.1",
     "vue-axios": "^2.1.4",
     "vue-modal-dialogs": "^3.0.0",
@@ -89,7 +92,10 @@
     "moduleNameMapper": {
       "^@/(.*)$": "<rootDir>/resources/assets/vue/$1"
     },
-    "reporters": ["default", "jest-junit"],
+    "reporters": [
+      "default",
+      "jest-junit"
+    ],
     "snapshotSerializers": [
       "<rootDir>/node_modules/jest-serializer-vue"
     ],

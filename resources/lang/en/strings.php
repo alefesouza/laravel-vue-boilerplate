@@ -22,7 +22,13 @@ return [
     'home' => 'Home',
     'messages' => 'Messages',
     'users' => 'Users',
+    'users_graphql' => 'Users (GraphQL)',
     'settings' => 'Settings',
+
+    'error_occurred' => 'An error occurred.',
+    'items_to_show' => 'Items to show:',
+    'showing_results' => 'Showing results :from-:to of :total.',
+    'search' => 'Search',
 
     // Example page click message
     'clicked' => 'You\'ve clicked on example 1',
@@ -33,6 +39,6 @@ return [
     'private_channel' => 'Private Channel',
     'new_private_message' => 'New Private Message',
     'public_channel' => 'Public Channel',
-    'new_public_message' => 'New Public Message',    
+    'new_public_message' => 'New Public Message',
 
 ];

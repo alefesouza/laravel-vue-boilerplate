@@ -30,6 +30,11 @@ class HomeController extends Controller
                 'link' => 'users',
             ],
             [
+                'name' => 'strings.users_graphql',
+                'icon' => 'users',
+                'link' => 'users/graphql',
+            ],
+            [
                 'name' => 'strings.messages',
                 'icon' => 'envelope',
                 'link' => 'messages',

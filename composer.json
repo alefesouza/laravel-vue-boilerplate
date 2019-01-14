@@ -27,6 +27,7 @@
     "php": ">=7.0.0",
     "bkwld/laravel-pug": "^1.5",
     "fideloper/proxy": "~3.3",
+    "folklore/graphql": "^1.1",
     "laravel/envoy": "^1.4",
     "laravel/framework": "5.5.*",
     "laravel/tinker": "~1.0",

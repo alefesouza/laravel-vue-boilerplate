@@ -11,9 +11,9 @@
   <a href="https://gitlab.com/alefesouza/laravel-vue-boilerplate/pipelines" title="GitLab CI"><img src="https://gitlab.com/alefesouza/laravel-vue-boilerplate/badges/master/build.svg" alt="GitLab CI"></a>
 </p>
 
-A Laravel 5.5 Single Page Application boilerplate using Vue.js 2.5, Bootstrap 4, TypeScript, Sass and Pug with:
+A Laravel 5.5 Single Page Application boilerplate using Vue.js 2.5, GraphQL, Bootstrap 4, TypeScript, Sass and Pug with:
 
-* A users CRUD if the current user is an admin.
+* A users CRUD if the current user is an admin written in RESTful and GraphQL.
 * i18n for English, Portuguese and Spanish, based on browser language settings.
 * Authentication using JWT.
 * WebSockets with Laravel Echo and Pusher.
@@ -42,6 +42,7 @@ Front-end:
 * [Vue](https://github.com/vuejs/vue)
 * [VueRouter](https://github.com/vuejs/vue-router)
 * [Vuex](https://github.com/vuejs/vuex)
+* [vue-apollo](https://github.com/Akryum/vue-apollo)
 * [Vue Auth](https://github.com/websanova/vue-auth)
 * [vuex-i18n](https://github.com/dkfbasel/vuex-i18n)
 * [vue-awesome](https://github.com/Justineo/vue-awesome)
@@ -59,6 +60,7 @@ The TypeScript code tries to follow the [Airbnb JavaScript Style Guide](https://
 Back-end:
 
 * [Laravel](https://github.com/laravel/laravel)
+* [Laravel GraphQL](https://github.com/Folkloreatelier/laravel-graphql)
 * [jwt-auth](https://github.com/tymondesigns/jwt-auth)
 * [laravel-vue-i18n-generator](https://github.com/martinlindhe/laravel-vue-i18n-generator)
 * [Laravel Pug](https://github.com/bkwld/laravel-pug)

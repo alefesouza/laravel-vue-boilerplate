@@ -35,13 +35,18 @@ class HomeControllerTest extends TestCase
                 'icon' => 'users',
             ],
             [
+                'name' => 'strings.users_graphql',
+                'icon' => 'users',
+                'link' => 'users/graphql',
+            ],
+            [
                 'name' => 'strings.messages',
                 'link' => 'messages',
                 'icon' => 'envelope',
             ],
             [
                 'name' => 'strings.example',
-                'icon' => 'lightbulb-o',
+                'icon' => 'lightbulb',
                 'link' => 'example',
             ],
         ];

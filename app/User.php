@@ -31,6 +31,11 @@ class User extends Authenticatable implements JWTSubject
     const TYPE_ADMIN = 1;
     const TYPE_NORMAL = 2;
 
+    const TYPE_STRINGS = [
+        1 => 'user_types.admin',
+        2 => 'user_types.partner',
+    ];
+
     public function isAdmin()
     {
         return $this->type_id === self::TYPE_ADMIN;

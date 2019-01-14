@@ -6,6 +6,9 @@ import Pusher from 'pusher-js';
 import VueAuth from '@websanova/vue-auth';
 import Icon from 'vue-awesome/components/Icon.vue';
 
+import ApolloClient from 'apollo-boost';
+import VueApollo from 'vue-apollo';
+
 import store from './store';
 
 // Import it before vue-router because it uses i18n strings
@@ -23,6 +26,12 @@ Vue.component('v-icon', Icon);
 
 Vue.config.productionTip = false;
 
+const apolloClient = new ApolloClient();
+const apolloProvider = new VueApollo({
+  defaultClient: apolloClient,
+});
+
+Vue.use(VueApollo);
 Vue.use(BootstrapVue);
 Vue.use(ModalDialogs);
 
@@ -31,12 +40,13 @@ Vue.use(VueAuth, {
   http: require('@websanova/vue-auth/drivers/http/axios.1.x.js'),
   router: require('@websanova/vue-auth/drivers/router/vue-router.2.x.js'),
   rolesVar: 'type_id',
-  parseUserData: (user) => user,
+  parseUserData: user => user,
 });
 
 new Vue({
   store,
   router,
+  apolloProvider,
   el: '#app',
-  render: (h) => h(App),
+  render: h => h(App),
 });
