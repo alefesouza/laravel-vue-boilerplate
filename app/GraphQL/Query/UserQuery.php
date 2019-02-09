@@ -4,14 +4,27 @@ namespace App\GraphQL\Query;
 
 use GraphQL;
 use GraphQL\Type\Definition\Type;
-use Folklore\GraphQL\Support\Query;
+use Rebing\GraphQL\Support\Query;
+use Rebing\GraphQL\Support\SelectFields;
 use App\User;
+use Auth;
 
 class UserQuery extends Query
 {
     protected $attributes = [
         'name' => 'user'
     ];
+
+    public function authorize(array $args)
+    {
+        $user = Auth::user();
+
+        if (empty($user)) {
+            return false;
+        }
+
+        return $user->isAdmin();
+    }
 
     public function type()
     {
@@ -26,12 +39,14 @@ class UserQuery extends Query
         ];
     }
 
-    public function resolve($root, $args)
+    public function resolve($root, $args, SelectFields $fields)
     {
+        $user = User::select($fields->getSelect());
+
         if (isset($args['id'])) {
-            return User::where('id' , $args['id'])->first();
+            return $user->find($args['id']);
         } else if(isset($args['email'])) {
-            return User::where('email', $args['email'])->first();
+            return $user-where('email', $args['email'])->first();
         }
 
         return null;

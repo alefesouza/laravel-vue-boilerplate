@@ -60,7 +60,7 @@ The TypeScript code tries to follow the [Airbnb JavaScript Style Guide](https://
 Back-end:
 
 * [Laravel](https://github.com/laravel/laravel)
-* [Laravel GraphQL](https://github.com/Folkloreatelier/laravel-graphql)
+* [Laravel GraphQL](https://github.com/rebing/graphql-laravel)
 * [jwt-auth](https://github.com/tymondesigns/jwt-auth)
 * [laravel-vue-i18n-generator](https://github.com/martinlindhe/laravel-vue-i18n-generator)
 * [Laravel Pug](https://github.com/bkwld/laravel-pug)

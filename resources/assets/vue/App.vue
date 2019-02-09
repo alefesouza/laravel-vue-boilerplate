@@ -47,7 +47,9 @@ export default class App extends Vue {
 
   @Watch('dialogMessage')
   onDialogMessageChange(newVal) {
-    dialog(newVal, false);
+    if (newVal) {
+      dialog(newVal, false);
+    }
   }
 }
 </script>

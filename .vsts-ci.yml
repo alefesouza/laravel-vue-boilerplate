@@ -14,20 +14,20 @@ phases:
 
         scoop bucket add versions
 
-        scoop install php70 yarn
+        scoop install php71 yarn
 
         echo extension=php_pdo_sqlite.dll | Add-Content $env:PHPIni
         echo extension=php_intl.dll | Add-Content $env:PHPIni
         echo extension=php_openssl.dll | Add-Content $env:PHPIni
         echo extension=php_mbstring.dll | Add-Content $env:PHPIni
 
-        $env:PATH += ";C:\Users\buildguest\scoop\apps\php70\current"
+        $env:PATH += ";C:\Users\buildguest\scoop\apps\php71\current"
 
         php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
         php composer-setup.php
       displayName: Install PHP, Composer and Yarn
       env:
-        PHPIni: C:\Users\buildguest\scoop\apps\php70\current\php.ini
+        PHPIni: C:\Users\buildguest\scoop\apps\php71\current\php.ini
 
     - powershell: |
         # PATH variable was redefined when I tested...
@@ -45,7 +45,7 @@ phases:
         php artisan migrate --seed
       displayName: Run Composer
       env:
-        PHP: C:\Users\buildguest\scoop\apps\php70\current
+        PHP: C:\Users\buildguest\scoop\apps\php71\current
 
     - powershell: |
         $env:PATH += ";$env:YARN"
@@ -65,7 +65,7 @@ phases:
         yarn test
       displayName: Test
       env:
-        PHP: C:\Users\buildguest\scoop\apps\php70\current
+        PHP: C:\Users\buildguest\scoop\apps\php71\current
         YARN: C:\Users\buildguest\scoop\apps\yarn\current\Yarn\bin
 
     - task: PublishTestResults@2
@@ -103,7 +103,7 @@ phases:
         curl -sS https://getcomposer.org/installer | sudo php -- --install-dir=/usr/local/bin --filename=composer
       displayName: Install PHP, Composer and Yarn
       env:
-        PHPVersion: 7.0
+        PHPVersion: 7.1
 
     - script: |
         cp .env.vsts-ci .env
@@ -160,7 +160,7 @@ phases:
         brew install php$PHPVersion php$PHPVersion-intl composer yarn
       displayName: Install PHP, Composer and Yarn
       env:
-        PHPVersion: 70
+        PHPVersion: 71
 
     - script: |
         cp .env.vsts-ci .env

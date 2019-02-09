@@ -1,18 +1,22 @@
 <script lang="ts">
 import { DialogComponent } from 'vue-modal-dialogs';
 import { Component, Prop } from 'vue-property-decorator';
+import { Action } from 'vuex-class';
 
 @Component
 export default class BaseDialog extends DialogComponent<boolean> {
   @Prop() isConfirm: boolean;
   @Prop() message: string;
+  @Action setDialogMessage;
 
   cancel(): void {
     this.$close(false);
+    this.setDialogMessage('');
   }
 
   ok(): void {
     this.$close(true);
+    this.setDialogMessage('');
   }
 }
 </script>

@@ -181,32 +181,32 @@ b-container(tag='main')
 
         b-pagination(
           align='center',
-          v-if='data.users.cursor.total > data.users.cursor.perPage',
+          v-if='data.users.total > data.users.per_page',
           v-model='currentPage',
-          :per-page='data.users.cursor.perPage',
-          :total-rows='data.users.cursor.total',
+          :per-page='data.users.per_page',
+          :total-rows='data.users.total',
           @change='changePage',
         )
 
-        .text-center.mb-3 {{ $t('strings.showing_results', { from: ((currentPage - 1) * perPage) + 1, to: getPaginationTo(currentPage * perPage, data.users.cursor.total), total: data.users.cursor.total }) }}
+        .text-center.mb-3 {{ $t('strings.showing_results', { from: ((currentPage - 1) * perPage) + 1, to: getPaginationTo(currentPage * perPage, data.users.total), total: data.users.total }) }}
 
         .users
           users-card(
-            v-for='user in data.users.items',
+            v-for='user in data.users.data',
             :key='user.id',
             :user='user',
             @edit-user='editUser(user)',
             @delete-user='deleteUserConfirm(user, query)',
           )
 
-        .text-center.mb-3 {{ $t('strings.showing_results', { from: ((currentPage - 1) * perPage) + 1, to: getPaginationTo(currentPage * perPage, data.users.cursor.total), total: data.users.cursor.total }) }}
+        .text-center.mb-3 {{ $t('strings.showing_results', { from: ((currentPage - 1) * perPage) + 1, to: getPaginationTo(currentPage * perPage, data.users.total), total: data.users.total }) }}
 
         b-pagination(
           align='center',
-          v-if='data.users.cursor.total > data.users.cursor.perPage',
+          v-if='data.users.total > data.users.per_page',
           v-model='currentPage',
-          :per-page='data.users.cursor.perPage',
-          :total-rows='data.users.cursor.total',
+          :per-page='data.users.per_page',
+          :total-rows='data.users.total',
           @change='changePage',
         )
 

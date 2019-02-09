@@ -1,15 +1,19 @@
 <script lang="ts">
 import { Component, Emit, Prop, Vue } from 'vue-property-decorator';
-import { Action, State, namespace } from 'vuex-class';
+import { Action } from 'vuex-class';
+
 import addUserMutation from '@/graphql/mutations/addUser.gql';
 import editUserMutation from '@/graphql/mutations/editUser.gql';
+
 import checkPassword from '@/utils/checkPassword';
+import checkGraphQLError from '@/utils/checkGraphQLError';
 
 @Component
 export default class UsersModal extends Vue {
   @Prop() form;
   @Prop() isAdd;
   @Prop() isVisible;
+  @Action setDialogMessage;
 
   handleClose() {
     this.$emit('close-modal');
@@ -22,14 +26,22 @@ export default class UsersModal extends Vue {
 
     return editUserMutation;
   }
+
+  handleError({ gqlError: { validation = null } }) {
+    if (validation) {
+      this.setDialogMessage(checkGraphQLError(validation));
+    }
+  }
+
 }
 </script>
 
 <template lang="pug">
 ApolloMutation(
-  :mutation="activeMutation",
+  :mutation='activeMutation',
   :variables='{ input: form }',
-  @done='handleClose'
+  @done='handleClose',
+  @error='handleError',
 )
   template(slot-scope='{ mutate, loading, error }')
     b-modal(
@@ -39,7 +51,7 @@ ApolloMutation(
       :ok-disabled='loading',
       :ok-title='loading ? $t("buttons.sending") : isAdd ? $t("buttons.add") : $t("buttons.update")',
       :title='isAdd ? $t("users.add_user") : $t("users.edit_user")',
-      @hide='handleClose',
+      @hidden='handleClose',
       @ok.prevent='mutate',
     )
       b-form
@@ -70,6 +82,16 @@ ApolloMutation(
           b-form-input#password(
             type='password',
             v-model='form.password',
+            maxlength=191,
+            required,
+          )
+        b-form-group(
+          :label='$t("settings.password_confirmation")'
+          label-for='password_confirmation',
+        )
+          b-form-input#password_confirmation(
+            type='password',
+            v-model='form.password_confirmation',
             maxlength=191,
             required,
           )

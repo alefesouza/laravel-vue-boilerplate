@@ -4,14 +4,26 @@ namespace App\GraphQL\Mutation;
 
 use GraphQL;
 use GraphQL\Type\Definition\Type;
-use Folklore\GraphQL\Support\Mutation;
+use Rebing\GraphQL\Support\Mutation;
 use App\User;
+use Auth;
 
 class DeleteUserMutation extends Mutation
 {
     protected $attributes = [
         'name' => 'deleteUser'
     ];
+
+    public function authorize(array $args)
+    {
+        $user = Auth::user();
+
+        if (empty($user)) {
+            return false;
+        }
+
+        return $user->isAdmin();
+    }
 
     public function type()
     {

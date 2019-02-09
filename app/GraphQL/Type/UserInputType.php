@@ -3,17 +3,18 @@
 namespace App\GraphQL\Type;
 
 use GraphQL\Type\Definition\Type;
-use Folklore\GraphQL\Support\InputType;
-use Folklore\GraphQL\Support\Facades\GraphQL;
+use Rebing\GraphQL\Support\Type as GraphQLType;
 use App\User;
 use DB;
 
-class UserInputType extends InputType
+class UserInputType extends GraphQLType
 {
     protected $attributes = [
         'name' => 'UserInput',
-        'description' => 'The data to create or update an user.'
+        'description' => 'The data to create or update a user.'
     ];
+
+    protected $inputObject = true;
 
     public function fields()
     {
@@ -41,7 +42,11 @@ class UserInputType extends InputType
             'password' => [
                 'type' => Type::string(),
                 'description' => 'The user password.',
-                'rules' => ['min:6', 'max:191'],
+                'rules' => ['min:6', 'max:191', 'confirmed'],
+            ],
+            'password_confirmation' => [
+                'type' => Type::string(),
+                'description' => 'The user password confirmation for change.',
             ],
         ];
     }

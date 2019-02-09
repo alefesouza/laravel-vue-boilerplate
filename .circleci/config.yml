@@ -5,7 +5,7 @@ jobs:
     docker:
       # You can use this project Docker image, or uncomment the code on this file
       - image: alefesouza/php7-laravel-node-yarn
-      # - image: circleci/php:7.0-node-browsers
+      # - image: circleci/php:7.1-node-browsers
 
       - image: circleci/mysql:5.7
         environment:

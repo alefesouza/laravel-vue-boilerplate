@@ -4,9 +4,10 @@ namespace App\GraphQL\Query;
 
 use GraphQL;
 use GraphQL\Type\Definition\Type;
-use Folklore\GraphQL\Support\Query;
-use GraphQL\Type\Definition\ResolveInfo;
+use Rebing\GraphQL\Support\Query;
+use Rebing\GraphQL\Support\SelectFields;
 use App\User;
+use Auth;
 
 class UsersQuery extends Query
 {
@@ -14,9 +15,20 @@ class UsersQuery extends Query
         'name' => 'user'
     ];
 
+    public function authorize(array $args)
+    {
+        $user = Auth::user();
+
+        if (empty($user)) {
+            return false;
+        }
+
+        return $user->isAdmin();
+    }
+
     public function type()
     {
-        return GraphQL::pagination(GraphQL::type('User'));
+        return GraphQL::paginate('User');
     }
 
     public function args()
@@ -28,23 +40,16 @@ class UsersQuery extends Query
         ];
     }
 
-    public function resolve($root, $args, $context, ResolveInfo $info)
+    public function resolve($root, $args, SelectFields $fields)
     {
         $users = User::query();
 
-        if (array_key_exists('search', $args) && !empty($args['search'])) {
+        if (!empty($args['search'])) {
             $users = $users->where('name', 'LIKE', '%' . $args['search'] . '%');
         }
 
-        // Use this to load relationships
-        // $fields = $info->getFieldSelection($depth = 3);
-
-        // foreach ($fields as $field => $keys) {
-        //     if ($field === 'relationship') {
-        //         $users->with('relationship');
-        //     }
-        // }
-
-        return $users->paginate($args['limit'], ['*'], 'page', $args['page']);
+        return $users->with($fields->getRelations())
+            ->select($fields->getSelect())
+            ->paginate($args['limit'], ['*'], 'page', $args['page']);
     }
 }

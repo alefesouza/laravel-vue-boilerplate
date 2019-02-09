@@ -3,14 +3,15 @@
 namespace App\GraphQL\Type;
 
 use GraphQL\Type\Definition\Type;
-use Folklore\GraphQL\Support\Type as GraphQLType;
+use Rebing\GraphQL\Support\Type as GraphQLType;
 use App\User;
 
 class UserType extends GraphQLType
 {
     protected $attributes = [
         'name' => 'User',
-        'description' => 'A user.'
+        'description' => 'A user.',
+        'model' => User::class,
     ];
 
     public function fields()
@@ -31,6 +32,7 @@ class UserType extends GraphQLType
             'type' => [
                 'type' => Type::string(),
                 'description' => 'The user type string.',
+                'selectable' => false,
             ],
             'type_id' => [
                 'type' => Type::nonNull(Type::int()),
