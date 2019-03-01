@@ -27,7 +27,6 @@ Vue.component('v-icon', Icon);
 Vue.config.productionTip = false;
 
 const apolloClient = new ApolloClient({
-  uri: 'http://localhost/laravel-vue-boilerplate/public/graphql',
   request: async (operation) => {
     operation.setContext({
       headers: {
