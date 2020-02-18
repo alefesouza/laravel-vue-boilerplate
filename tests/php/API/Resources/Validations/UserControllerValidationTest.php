@@ -15,7 +15,7 @@ class UserControllerValidationTest extends TestCase
     protected $factory;
     protected $user;
 
-    public function setUp()
+    public function setUp() : void
     {
         parent::setUp();
 
@@ -72,7 +72,7 @@ class UserControllerValidationTest extends TestCase
                 '/api/users',
                 [
                     'name' => $factory->name,
-                    'email' => 'test@example',
+                    'email' => 'testexample',
                     'type_id' => 2,
                     'password' => $factory->password
                 ]
@@ -88,7 +88,7 @@ class UserControllerValidationTest extends TestCase
                 ],
             ]);
 
-        $this->assertDatabaseMissing('users', ['email' => 'test@example']);
+        $this->assertDatabaseMissing('users', ['email' => 'testexample']);
     }
 
     public function testPOSTWithInvalidUserType()
@@ -224,7 +224,7 @@ class UserControllerValidationTest extends TestCase
                 '/api/users/'.$this->user->id,
                 [
                     'name' => $factory->name,
-                    'email' => 'test@example',
+                    'email' => 'testexample',
                     'type_id' => 2,
                     'password' => $factory->password,
                 ]
@@ -240,7 +240,7 @@ class UserControllerValidationTest extends TestCase
                 ],
             ]);
 
-        $this->assertDatabaseMissing('users', ['email' => 'test@example']);
+        $this->assertDatabaseMissing('users', ['email' => 'testexample']);
     }
 
     public function testPUTWithInvalidUserType()

@@ -3,6 +3,8 @@
 namespace App\GraphQL\Query;
 
 use GraphQL;
+use Closure;
+use GraphQL\Type\Definition\ResolveInfo;
 use GraphQL\Type\Definition\Type;
 use Rebing\GraphQL\Support\Query;
 use Rebing\GraphQL\Support\SelectFields;
@@ -15,7 +17,7 @@ class UsersQuery extends Query
         'name' => 'user'
     ];
 
-    public function authorize(array $args)
+    public function authorize($root, array $args, $ctx, ResolveInfo $resolveInfo = null, Closure $getSelectFields = null) : bool
     {
         $user = Auth::user();
 
@@ -26,12 +28,12 @@ class UsersQuery extends Query
         return $user->isAdmin();
     }
 
-    public function type()
+    public function type() : Type
     {
         return GraphQL::paginate('User');
     }
 
-    public function args()
+    public function args() : array
     {
         return [
             'limit' => ['name' => 'limit', 'type' => Type::int()],
@@ -40,7 +42,7 @@ class UsersQuery extends Query
         ];
     }
 
-    public function resolve($root, $args, SelectFields $fields)
+    public function resolve($root, $args, $context, ResolveInfo $info, SelectFields $fields)
     {
         $users = User::query();
 

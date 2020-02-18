@@ -16,7 +16,7 @@ class UserInputType extends GraphQLType
 
     protected $inputObject = true;
 
-    public function fields()
+    public function fields() : array
     {
         return [
             'id' => [

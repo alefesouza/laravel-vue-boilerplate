@@ -16,7 +16,7 @@ class SettingControllerTest extends TestCase
     protected $admin;
     protected $adminToken;
 
-    public function setUp()
+    public function setUp() : void
     {
         parent::setUp();
 

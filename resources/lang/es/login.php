@@ -3,7 +3,7 @@
 return [
 
     'confirm_password' => 'Confirmar contraseña',
-    'description' => 'Una plantilla repetitiva de Laravel 5.5 Single Page Application utilizando Vue.js 2.5, Bootstrap 4, TypeScript, Sass y Pug.',
+    'description' => 'Una plantilla repetitiva de Laravel 6 Single Page Application utilizando Vue.js 2.6, Bootstrap 4, TypeScript, Sass y Pug.',
     'forgot_password' => '¿Olvidaste tu contraseña?',
     'login' => 'Iniciar sesión',
     'keep_connected' => 'Mantenme conectado',

@@ -19,6 +19,12 @@
       "port": 9000,
       "pathMappings": {
         "/var/www/html": "${workspaceRoot}"
+      },
+      "xdebugSettings": {
+          "max_data": 65535,
+          "show_hidden": 1,
+          "max_children": 100,
+          "max_depth": 5
       }
     },
     {

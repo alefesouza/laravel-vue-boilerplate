@@ -23,7 +23,7 @@ Environment:
 
 I use a shared host, it has an old PHP version by default and cannot have composer on PATH, so I've created more two secret variables to run PHP 7 and execute composer file, it is:
 
-* PHP_COMMAND - To me it's like "/opt/php70/bin/php", because the default PHP version on my shared host account is PHP 5.2 (yeah).
-* COMPOSER_COMMAND - To me it's like "/opt/php70/bin/php ~/composer.phar", because I can't add composer on PATH.
+* PHP_COMMAND - To me it's like "/opt/php72/bin/php", because the default PHP version on my shared host account is PHP 5.2 (yeah).
+* COMPOSER_COMMAND - To me it's like "/opt/php72/bin/php ~/composer.phar", because I can't add composer on PATH.
 
 If you don't set these variable, it will execute the default "php" and "composer" command.

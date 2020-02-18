@@ -22,8 +22,8 @@ composer install -n --prefer-dist
 php artisan vue-i18n:generate
 
 # Compile front-end stuff
-yarn --pure-lockfile
-yarn production
+npm install
+npm run production
 
 # Those files are ignored on master branch, force add it
 git add -f public/css

@@ -76,7 +76,7 @@ b-form#login(@submit='login')
     )
 
   b-form-group#boxes
-    .d-flex.justify-content-between
+    .d-flex.justify-content-between.align-items-center
       b-form-checkbox(
         v-model='form.rememberMe',
         checked-value=true,
@@ -87,14 +87,14 @@ b-form#login(@submit='login')
         v-icon(name='question-circle')
         | &nbsp;{{ $t('login.forgot_password') }}
 
-  b-form-group
+  .d-flex.justify-content-between
     b-button(
       type='submit',
       variant='primary',
       :class='{ disabled: isSending }',
     ) {{ $t('login.login') }}
 
-    b-button.float-right(
+    b-button(
       variant='primary',
       to='/register',
     ) {{ $t('login.register') }}

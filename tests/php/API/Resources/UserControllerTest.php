@@ -14,7 +14,7 @@ class UserControllerTest extends TestCase
     protected $adminToken;
     protected $factory;
 
-    public function setUp()
+    public function setUp() : void
     {
         parent::setUp();
 

@@ -11,7 +11,7 @@
   <a href="https://gitlab.com/alefesouza/laravel-vue-boilerplate/pipelines" title="GitLab CI"><img src="https://gitlab.com/alefesouza/laravel-vue-boilerplate/badges/master/build.svg" alt="GitLab CI"></a>
 </p>
 
-A Laravel 5.5 Single Page Application boilerplate using Vue.js 2.5, GraphQL, Bootstrap 4, TypeScript, Sass and Pug with:
+A Laravel 6 Single Page Application boilerplate using Vue.js 2.6, GraphQL, Bootstrap 4, TypeScript, Sass and Pug with:
 
 * A users CRUD if the current user is an admin written in RESTful and GraphQL.
 * i18n for English, Portuguese and Spanish, based on browser language settings.
@@ -19,7 +19,7 @@ A Laravel 5.5 Single Page Application boilerplate using Vue.js 2.5, GraphQL, Boo
 * WebSockets with Laravel Echo and Pusher.
 * Vue component tests using Jest and API tests using PHPUnit.
 * Already configured to run tests on Docker, GitLab CI ([with continuous deploy](./DEPLOY.md)), Travis CI, CircleCI, AppVeyor and VSTS CI on Windows, Linux and macOS.
-* Dockerfile configured with PHP 7, Node.js 8, Yarn and Composer, with MySQL and phpMyAdmin on Docker Compose.
+* Dockerfile configured with PHP 7.2, Node.js 12 and Composer, with MySQL and phpMyAdmin on Docker Compose.
 
 You can check it live [on this website](https://lvb.as.dev), with the credentials:
 
@@ -63,7 +63,6 @@ Back-end:
 * [Laravel GraphQL](https://github.com/rebing/graphql-laravel)
 * [jwt-auth](https://github.com/tymondesigns/jwt-auth)
 * [laravel-vue-i18n-generator](https://github.com/martinlindhe/laravel-vue-i18n-generator)
-* [Laravel Pug](https://github.com/bkwld/laravel-pug)
 * [PHPUnit](https://github.com/sebastianbergmann/phpunit)
 * [Laravel Envoy](https://github.com/laravel/envoy)
 
@@ -79,7 +78,7 @@ Run:
 
 After it starts, just on the first time, run on another terminal:
 
-    docker exec laravel-vue-boilerplate bash -c "composer start && yarn start"
+    docker exec laravel-vue-boilerplate bash -c "composer start && npm start"
 
 The application will be available on http://localhost:8000 and the phpMyAdmin on http://localhost:8081
 
@@ -90,7 +89,7 @@ Rename the .env.example file to .env, and fill it with your local info, then:
 Install PHP and JavaScript dependencies:
 
     composer install
-    yarn
+    npm install
 
 Generate Laravel keys:
 
@@ -110,9 +109,9 @@ Migrate and seed the database:
 
 Compile all the front-end stuff:
 
-    yarn prod
+    npm run prod
 
 Test:
 
     composer test
-    yarn test
+    npm test

@@ -3,7 +3,7 @@
 return [
 
     'confirm_password' => 'Confirmar senha',
-    'description' => 'Um boilerplate de Single Page Application escrito em Laravel 5.5 usando Vue.js 2.5, Bootstrap 4, TypeScript, Sass e Pug.',
+    'description' => 'Um boilerplate de Single Page Application escrito em Laravel 6 usando Vue.js 2.6, Bootstrap 4, TypeScript, Sass e Pug.',
     'forgot_password' => 'Esqueceu sua senha?',
     'keep_connected' => 'Manter-me conectado',
     'login' => 'Login',

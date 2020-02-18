@@ -1,6 +1,6 @@
 {
   "name": "laravel-vue-boilerplate",
-  "description": "A Laravel 5.5 SPA boilerplate with a users CRUD using Vue.js 2.5, Bootstrap 4, TypeScript, Sass, Pug and Jest.",
+  "description": "A Laravel 6 SPA boilerplate with a users CRUD using Vue.js 2.6, Bootstrap 4, TypeScript, Sass, Pug and Jest.",
   "version": "1.0.0",
   "author": "Alefe Souza <contact@alefesouza.com>",
   "keywords": [
@@ -15,13 +15,13 @@
   ],
   "license": "MIT",
   "scripts": {
-    "start": "yarn && yarn test && yarn prod",
-    "dev": "yarn development",
+    "start": "npm install && npm test && npm run prod",
+    "dev": "npm run development",
     "development": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-    "watch": "yarn development -- --watch",
-    "watch-poll": "yarn watch -- --watch-poll",
+    "watch": "npm run development -- --watch",
+    "watch-poll": "npm run watch -- --watch-poll",
     "hot": "cross-env NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --disable-host-check --config=node_modules/laravel-mix/setup/webpack.config.js",
-    "prod": "yarn production",
+    "prod": "npm run production",
     "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
     "test": "cross-env NODE_ENV=test jest"
   },

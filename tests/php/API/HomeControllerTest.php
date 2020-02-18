@@ -15,7 +15,7 @@ class HomeControllerTest extends TestCase
 
     protected $adminToken;
 
-    public function setUp()
+    public function setUp() : void
     {
         parent::setUp();
 
