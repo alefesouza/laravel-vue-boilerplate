@@ -1,6 +1,5 @@
 import Vue from 'vue';
 
-import BootstrapVue from 'bootstrap-vue';
 import * as ModalDialogs from 'vue-modal-dialogs';
 import Pusher from 'pusher-js';
 import VueAuth from '@websanova/vue-auth';
@@ -15,6 +14,8 @@ import store from './store';
 import './utils/i18n';
 import './utils/axios';
 import './utils/icons';
+
+import './utils/bootstrap-vue';
 
 import router from './router';
 
@@ -40,7 +41,6 @@ const apolloProvider = new VueApollo({
 });
 
 Vue.use(VueApollo);
-Vue.use(BootstrapVue);
 Vue.use(ModalDialogs);
 
 Vue.use(VueAuth, {

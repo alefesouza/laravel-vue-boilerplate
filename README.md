@@ -21,7 +21,7 @@ A Laravel 5.5 Single Page Application boilerplate using Vue.js 2.5, GraphQL, Boo
 * Already configured to run tests on Docker, GitLab CI ([with continuous deploy](./DEPLOY.md)), Travis CI, CircleCI, AppVeyor and VSTS CI on Windows, Linux and macOS.
 * Dockerfile configured with PHP 7, Node.js 8, Yarn and Composer, with MySQL and phpMyAdmin on Docker Compose.
 
-You can check it live [on this website](http://lvb.alefe.io), with the credentials:
+You can check it live [on this website](https://lvb.as.dev), with the credentials:
 
 Admin user
 

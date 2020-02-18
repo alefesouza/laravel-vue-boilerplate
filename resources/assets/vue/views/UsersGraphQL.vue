@@ -171,7 +171,7 @@ b-container(tag='main')
         .row
           .offset-lg-8
           form.input-group.mb-3.col-lg-4(@submit.prevent='doSearch')
-            b-input(type='text', v-model='searchText', :placeholder="$t('users.search')")
+            b-form-input(type='text', v-model='searchText', :placeholder="$t('users.search')")
             .input-group-append
               b-button(type='submit', variant='outline-secondary') {{ $t('strings.search') }}
 

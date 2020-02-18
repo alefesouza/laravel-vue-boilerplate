@@ -1,16 +1,16 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 
-import AuthLogin from './views/AuthLogin.vue';
-import AuthRegister from './views/AuthRegister.vue';
-import AuthResetLink from './views/AuthResetLink.vue';
-import AuthResetForm from './views/AuthResetForm.vue';
+import AuthLogin from '../views/AuthLogin.vue';
+const AuthRegister = () => import('../views/AuthRegister.vue');
+const AuthResetLink = () => import('../views/AuthResetLink.vue');
+const AuthResetForm = () => import('../views/AuthResetForm.vue');
 
-import Example from './views/Example.vue';
-import Home from './views/Home.vue';
-import Messages from './views/Messages.vue';
-import Users from './views/Users.vue';
-import UsersGraphQL from './views/UsersGraphQL.vue';
+const Example = () => import('../views/Example.vue');
+const Home = () => import('../views/Home.vue');
+const Messages = () => import('../views/Messages.vue');
+const Users = () => import('../views/Users.vue');
+const UsersGraphQL = () => import('../views/UsersGraphQL.vue');
 
 import userTypes from '@/utils/userTypes';
 
