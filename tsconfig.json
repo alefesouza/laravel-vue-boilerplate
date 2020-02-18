@@ -10,6 +10,7 @@
     "strictPropertyInitialization": false,
     "target": "es5",
     "esModuleInterop": true,
+    "allowJs": true,
     "lib": [
       "dom",
       "es2017"

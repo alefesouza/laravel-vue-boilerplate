@@ -16,6 +16,7 @@ yarn-error.log
 
 /tests-jest.xml
 /tests-phpunit.xml
+/junit.xml
 
 public/js
 public/css

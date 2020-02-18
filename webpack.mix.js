@@ -1,6 +1,8 @@
 const mix = require('laravel-mix');
 const path = require('path');
 
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+
 /*
  |--------------------------------------------------------------------------
  | Mix Asset Management
@@ -21,6 +23,17 @@ mix
   .js('resources/assets/vue/app.ts', 'public/js')
   .sass('resources/assets/sass/app.scss', 'public/css')
   .webpackConfig({
+    output: {
+      chunkFilename: mix.inProduction() ? "js/[name].[chunkhash].js" : "js/[name].js",
+      devtoolModuleFilenameTemplate: info => {
+        var $filename = 'sources://' + info.resourcePath;
+        if (info.resourcePath.match(/\.vue$/) && !info.allLoaders.match(/type=script/)) {
+          $filename = 'webpack-generated:///' + info.resourcePath + '?' + info.hash;
+        }
+        return $filename;
+      },
+      devtoolFallbackModuleFilenameTemplate: 'webpack:///[resource-path]?[hash]',
+    },
     devtool: mix.inProduction() ? '' : 'inline-source-map',
     module: {
       rules: [{
@@ -46,6 +59,9 @@ mix
         '@': path.resolve(__dirname, 'resources/assets/vue'),
       },
     },
+    plugins: [
+      new BundleAnalyzerPlugin(),
+    ],
   });
 
 // Thanks https://github.com/JeffreyWay/laravel-mix/issues/1483#issuecomment-366685986
