@@ -52,10 +52,10 @@ jobs:
             - node-v1-
 
       - run:
-          name: Run Yarn
+          name: Run NPM
           command: |
-            yarn --pure-lockfile
-            yarn production
+            npm install
+            npm run production
 
       - save_cache:
           key: node-v1-{{ checksum "package.json" }}
@@ -67,7 +67,7 @@ jobs:
           command: |
             mkdir -p out/tests
 
-            yarn test
+            npm test
             mv tests-jest.xml out/tests/tests-jest.xml
 
             composer test -- --log-junit out/tests/tests-phpunit.xml

@@ -14,7 +14,7 @@ phases:
 
         scoop bucket add versions
 
-        scoop install php71 yarn
+        scoop install php72
 
         echo extension=php_pdo_sqlite.dll | Add-Content $env:PHPIni
         echo extension=php_intl.dll | Add-Content $env:PHPIni
@@ -25,7 +25,7 @@ phases:
 
         php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
         php composer-setup.php
-      displayName: Install PHP, Composer and Yarn
+      displayName: Install PHP and Composer
       env:
         PHPIni: C:\Users\buildguest\scoop\apps\php71\current\php.ini
 
@@ -48,25 +48,20 @@ phases:
         PHP: C:\Users\buildguest\scoop\apps\php71\current
 
     - powershell: |
-        $env:PATH += ";$env:YARN"
-
-        yarn --pure-lockfile
-        yarn production
-      displayName: Run Yarn
-      env:
-        YARN: C:\Users\buildguest\scoop\apps\yarn\current\Yarn\bin
+        npm install
+        npm run production
+      displayName: Run NPM
 
     - powershell: |
-        $env:PATH += ";$env:PHP;$env:YARN"
+        $env:PATH += ";$env:PHP"
 
         php composer.phar test -- --log-junit tests-phpunit.xml
         php phpunit-log-junit-fix.php tests-phpunit.xml
 
-        yarn test
+        npm test
       displayName: Test
       env:
         PHP: C:\Users\buildguest\scoop\apps\php71\current
-        YARN: C:\Users\buildguest\scoop\apps\yarn\current\Yarn\bin
 
     - task: PublishTestResults@2
       displayName: Publish PHPUnit Tests
@@ -93,17 +88,14 @@ phases:
         versionSpec: 8
 
     - script: |
-        curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
-        echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
-
         sudo add-apt-repository ppa:ondrej/php-$PHPVersion
         sudo apt-get update
-        sudo apt-get -y --allow-unauthenticated install php$PHPVersion php$PHPVersion-mbstring php$PHPVersion-sqlite php$PHPVersion-intl php$PHPVersion-dom yarn
+        sudo apt-get -y --allow-unauthenticated install php$PHPVersion php$PHPVersion-mbstring php$PHPVersion-sqlite php$PHPVersion-intl php$PHPVersion-dom
 
         curl -sS https://getcomposer.org/installer | sudo php -- --install-dir=/usr/local/bin --filename=composer
-      displayName: Install PHP, Composer and Yarn
+      displayName: Install PHP and Composer
       env:
-        PHPVersion: 7.1
+        PHPVersion: 7.2
 
     - script: |
         cp .env.vsts-ci .env
@@ -119,15 +111,15 @@ phases:
       displayName: Run Composer
 
     - script: |
-        yarn --pure-lockfile
-        yarn production
-      displayName: Run Yarn
+        npm install
+        npm run production
+      displayName: Run NPM
 
     - script: |
         composer test -- --log-junit tests-phpunit.xml
         php phpunit-log-junit-fix.php tests-phpunit.xml
 
-        yarn test
+        npm test
       displayName: Test
 
     - task: PublishTestResults@2
@@ -157,10 +149,10 @@ phases:
     - script: |
         brew tap homebrew/php
 
-        brew install php$PHPVersion php$PHPVersion-intl composer yarn
-      displayName: Install PHP, Composer and Yarn
+        brew install php$PHPVersion php$PHPVersion-intl composer
+      displayName: Install PHP and Composer
       env:
-        PHPVersion: 71
+        PHPVersion: 72
 
     - script: |
         cp .env.vsts-ci .env
@@ -176,15 +168,15 @@ phases:
       displayName: Run Composer
 
     - script: |
-        yarn --pure-lockfile
-        yarn production
-      displayName: Run Yarn
+        npm install
+        npm run production
+      displayName: Run NPM
 
     - script: |
         composer test -- --log-junit tests-phpunit.xml
         php phpunit-log-junit-fix.php tests-phpunit.xml
 
-        yarn test
+        npm test
       displayName: Test
 
     - task: PublishTestResults@2

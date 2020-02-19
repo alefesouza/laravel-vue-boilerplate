@@ -12,7 +12,6 @@ environment:
 
 cache:
   - '%PHP_CACHE_DIR% -> appveyor.yml'
-  - '%LOCALAPPDATA%\Yarn'
   - node_modules
   - vendor
 
@@ -49,12 +48,12 @@ before_test:
   - php artisan vue-i18n:generate
   - php artisan migrate --seed
 
-  - yarn --pure-lockfile
-  - yarn production
+  - npm install
+  - npm run production
 
 test_script:
   - composer test -- --log-junit tests-phpunit.xml
-  - yarn test
+  - npm test
 
 after_test:
   - php phpunit-log-junit-fix.php tests-phpunit.xml

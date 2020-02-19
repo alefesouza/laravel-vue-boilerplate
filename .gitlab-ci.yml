@@ -32,7 +32,7 @@ unit_test:
     - deploy
   script:
     - composer start
-    - yarn start
+    - npm start
 
 deploy_production:
   stage: deploy
