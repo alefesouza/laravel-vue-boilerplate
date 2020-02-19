@@ -8,7 +8,6 @@
   <a href="https://travis-ci.org/alefesouza/laravel-vue-boilerplate" title="Travis CI"><img src="https://api.travis-ci.org/alefesouza/laravel-vue-boilerplate.svg?branch=master" alt="Travis CI"></a>
   <a href="https://circleci.com/gh/alefesouza/laravel-vue-boilerplate/tree/master" title="CircleCI"><img src="https://circleci.com/gh/alefesouza/laravel-vue-boilerplate/tree/master.svg?style=shield&circle-token=b088c3cc1d77813436cb6b42907edb9f523c1715" alt="CircleCI"></a>
   <a href="https://ci.appveyor.com/project/alefesouza/laravel-vue-boilerplate" title="AppVeyor"><img src="https://ci.appveyor.com/api/projects/status/kx7gfnie0eutvvgy?svg=true" alt="AppVeyor"></a>
-  <a href="https://gitlab.com/alefesouza/laravel-vue-boilerplate/pipelines" title="GitLab CI"><img src="https://gitlab.com/alefesouza/laravel-vue-boilerplate/badges/master/build.svg" alt="GitLab CI"></a>
 </p>
 
 A Laravel 6 Single Page Application boilerplate using Vue.js 2.6, GraphQL, Bootstrap 4, TypeScript, Sass and Pug with:
