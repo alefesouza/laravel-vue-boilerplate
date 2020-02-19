@@ -1,9 +1,11 @@
 build: false
 
+image: Visual Studio 2017
+
 environment:
-  PHP_CHOCO_VERSION: 7.2.0
+  PHP_CHOCO_VERSION: 7.2.27
   PHP_CACHE_DIR: C:\tools\php
-  NODEJS_VERSION: 8
+  NODEJS_VERSION: 12
   MYSQL_DATABASE: laravel_vue_boilerplate_test
   MYSQL_HOST: localhost
   MYSQL_USER: root
@@ -39,6 +41,7 @@ install:
   - IF %PHP%==0 echo extension=pdo_mysql >> C:\tools\php\php.ini
   - IF %PHP%==0 echo extension=intl >> C:\tools\php\php.ini
   - IF %PHP%==0 echo extension=curl >> C:\tools\php\php.ini
+  - IF %PHP%==0 echo extension=fileinfo >> C:\tools\php\php.ini
   - cd %APPVEYOR_BUILD_FOLDER%
   - composer install -n --prefer-dist
 
