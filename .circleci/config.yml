@@ -31,6 +31,7 @@ jobs:
       - run:
           name: Run Composer
           command: |
+            rm -rf ./vendor
             cp .env.testing.example .env
 
             composer self-update
