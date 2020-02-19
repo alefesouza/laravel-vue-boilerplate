@@ -49,7 +49,7 @@ phases:
 
     - powershell: |
         npm install
-        npm run production
+        npm run ci
       displayName: Run NPM
 
     - powershell: |
@@ -112,7 +112,7 @@ phases:
 
     - script: |
         npm install
-        npm run production
+        npm run ci
       displayName: Run NPM
 
     - script: |
@@ -169,7 +169,7 @@ phases:
 
     - script: |
         npm install
-        npm run production
+        npm run ci
       displayName: Run NPM
 
     - script: |

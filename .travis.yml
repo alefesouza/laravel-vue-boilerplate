@@ -22,7 +22,7 @@ before_script:
   - php artisan vue-i18n:generate
   - php artisan migrate --seed
   - npm install
-  - npm run production
+  - npm run ci
 
 script:
   - composer test

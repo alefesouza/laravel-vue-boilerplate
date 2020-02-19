@@ -55,7 +55,7 @@ jobs:
           name: Run NPM
           command: |
             npm install
-            npm run production
+            npm run ci
 
       - save_cache:
           key: node-v1-{{ checksum "package.json" }}

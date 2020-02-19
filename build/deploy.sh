@@ -23,7 +23,7 @@ php artisan vue-i18n:generate
 
 # Compile front-end stuff
 npm install
-npm run production
+npm run ci
 
 # Those files are ignored on master branch, force add it
 git add -f public/css

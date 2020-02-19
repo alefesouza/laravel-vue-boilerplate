@@ -49,7 +49,7 @@ before_test:
   - php artisan migrate --seed
 
   - npm install
-  - npm run production
+  - npm run ci
 
 test_script:
   - composer test -- --log-junit tests-phpunit.xml

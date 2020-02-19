@@ -59,9 +59,9 @@ mix
         '@': path.resolve(__dirname, 'resources/assets/vue'),
       },
     },
-    plugins: [
+    plugins: process.env.NODE_ENV != 'ci' ? [
       new BundleAnalyzerPlugin(),
-    ],
+    ] : [],
   });
 
 // Thanks https://github.com/JeffreyWay/laravel-mix/issues/1483#issuecomment-366685986
