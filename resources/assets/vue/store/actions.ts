@@ -33,9 +33,14 @@ const setDialogMessage = ({ commit }, payload) => {
   commit('SET_DIALOG_MESSAGE', payload);
 };
 
+const setTitle = ({ commit }, payload) => {
+  commit('SET_TITLE', payload);
+};
+
 export default {
   setBackUrl,
   loadData,
   setMenu,
   setDialogMessage,
+  setTitle,
 };

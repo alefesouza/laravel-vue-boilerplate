@@ -102,7 +102,10 @@ return [
                 'editUser' => App\GraphQL\Mutation\EditUserMutation::class,
                 'deleteUser' => App\GraphQL\Mutation\DeleteUserMutation::class,
             ],
-            'middleware' => [],
+            'middleware' => [
+                'auth:sanctum',
+                \Spatie\HttpLogger\Middlewares\HttpLogger::class,
+            ],
             'method' => ['get', 'post'],
         ],
     ],

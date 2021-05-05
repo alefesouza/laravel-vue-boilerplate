@@ -1,14 +1,22 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import { Action } from 'vuex-class';
+import { Action, namespace } from 'vuex-class';
+import { BIconQuestionCircleFill } from 'bootstrap-vue';
 
 import dialog from '@/utils/dialog';
 import formValidation from '@/utils/formValidation';
 
-@Component
+const aStore = namespace('auth');
+
+@Component({
+  components: {
+    BIconQuestionCircleFill,
+  },
+})
 export default class AuthLogin extends Vue {
   @Action loadData;
   @Action setDialogMessage;
+  @aStore.Action setUser;
 
   form = {
     rememberMe: false,
@@ -17,19 +25,36 @@ export default class AuthLogin extends Vue {
   isSending = false;
 
   async doLogin() {
-    await this.$auth.login({
-      data: this.form,
-      rememberMe: this.form.rememberMe,
-      success(response) {
-        const { status } = response;
+    await this.axios.create({
+      baseURL: '/',
+    }).get('/sanctum/csrf-cookie')
 
-        if (status === 401) {
-          this.authError = true;
-        }
+    const { data: user }: any = await this.axios.post('/login', this.form);
 
-        this.loadData();
-      },
-    });
+    if (!user.id) {
+      if (user.error && user.message) {
+        dialog(user.message, false);
+        return;
+      }
+
+      dialog('auth.failed', false);
+      return;
+    }
+
+    localStorage.setItem('default_auth_token', user.token)
+
+    delete user.token;
+
+    this.setUser(user);
+    this.loadData();
+
+    const path = user.home_path;
+
+    if (path !== 'public.home') {
+      setTimeout(() => {
+        this.$router.push({ name: path });
+      }, 500);
+    }
   }
 
   async login(evt: Event) {
@@ -84,7 +109,7 @@ b-form#login(@submit='login')
       ) {{ $t('login.keep_connected') }}
 
       b-button.content-vertical.text-secondary(variant='link', to='/password/reset')
-        v-icon(name='question-circle')
+        b-icon-question-circle-fill
         | &nbsp;{{ $t('login.forgot_password') }}
 
   .d-flex.justify-content-between

@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\API\Resources;
+namespace Tests\API\Resources\Validations;
 
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseTransactions;

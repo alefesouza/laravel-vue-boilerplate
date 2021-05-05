@@ -5,10 +5,9 @@ import axios from 'axios';
 
 Vue.use(VueAxios, axios);
 
-// baseUrl is a global variable, we get it through Laravel
-declare const baseUrl;
+Vue.axios.defaults.baseURL = '/api';
 
-Vue.axios.defaults.baseURL = baseUrl;
+Vue.axios.defaults.withCredentials = true;
 
 // Don't throw errors on 422, 403 and 401 status code (used for validations)
 Vue.axios.defaults.validateStatus = (status =>

@@ -1,6 +1,6 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import { State, Action } from 'vuex-class';
+import { State, Action, namespace } from 'vuex-class';
 
 import { AxiosResponse } from 'axios';
 
@@ -8,16 +8,19 @@ import checkPassword from '@/utils/checkPassword';
 import checkResponse from '@/utils/checkResponse';
 import dialog from '@/utils/dialog';
 
+const aStore = namespace('auth');
+
 @Component
 export default class TheSettings extends Vue {
   @State settings;
   @Action setDialogMessage;
+  @aStore.State user;
 
   isSending = false;
   okText = 'buttons.save';
 
   get userType() {
-    return this.$auth.user().type_id;
+    return this.user.type_id;
   }
 
   async handleOk() {

@@ -20,9 +20,24 @@ const SET_DIALOG_MESSAGE = (state, payload) => {
   state.dialogMessage = payload;
 };
 
+const SET_TITLE = (state, payload) => {
+  let title =  payload + ' - ' + state.website.title;
+
+  if (!payload) {
+    title = state.website.title;
+  }
+
+  if (typeof document != 'undefined') {
+    document.title = title;
+  }
+
+  state.title = title;
+}
+
 export default {
   SET_BACK_URL,
   SET_DATA,
   SET_MENU,
   SET_DIALOG_MESSAGE,
+  SET_TITLE,
 };

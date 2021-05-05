@@ -1,13 +1,15 @@
 <script lang="ts">
 import axios from 'axios';
 import { Component, Vue, Watch } from 'vue-property-decorator';
-import { Action, State } from 'vuex-class';
+import { Action, State, namespace } from 'vuex-class';
 
 import BaseAuth from './components/BaseAuth.vue';
 import TheHeader from './components/TheHeader.vue';
 
 import dialog from '@/utils/dialog';
 import userTypes from '@/utils/userTypes';
+
+const aStore = namespace('auth');
 
 @Component({
   components: {
@@ -18,6 +20,7 @@ import userTypes from '@/utils/userTypes';
 export default class App extends Vue {
   @Action loadData;
   @State dialogMessage;
+  @aStore.State user;
 
   /**
    * Yeah, I will use emoji here.
@@ -28,14 +31,6 @@ export default class App extends Vue {
     { flag: '🇧🇷', name: 'pt', title: 'Mudar para Português' , language: 'Português' },
     { flag: '🇪🇸', name: 'es', title: 'Cambiar a Español', language: 'Español' },
   ];
-
-  mounted() {
-    this.$auth.ready(async () => {
-      if (this.$auth.check()) {
-        await this.loadData();
-      }
-    });
-  }
 
   get activeLocale() {
     return this.$i18n.locale();
@@ -55,12 +50,11 @@ export default class App extends Vue {
 </script>
 
 <template lang="pug">
-div.app(v-show='$auth.ready()')
+.app
   dialogs-wrapper
-  div(v-if='$auth.check()')
-    the-header
-    router-view(v-if='$auth.ready()')
-  base-auth(v-else)
+  div(style='height: 100%;')
+    the-header(v-if='user.id')
+    router-view#router
   .languages
     b-button(
       v-for='locale, i in locales',

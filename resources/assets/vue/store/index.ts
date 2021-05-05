@@ -10,12 +10,14 @@ import state from './state';
 
 import messages from './messages';
 import users from './users';
+import auth from './auth';
 
 Vue.use(Vuex);
 
 const modules = {
   messages,
   users,
+  auth,
 };
 
 const store = new Vuex.Store({

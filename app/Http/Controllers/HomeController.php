@@ -26,22 +26,22 @@ class HomeController extends Controller
         $homeItems = [
             [
                 'name' => 'strings.users',
-                'icon' => 'users',
+                'icon' => 'b-icon-people-fill',
                 'link' => 'users',
             ],
             [
                 'name' => 'strings.users_graphql',
-                'icon' => 'users',
-                'link' => 'users/graphql',
+                'icon' => 'b-icon-people-fill',
+                'link' => 'users.graphql',
             ],
             [
                 'name' => 'strings.messages',
-                'icon' => 'envelope',
+                'icon' => 'b-icon-envelope-fill',
                 'link' => 'messages',
             ],
             [
                 'name' => 'strings.example',
-                'icon' => 'lightbulb',
+                'icon' => 'b-icon-lightning-fill',
                 'link' => 'example',
             ],
         ];
@@ -60,5 +60,9 @@ class HomeController extends Controller
         ];
 
         return $data;
+    }
+
+    public function user() {
+        return Auth::user();
     }
 }

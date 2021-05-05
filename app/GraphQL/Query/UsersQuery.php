@@ -52,6 +52,7 @@ class UsersQuery extends Query
 
         return $users->with($fields->getRelations())
             ->select($fields->getSelect())
+            ->orderBy('id', 'desc')
             ->paginate($args['limit'], ['*'], 'page', $args['page']);
     }
 }

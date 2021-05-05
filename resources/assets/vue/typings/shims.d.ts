@@ -4,5 +4,7 @@ declare module '*.vue' {
 }
 
 declare module '*.gql' {
-  export default {};
+  import { DocumentNode } from 'graphql';
+  const content: DocumentNode;
+  export default content;
 }

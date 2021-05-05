@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\API\Resources;
+namespace Tests\API;
 
 use Tests\TestCase;
 use Illuminate\Support\Facades\Hash;

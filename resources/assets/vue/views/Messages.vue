@@ -4,15 +4,15 @@ import { Action, namespace } from 'vuex-class';
 
 import Echo from 'laravel-echo';
 
+const aStore = namespace('auth');
 const mStore = namespace('messages');
-
-declare const baseUrl: string;
 
 @Component
 export default class Messages extends Vue {
   @Action setBackUrl;
   @mStore.Action clearUnreadMessages;
 
+  @aStore.State user;
   @mStore.State publicMessages;
   @mStore.State privateMessages;
 
@@ -23,7 +23,7 @@ export default class Messages extends Vue {
   }
 
   makeLink(type: string) {
-    return `${baseUrl}/messages/${type}/${this.$auth.user().id}`;
+    return `/api/messages/${type}/${this.user.id}`;
   }
 }
 </script>

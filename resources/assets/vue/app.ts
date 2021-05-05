@@ -2,40 +2,67 @@ import Vue from 'vue';
 
 import * as ModalDialogs from 'vue-modal-dialogs';
 import Pusher from 'pusher-js';
-import VueAuth from '@websanova/vue-auth';
-import Icon from 'vue-awesome/components/Icon.vue';
 
-import ApolloClient from 'apollo-boost';
 import VueApollo from 'vue-apollo';
-
-import store from './store';
+import { ApolloClient } from 'apollo-client';
+import { ApolloLink } from 'apollo-link';
+import { InMemoryCache } from 'apollo-cache-inmemory';
+import { setContext } from 'apollo-link-context';
+import { onError } from "apollo-link-error";
+import { createUploadLink } from 'apollo-upload-client';
 
 // Import it before vue-router because it uses i18n strings
 import './utils/i18n';
 import './utils/axios';
-import './utils/icons';
 
 import './utils/bootstrap-vue';
 
+import store from './store';
 import router from './router';
 
 import App from './App.vue';
 
 (<any>window).Pusher = Pusher;
 
-Vue.component('v-icon', Icon);
-
 Vue.config.productionTip = false;
 
-const apolloClient = new ApolloClient({
-  request: async (operation) => {
-    operation.setContext({
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem('default_auth_token')}`,
-      },
-    });
-  },
+const uploadLink = createUploadLink();
+
+const authLink = setContext((_, { headers }) => {
+  // get the authentication token from local storage if it exists
+  const token = localStorage.getItem('default_auth_token');
+  // return the headers to the context so httpLink can read them
+  return {
+    headers: {
+      ...headers,
+      Authorization: token ? `Bearer ${token}` : '',
+    },
+  };
 });
+
+const errorLink = onError((err: any) => {
+  if (err.graphQLErrors && err.graphQLErrors[0]) {
+    if (err.graphQLErrors[0].message == 'Unauthorized') {
+      router.push('/');
+    }
+  }
+
+  if (err.networkError) {
+    if (err.networkError.bodyText && err.networkError.bodyText.includes('[login]')) {
+      store.dispatch('auth/logout', router);
+    }
+  };
+});
+
+const apolloClient = new ApolloClient({
+  link: ApolloLink.from([
+    errorLink,
+    authLink,
+    uploadLink,
+  ]),
+  cache: new InMemoryCache(),
+});
+
 const apolloProvider = new VueApollo({
   defaultClient: apolloClient,
 });
@@ -43,18 +70,13 @@ const apolloProvider = new VueApollo({
 Vue.use(VueApollo);
 Vue.use(ModalDialogs);
 
-Vue.use(VueAuth, {
-  auth: require('@websanova/vue-auth/drivers/auth/bearer.js'),
-  http: require('@websanova/vue-auth/drivers/http/axios.1.x.js'),
-  router: require('@websanova/vue-auth/drivers/router/vue-router.2.x.js'),
-  rolesVar: 'type_id',
-  parseUserData: user => user,
-});
-
-new Vue({
+const app = new Vue({
   store,
   router,
   apolloProvider,
-  el: '#app',
   render: h => h(App),
 });
+
+router.onReady(() => {
+  app.$mount('#app');
+})

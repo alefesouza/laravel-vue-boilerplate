@@ -1,12 +1,18 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
+import { BIconPencilFill, BIconTrashFill } from 'bootstrap-vue';
 
-@Component
+@Component({
+  components: {
+    BIconPencilFill,
+    BIconTrashFill,
+  },
+})
 export default class UsersCard extends Vue {
   @Prop() user: any;
 
   get actualUser() {
-    return this.$auth.user();
+    return this.$store.state.auth.user;
   }
 }
 </script>
@@ -25,14 +31,14 @@ b-card.users-card.mb-3(no-body)
 
   b-card-footer
     b-button(@click='$emit("edit-user")', variant='link')
-      v-icon(name='pencil-alt')
+      b-icon-pencil-fill
       | &nbsp;{{ $t('buttons.edit') }}
 
     b-button.text-danger(
       @click='$emit("delete-user")',
       v-if='user.id !== actualUser.id',
       variant='link')
-      v-icon(name='trash')
+      b-icon-trash-fill
       | &nbsp;{{ $t('buttons.delete') }}
 </template>
 

@@ -5,8 +5,7 @@ import { namespace } from 'vuex-class';
 import Echo from 'laravel-echo';
 
 const mStore = namespace('messages');
-
-declare const baseUrl: string;
+const aStore = namespace('auth');
 
 @Component
 export default class TheMessageBadge extends Vue {
@@ -14,6 +13,7 @@ export default class TheMessageBadge extends Vue {
   @mStore.Action addPrivateMessage;
   @mStore.Action incrementUnreadMessages;
 
+  @aStore.State user;
   @mStore.State unreadMessages;
 
   echo: any = null;
@@ -29,14 +29,14 @@ export default class TheMessageBadge extends Vue {
         key: '',
         auth: {
           headers: {
-            Authorization: 'Bearer ' + this.$auth.token(),
+            Authorization: 'Bearer ' + localStorage.getItem('default_auth_token'),
           },
         },
       });
 
       this.echo.connector.pusher.connection.bind('connected', (event) => {
         this.echo
-          .private('App.User.' + this.$auth.user().id)
+          .private('App.User.' + this.user.id)
           .notification((obj) => {
             this.increment();
             this.addPrivateMessage(obj.data);
@@ -55,7 +55,7 @@ export default class TheMessageBadge extends Vue {
   }
 
   callApis() {
-    const userId = this.$auth.user().id;
+    const userId = this.user.id;
 
     this.axios.get('messages/private/' + userId);
     this.axios.get('messages/public/' + userId);

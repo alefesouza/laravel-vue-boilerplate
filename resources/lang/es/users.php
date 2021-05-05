@@ -2,6 +2,8 @@
 
 return [
 
+    'title' => 'Usuario|Usuarios',
+
     'add_user' => 'Agregar usuario',
     'edit_user' => 'Editar usuario',
     'no_users' => 'No hay usuarios registrados',

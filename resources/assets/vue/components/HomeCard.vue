@@ -1,16 +1,23 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
+import { BIconPeopleFill, BIconEnvelopeFill, BIconLightningFill } from 'bootstrap-vue';
 
-@Component
+@Component({
+  components: {
+    BIconPeopleFill,
+    BIconEnvelopeFill,
+    BIconLightningFill,
+  },
+})
 export default class DashboardItem extends Vue {
   @Prop() item: any;
 }
 </script>
 
 <template lang="pug">
-b-col(:to='item.link', tag='b-link', cols=12, md=6, sm=12, lg=3)
+b-col(:to='{ name: item.link }', tag='b-link', cols=12, md=6, sm=12, lg=3)
   b-card.mb-3
-    v-icon(:name='item.icon')
+    component(:is='item.icon')
     .card-text
       span.manage {{ $t('home.manage') }}
       div.name {{ $t(item.name) }}
@@ -36,7 +43,7 @@ a {
   display: flex;
 }
 
-.fa-icon {
+svg {
   color: #132a97;
   margin: 30px;
   height: 45px;

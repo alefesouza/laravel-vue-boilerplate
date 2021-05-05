@@ -28,7 +28,7 @@
     </div>
 
     <script>
-      var baseUrl = '{{ url('/api') }}';
+      let authenticated = {{ Auth::guest() ? 'false' : 'true' }};
     </script>
     <script src="{{ mix('js/app.js') }}"></script>
 </body>

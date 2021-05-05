@@ -1,37 +1,37 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import { mapState } from 'vuex';
+import { State, namespace } from 'vuex-class';
+import { BIconArrowLeftShort, BIconGithub } from 'bootstrap-vue';
 
 import TheMessageBadge from './TheMessageBadge.vue';
 import TheSettings from './TheSettings.vue';
+
+const aStore = namespace('auth');
 
 @Component({
   components: {
     TheSettings,
     TheMessageBadge,
-  },
-  computed: {
-    ...mapState(['backUrl', 'csrfToken', 'menu']),
+    BIconArrowLeftShort,
+    BIconGithub,
   },
 })
 export default class TheHeader extends Vue {
-  logout() {
-    this.$auth.logout({
-      makeRequest: true,
-      redirect: { name: 'auth.login' },
-    });
-  }
+  @State backUrl;
+  @State menu;
+  @aStore.State user;
+  @aStore.Action logout;
 
   showSettings(): void {
     (<any>this.$refs.the_settings).$refs.modal.show();
   }
 
   get homePath() {
-    return this.$auth.user().home_path;
+    return this.user.home_path;
   }
 
   get path(): string {
-    return this.$route.path;
+    return this.$route.name || '';
   }
 }
 </script>
@@ -41,7 +41,7 @@ div
   b-navbar.navbar-expand-lg.bg-light(type='light', style='background-color: #f8f9fa;')
     b-container
       b-link.back-button.text-secondary(v-show='path !== homePath', :to='backUrl')
-        v-icon(name='arrow-left')
+        b-icon-arrow-left-short(style='width: 30px; height: 30px;')
 
       b-navbar-brand(:to='homePath', :class='{"has-back": path !== homePath}')
         img.d-inline-block.align-top(
@@ -71,9 +71,9 @@ div
             target='_blank',
           ) GitHub
             | &nbsp;
-            v-icon(name='brands/github')
+            b-icon-github
 
-          b-nav-item-dropdown(:text='$auth.user().name')
+          b-nav-item-dropdown(:text='user.name')
             b-dropdown-item(
               @click='showSettings',
             ) {{ $t('strings.settings') }}

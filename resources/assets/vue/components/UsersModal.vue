@@ -86,7 +86,7 @@ b-modal(
         maxlength=191,
       )
     b-form-group(:label='$t("users.user_type")')
-      b-form-radio-group(v-model='form.type_id', name='type_id')
+      b-form-radio-group(v-model.number='form.type_id', name='type_id')
         b-form-radio(value=2) {{ $t('strings.normal') }}
         b-form-radio(value=1) {{ $t('strings.admin') }}
 </template>

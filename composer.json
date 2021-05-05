@@ -1,6 +1,6 @@
 {
   "name": "alefesouza/laravel-vue-boilerplate",
-  "description": "A Laravel 6 SPA boilerplate with a users CRUD using Vue.js 2.6, Bootstrap 4, TypeScript, Sass, Pug and Jest.",
+  "description": "A Laravel 8 SPA boilerplate with a users CRUD using Vue.js 2.6, Bootstrap 4, TypeScript, Sass, Pug and Jest.",
   "keywords": [
     "laravel",
     "vue",
@@ -24,27 +24,32 @@
   "license": "MIT",
   "type": "project",
   "require": {
-    "php": "^7.2",
-    "fideloper/proxy": "^4.0",
-    "laravel/envoy": "^1.4",
-    "laravel/framework": "^6.2",
-    "laravel/tinker": "^2.0",
-    "pusher/pusher-php-server": "~3.0",
-    "rebing/graphql-laravel": "^4.0.0",
-    "tymon/jwt-auth": "1.0.0-rc.5.1"
+    "php": "^7.3|^8.0",
+    "fideloper/proxy": "^4.4",
+    "fruitcake/laravel-cors": "^2.0",
+    "guzzlehttp/guzzle": "^7.0.1",
+    "laravel/framework": "^8.40",
+    "laravel/sanctum": "^2.10",
+    "laravel/tinker": "^2.5",
+    "laravel/ui": "^3.2",
+    "pusher/pusher-php-server": "~6.1",
+    "rebing/graphql-laravel": "^7.2",
+    "spatie/laravel-http-logger": "^1.7"
   },
   "require-dev": {
-    "facade/ignition": "^1.4",
-    "fzaninotto/faker": "^1.9.1",
-    "martinlindhe/laravel-vue-i18n-generator": "^0.1.45",
-    "mockery/mockery": "^1.0",
-    "nunomaduro/collision": "^3.0",
-    "phpunit/phpunit": "^8.0"
+    "alefesouza/laravel-vue-i18n-generator": "^0.2",
+    "facade/ignition": "^2.5",
+    "fakerphp/faker": "^1.9.1",
+    "laravel/sail": "^1.0.1",
+    "mockery/mockery": "^1.4.2",
+    "nunomaduro/collision": "^5.0",
+    "phpunit/phpunit": "^9.3.3"
   },
   "autoload": {
-    "classmap": ["database/seeds", "database/factories"],
     "psr-4": {
-      "App\\": "app/"
+      "App\\": "app/",
+      "Database\\Factories\\": "database/factories/",
+      "Database\\Seeders\\": "database/seeders/"
     },
     "files": ["app/Http/helpers.php"]
   },
@@ -68,25 +73,22 @@
       "@php artisan package:discover"
     ],
     "test": "\"vendor/bin/phpunit\"",
-    "env:copy": "cp .env.docker .env && cp .env.docker .env.testing",
     "key:generate": "php artisan key:generate && php artisan key:generate --env=testing",
-    "jwt:generate": "php artisan jwt:secret && php artisan jwt:secret --env=testing",
     "permissions": "chgrp -R www-data storage bootstrap/cache && chmod -R ug+rwx storage bootstrap/cache",
     "start": [
       "@composer run env:copy",
       "@composer install -n --prefer-dist",
       "@composer run key:generate",
-      "@composer run jwt:generate",
       "@php artisan vue-i18n:generate",
       "@php artisan migrate --seed",
-      "@composer run permissions",
-      "@composer test"
-    ],
-    "deploy": "envoy run deploy"
+      "@composer run permissions"
+    ]
   },
   "config": {
-    "preferred-install": "dist",
-    "sort-packages": true,
-    "optimize-autoloader": true
-  }
+      "optimize-autoloader": true,
+      "preferred-install": "dist",
+      "sort-packages": true
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true
 }

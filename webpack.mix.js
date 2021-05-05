@@ -21,6 +21,7 @@ mix
     processCssUrls: false,
   })
   .js('resources/assets/vue/app.ts', 'public/js')
+  .vue()
   .sass('resources/assets/sass/app.scss', 'public/css')
   .webpackConfig({
     output: {
@@ -33,8 +34,9 @@ mix
         return $filename;
       },
       devtoolFallbackModuleFilenameTemplate: 'webpack:///[resource-path]?[hash]',
+      publicPath: mix.inProduction() ? '' : 'http://localhost:8080/',
     },
-    devtool: mix.inProduction() ? '' : 'inline-source-map',
+    devtool: mix.inProduction() ? 'hidden-source-map' : 'inline-source-map',
     module: {
       rules: [{
         test: /\.tsx?$/,
@@ -59,23 +61,7 @@ mix
         '@': path.resolve(__dirname, 'resources/assets/vue'),
       },
     },
-    plugins: process.env.NODE_ENV != 'ci' ? [
+    plugins: process.env.NODE_ENV == 'production' ? [
       new BundleAnalyzerPlugin(),
     ] : [],
   });
-
-// Thanks https://github.com/JeffreyWay/laravel-mix/issues/1483#issuecomment-366685986
-Mix.listen('configReady', (webpackConfig) => {
-  if (Mix.isUsing('hmr')) {
-    webpackConfig.entry = Object.keys(webpackConfig.entry).reduce((entries, entry) => {
-      entries[entry.replace(/^\//, '')] = webpackConfig.entry[entry];
-      return entries;
-    }, {});
-
-    webpackConfig.plugins.forEach((plugin) => {
-      if (plugin.constructor.name === 'ExtractTextPlugin') {
-        plugin.filename = plugin.filename.replace(/^\//, '');
-      }
-    });
-  }
-});

@@ -16,20 +16,18 @@ use Illuminate\Http\Request;
 Route::group([
     'middleware' => 'api',
     'namespace' => 'Auth',
-    'prefix' => 'auth',
 ], function () {
-    Route::post('login', 'AuthController@login');
-    Route::post('logout', 'AuthController@logout');
-    Route::post('refresh', 'AuthController@refresh');
-    Route::get('user', 'AuthController@user');
+    Route::post('login', 'LoginController@login');
+    Route::post('logout', 'LoginController@logout');
 
     Route::post('register', 'RegisterController@register');
 });
 
 Route::group([
-    'middleware' => ['jwt.auth'],
+    'middleware' => ['auth:sanctum'],
 ], function () {
     Route::get('vue', 'HomeController@vue');
+    Route::post('user', 'HomeController@user');
 
     Route::post('settings', 'SettingController@saveSettings');
 });
