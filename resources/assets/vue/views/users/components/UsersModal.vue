@@ -1,6 +1,6 @@
 <script lang="ts">
-import { Component, Emit, Prop, Vue } from 'vue-property-decorator';
-import { Action, State, namespace } from 'vuex-class';
+import { Component, Prop, Vue } from 'vue-property-decorator';
+import { namespace } from 'vuex-class';
 
 import checkPassword from '@/utils/checkPassword';
 

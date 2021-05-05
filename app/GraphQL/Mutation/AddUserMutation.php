@@ -42,6 +42,7 @@ class AddUserMutation extends Mutation
     public function resolve($root, $args)
     {
         $input = $args['input'];
+        $input['password'] = bcrypt($input['password']);
 
         $user = User::create($input);
 

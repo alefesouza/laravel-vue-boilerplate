@@ -43,6 +43,10 @@ class EditUserMutation extends Mutation
     {
         $input = $args['input'];
 
+        if (!empty($input['password'])) {
+            $input['password'] = bcrypt($input['password']);
+        }
+
         $user = User::find($input['id']);
         $user->update($input);
 

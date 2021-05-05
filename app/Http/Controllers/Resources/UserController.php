@@ -31,9 +31,12 @@ class UserController extends Controller
     {
         $this->validator($request);
 
-        return response()->json(tap(new User($request->all()), function ($user) {
-            $user->save();
-        }), 201);
+        $input = $request->all();
+        $input['password'] = bcrypt($input['password']);
+
+        $user = User::create($input);
+
+        return response()->json($user, 201);
     }
 
     /**
@@ -45,13 +48,17 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        if (empty($request['password'])) {
-            unset($request['password']);
-        }
+        $input = $request->all();
 
         $this->validator($request, $user->id);
 
-        return tap($user)->update($request->all());
+        if (!empty($input['password'])) {
+            $input['password'] = bcrypt($input['password']);
+        }
+
+        $user->update($input);
+
+        return $user;
     }
 
     /**

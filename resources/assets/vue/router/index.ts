@@ -3,17 +3,17 @@ import Router from 'vue-router';
 
 import NProgress from 'nprogress';
 
-const BaseAuth = () => import('@/components/BaseAuth.vue');
-const AuthLogin = () => import('../views/AuthLogin.vue');
-const AuthRegister = () => import('../views/AuthRegister.vue');
-const AuthResetLink = () => import('../views/AuthResetLink.vue');
-const AuthResetForm = () => import('../views/AuthResetForm.vue');
+const BaseAuth = () => import('@/views/auth/components/BaseAuth.vue');
+const AuthLogin = () => import('../views/auth/AuthLogin.vue');
+const AuthRegister = () => import('../views/auth/AuthRegister.vue');
+const AuthResetLink = () => import('../views/auth/AuthResetLink.vue');
+const AuthResetForm = () => import('../views/auth/AuthResetForm.vue');
 
-const Example = () => import('../views/Example.vue');
-const Home = () => import('../views/Home.vue');
-const Messages = () => import('../views/Messages.vue');
-const Users = () => import('../views/Users.vue');
-const UsersGraphQL = () => import('../views/UsersGraphQL.vue');
+const Example = () => import('../views/example/Example.vue');
+const Home = () => import('../views/home/Home.vue');
+const Messages = () => import('../views/messages/Messages.vue');
+const Users = () => import('../views/users/Users.vue');
+const UsersGraphQL = () => import('../views/users/UsersGraphQL.vue');
 
 import userTypes from '@/utils/userTypes';
 

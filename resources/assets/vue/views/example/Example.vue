@@ -2,16 +2,8 @@
 import { Component, Vue } from 'vue-property-decorator';
 import { Action } from 'vuex-class';
 
-import dialog from '@/utils/dialog';
-
-import HomeCard from '@/components/HomeCard.vue';
-
 // TODO change
-@Component({
-  components: {
-    HomeCard,
-  },
-})
+@Component
 export default class Home extends Vue {
   @Action setBackUrl;
   @Action setMenu;

@@ -5,7 +5,6 @@ import { Action } from 'vuex-class';
 import addUserMutation from '@/graphql/mutations/addUser.gql';
 import editUserMutation from '@/graphql/mutations/editUser.gql';
 
-import checkPassword from '@/utils/checkPassword';
 import checkGraphQLError from '@/utils/checkGraphQLError';
 
 @Component

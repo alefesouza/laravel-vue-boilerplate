@@ -1,11 +1,11 @@
 <script lang="ts">
-import { Component, Vue, Watch } from 'vue-property-decorator';
-import { Action, State, namespace } from 'vuex-class';
+import { Component, Vue } from 'vue-property-decorator';
+import { Action, namespace } from 'vuex-class';
 
 import dialog from '@/utils/dialog';
 
-import UsersCard from '@/components/UsersCard.vue';
-import UsersModal from '@/components/UsersModal.vue';
+import UsersCard from './components/UsersCard.vue';
+import UsersModal from './components/UsersModal.vue';
 
 const uStore = namespace('users');
 
@@ -56,7 +56,7 @@ export default class Users extends Vue {
     };
   }
 
-  editUser(user: User, index: number): void {
+  editUser(user: User): void {
     this.isModalAdd = false;
     this.setModalVisible(true);
 

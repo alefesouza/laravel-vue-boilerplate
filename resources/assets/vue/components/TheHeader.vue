@@ -3,7 +3,7 @@ import { Component, Vue } from 'vue-property-decorator';
 import { State, namespace } from 'vuex-class';
 import { BIconArrowLeftShort, BIconGithub } from 'bootstrap-vue';
 
-import TheMessageBadge from './TheMessageBadge.vue';
+import TheMessageBadge from '../views/messages/components/TheMessageBadge.vue';
 import TheSettings from './TheSettings.vue';
 
 const aStore = namespace('auth');

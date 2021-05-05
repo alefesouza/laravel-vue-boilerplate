@@ -1,11 +1,11 @@
 <script lang="ts">
 import { Component, Vue, Watch } from 'vue-property-decorator';
-import { Action, State, namespace } from 'vuex-class';
+import { Action } from 'vuex-class';
 
 import dialog from '@/utils/dialog';
 
-import UsersCard from '@/components/UsersCard.vue';
-import UsersModalGraphQL from '@/components/UsersModalGraphQL.vue';
+import UsersCard from './components/UsersCard.vue';
+import UsersModalGraphQL from './components/UsersModalGraphQL.vue';
 import deleteUserMutation from '@/graphql/mutations/deleteUser.gql';
 
 @Component({

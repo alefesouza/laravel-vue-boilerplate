@@ -2,8 +2,6 @@
 import { Component, Vue } from 'vue-property-decorator';
 import { Action, namespace } from 'vuex-class';
 
-import Echo from 'laravel-echo';
-
 const aStore = namespace('auth');
 const mStore = namespace('messages');
 

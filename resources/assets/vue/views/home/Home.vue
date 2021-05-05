@@ -2,7 +2,7 @@
 import { Component, Vue } from 'vue-property-decorator';
 import { Action, State, namespace } from 'vuex-class';
 
-import HomeCard from '@/components/HomeCard.vue';
+import HomeCard from './components/HomeCard.vue';
 
 const aStore = namespace('auth');
 

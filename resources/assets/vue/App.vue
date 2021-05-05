@@ -1,13 +1,11 @@
 <script lang="ts">
-import axios from 'axios';
 import { Component, Vue, Watch } from 'vue-property-decorator';
 import { Action, State, namespace } from 'vuex-class';
 
-import BaseAuth from './components/BaseAuth.vue';
+import BaseAuth from './views/auth/components/BaseAuth.vue';
 import TheHeader from './components/TheHeader.vue';
 
 import dialog from '@/utils/dialog';
-import userTypes from '@/utils/userTypes';
 
 const aStore = namespace('auth');
 
