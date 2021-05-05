@@ -62,7 +62,7 @@ div
           ) {{ $t(item.text) }}
 
           b-nav-item(
-            to='/messages'
+            :to='{ name: "messages" }'
           ) {{ $t('strings.messages') }}&nbsp;
             the-message-badge
 

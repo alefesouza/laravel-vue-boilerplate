@@ -10,7 +10,7 @@ export default class BaseAuth extends Vue {
 .container-fluid
   .login-row.row
     b-col.login-col(cols=12, md=6, sm=12, lg=4)
-      router-link(to='/login')
+      router-link(:to='{ name: "auth.login" }')
         .logo
           img.d-inline-block.align-top(
             src='/images/logo.png',

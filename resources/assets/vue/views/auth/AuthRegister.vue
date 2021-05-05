@@ -14,22 +14,18 @@ export default class AuthRegister extends Vue {
   isSending = false;
 
   async doRegister() {
-    // await this.$auth.register({
-    //   params: this.form,
-    //   redirect: false,
-    //   success: (response) => {
-    //     const checkErrors = checkResponse(response);
+    const response = await this.axios.post('register', this.form);
 
-    //     if (checkErrors) {
-    //       this.setDialogMessage(checkErrors.message);
-    //       return;
-    //     }
+    const checkErrors = checkResponse(response);
 
-    //     this.setDialogMessage('login.account_created');
+    if (checkErrors) {
+      this.setDialogMessage(checkErrors.message);
+      return;
+    }
 
-    //     this.$router.push({ name: 'auth.login' });
-    //   },
-    // });
+    this.setDialogMessage('login.account_created');
+
+    this.$router.push({ name: 'auth.login' });
   }
 
   async register(evt: Event) {

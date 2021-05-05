@@ -108,7 +108,7 @@ b-form#login(@submit='login')
         unchecked-value=false,
       ) {{ $t('login.keep_connected') }}
 
-      b-button.content-vertical.text-secondary(variant='link', to='/password/reset')
+      b-button.content-vertical.text-secondary(variant='link', :to='{ name: "auth.reset" }')
         b-icon-question-circle-fill
         | &nbsp;{{ $t('login.forgot_password') }}
 
@@ -121,7 +121,7 @@ b-form#login(@submit='login')
 
     b-button(
       variant='primary',
-      to='/register',
+      :to='{ name: "auth.register" }',
     ) {{ $t('login.register') }}
 </template>
 

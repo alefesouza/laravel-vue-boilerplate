@@ -106,6 +106,17 @@ const router = new Router({
         },
       },
       {
+        path: 'register',
+        name: 'auth.register',
+        component: AuthRegister,
+        meta: {
+          title: {
+            key: 'login.register'
+          },
+          auth: false,
+        },
+      },
+      {
         path: 'password/reset',
         name: 'auth.reset',
         component: AuthResetLink,
