@@ -13,7 +13,7 @@ export default class BaseAuth extends Vue {
       router-link(:to='{ name: "auth.login" }')
         .logo
           img.d-inline-block.align-top(
-            src='/images/logo.png',
+            src='/assets/images/logo.png',
             alt='Logo'
             height=36,
           )
@@ -25,7 +25,7 @@ export default class BaseAuth extends Vue {
       md=6,
       sm=12,
       lg=8,
-      :style="{ background: 'linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(/images/background-login.jpg) no-repeat center / cover' }"
+      :style="{ background: 'linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(/assets/images/background-login.jpg) no-repeat center / cover' }"
     )
       .welcome
         h1 {{ $t('strings.welcome') }}!

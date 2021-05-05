@@ -22,3 +22,6 @@ yarn-error.log
 public/js
 public/css
 resources/assets/vue/vue-i18n-locales.generated.js
+
+public/service-worker.*
+public/mix-manifest.json

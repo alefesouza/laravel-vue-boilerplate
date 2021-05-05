@@ -45,7 +45,7 @@ div
 
       b-navbar-brand(:to='homePath', :class='{"has-back": path !== homePath}')
         img.d-inline-block.align-top(
-          src='images/logo.png',
+          src='/assets/images/logo.png',
           alt='Logo',
           height=36,
         )

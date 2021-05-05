@@ -1,6 +1,6 @@
 {
   "name": "alefesouza/laravel-vue-boilerplate",
-  "description": "A Laravel 8 SPA boilerplate with a users CRUD using Vue.js 2.6, Bootstrap 4, TypeScript, Sass, Pug and Jest.",
+  "description": "A Laravel 8 SPA boilerplate with a users CRUD using Vue.js 2.6, Bootstrap 4, TypeScript, Sass and Pug.",
   "keywords": [
     "laravel",
     "vue",

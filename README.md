@@ -10,6 +10,7 @@ A Laravel 8 Single Page Application boilerplate using Vue.js 2.6, GraphQL, Boots
 * i18n for English, Portuguese and Spanish, based on browser language settings.
 * Authentication using Laravel Sanctum.
 * WebSockets with Laravel Echo and Pusher.
+* Working service worker with Workbox for better PWA development.
 * Dockerfile configured with PHP 7.4, Node.js 12 and Composer, with MySQL and phpMyAdmin on Docker Compose.
 
 You can check it live [on this website](https://lvb.as.dev), with the credentials:
@@ -37,6 +38,7 @@ Front-end:
 * [vuex-i18n](https://github.com/dkfbasel/vuex-i18n)
 * [Bootstrap 4](https://github.com/twbs/bootstrap)
 * [BootstrapVue](https://github.com/bootstrap-vue/bootstrap-vue)
+* [Workbox](https://github.com/GoogleChrome/workbox)
 * [TypeScript](https://github.com/microsoft/typescript)
 * [Pug](https://github.com/pugjs/pug)
 * [Sass](https://github.com/sass/node-sass)

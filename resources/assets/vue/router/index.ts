@@ -3,13 +3,13 @@ import Router from 'vue-router';
 
 import NProgress from 'nprogress';
 
-const BaseAuth = () => import('@/views/auth/components/BaseAuth.vue');
-const AuthLogin = () => import('../views/auth/AuthLogin.vue');
+const BaseAuth = () => import(/* webpackChunkName: "login" */'@/views/auth/components/BaseAuth.vue');
+const AuthLogin = () => import(/* webpackChunkName: "login" */'../views/auth/AuthLogin.vue');
 const AuthRegister = () => import('../views/auth/AuthRegister.vue');
 const AuthResetLink = () => import('../views/auth/AuthResetLink.vue');
 const AuthResetForm = () => import('../views/auth/AuthResetForm.vue');
 
-const Example = () => import('../views/example/Example.vue');
+const Example = () => import(/* webpackChunkName: "example" */'../views/example/Example.vue');
 const Home = () => import('../views/home/Home.vue');
 const Messages = () => import('../views/messages/Messages.vue');
 const Users = () => import('../views/users/Users.vue');

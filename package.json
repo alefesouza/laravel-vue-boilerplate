@@ -1,6 +1,6 @@
 {
   "name": "laravel-vue-boilerplate",
-  "description": "A Laravel 8 SPA boilerplate with a users CRUD using Vue.js 2.6, Bootstrap 4, TypeScript, Sass, Pug and Jest.",
+  "description": "A Laravel 8 SPA boilerplate with a users CRUD using Vue.js 2.6, Bootstrap 4, TypeScript, Sass and Pug.",
   "version": "1.0.0",
   "author": "Alefe Souza <contact@alefesouza.com>",
   "keywords": [
@@ -10,8 +10,7 @@
     "typescript",
     "sass",
     "scss",
-    "pug",
-    "jest"
+    "pug"
   ],
   "license": "MIT",
   "scripts": {
@@ -48,6 +47,7 @@
   },
   "devDependencies": {
     "laravel-mix": "^6.0.18",
+    "laravel-mix-workbox": "^0.1.4",
     "postcss": "^8.2.13",
     "pug": "^3.0.2",
     "pug-plain-loader": "^1.1.0",
@@ -62,7 +62,9 @@
     "vue-property-decorator": "^9.1.2",
     "vue-template-compiler": "^2.6.12",
     "vuex-class": "^0.3.2",
-    "webpack-bundle-analyzer": "^4.4.1"
+    "webpack-bundle-analyzer": "^4.4.1",
+    "workbox-webpack-plugin": "^6.1.5",
+    "worker-loader": "^3.0.8"
   },
   "repository": {
     "type": "git",
@@ -71,40 +73,5 @@
   "bugs": {
     "url": "https://github.com/alefesouza/laravel-vue-boilerplate/issues"
   },
-  "homepage": "https://github.com/alefesouza/laravel-vue-boilerplate#readme",
-  "jest": {
-    "globals": {
-      "baseUrl": ""
-    },
-    "moduleFileExtensions": [
-      "ts",
-      "js",
-      "json",
-      "vue"
-    ],
-    "moduleNameMapper": {
-      "^@/(.*)$": "<rootDir>/resources/assets/vue/$1"
-    },
-    "reporters": [
-      "default",
-      "jest-junit"
-    ],
-    "snapshotSerializers": [
-      "<rootDir>/node_modules/jest-serializer-vue"
-    ],
-    "testRegex": "tests/vue/.*.spec\\.(js|ts)$",
-    "transform": {
-      "^.+\\.js$": "<rootDir>/node_modules/babel-jest",
-      ".*\\.vue$": "<rootDir>/node_modules/jest-vue-preprocessor",
-      ".*\\.ts$": "ts-jest"
-    },
-    "transformIgnorePatterns": [
-      "node_modules/(?!(vue-modal-dialogs|vuex-i18n|vue-awesome))"
-    ]
-  },
-  "jest-junit": {
-    "ancestorSeparator": " › ",
-    "suiteName": "Jest Tests",
-    "output": "./tests-jest.xml"
-  }
+  "homepage": "https://github.com/alefesouza/laravel-vue-boilerplate#readme"
 }

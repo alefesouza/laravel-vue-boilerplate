@@ -3,6 +3,8 @@ import Vue from 'vue';
 import * as ModalDialogs from 'vue-modal-dialogs';
 import Pusher from 'pusher-js';
 
+import { Workbox } from 'workbox-window';
+
 import VueApollo from 'vue-apollo';
 import { ApolloClient } from 'apollo-client';
 import { ApolloLink } from 'apollo-link';
@@ -69,6 +71,12 @@ const apolloProvider = new VueApollo({
 
 Vue.use(VueApollo);
 Vue.use(ModalDialogs);
+
+if ('serviceWorker' in navigator) {
+  const wb = new Workbox('/service-worker.js');
+
+  wb.register();
+}
 
 const app = new Vue({
   store,
