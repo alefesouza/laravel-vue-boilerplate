@@ -86,6 +86,7 @@
                     headers: {
                         'Accept': 'application/json',
                         'Content-Type': 'application/json',
+                        'Authorization': 'Bearer ' + localStorage.getItem('default_auth_token'),
                     },
                     body: JSON.stringify(graphQLParams),
                     credentials: 'include',
